@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Superhero Palette Paper Doll Generator v2</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101218;
+      --panel: #181c24;
+      --line: #303847;
+      --line-strong: #52617a;
+      --text: #eef1f6;
+      --muted: #aeb7c6;
+      --accent: #9fbdff;
+      --radius: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: radial-gradient(circle at top left, #252c38 0, var(--bg) 42rem); color: var(--text); line-height: 1.35; }
+    main { max-width: 1500px; margin: 0 auto; padding: 24px; }
+    h1, h2, h3 { margin: 0; line-height: 1.1; }
+    h1 { font-size: clamp(1.6rem, 3vw, 2.6rem); }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: .95rem; color: var(--muted); letter-spacing: .02em; }
+    p { margin: 0; color: var(--muted); }
+    button, input, textarea { font: inherit; }
+    .page-header { display: grid; gap: 8px; margin-bottom: 18px; }
+    .top-layout { display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 18px; align-items: start; }
+    .panel { background: linear-gradient(180deg, var(--panel), #151923); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; box-shadow: 0 14px 32px rgba(0,0,0,.28); }
+    .panel-head { display: grid; gap: 6px; margin-bottom: 14px; }
+    details.panel { padding: 0; overflow: hidden; }
+    .collapsible-summary { display: grid; gap: 6px; padding: 16px; cursor: pointer; list-style: none; }
+    .collapsible-summary::-webkit-details-marker { display: none; }
+    .collapsible-summary h2 { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .collapsible-summary h2::after { content: "+"; display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #41506a; border-radius: 8px; background: #172134; color: var(--text); font-weight: 700; }
+    details[open] > .collapsible-summary h2::after { content: "-"; }
+    .collapsible-body { padding: 0 16px 16px; }
+    .nested-panels { display: grid; gap: 14px; }
+    .subpanel { border: 1px solid #2c3442; border-radius: 12px; padding: 14px; background: #111722; }
+    .control-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+    .field { display: grid; gap: 6px; min-width: 0; }
+    .field label { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; color: var(--muted); font-size: .84rem; }
+    .field .hint { color: #7f899a; font-size: .78rem; white-space: nowrap; }
+    .reference-block { display: grid; gap: 8px; margin-top: 14px; }
+    .reference-block h3 { color: var(--muted); font-size: .84rem; }
+    .reference-grid { display: grid; gap: 8px; }
+    .check-field { display: flex; align-items: center; gap: 9px; min-height: 46px; border: 1px solid #364051; border-radius: 10px; background: #0e1219; color: var(--text); padding: 9px 10px; }
+    .check-field input { width: 18px; height: 18px; accent-color: var(--accent); }
+    .check-field span { display: grid; gap: 2px; font-size: .84rem; }
+    .check-field small { color: var(--muted); font-size: .76rem; }
+    input[type="number"], input[type="text"], textarea { width: 100%; border: 1px solid #364051; border-radius: 10px; background: #0e1219; color: var(--text); padding: 9px 10px; }
+    input[type="color"] { width: 100%; height: 46px; border: 1px solid #364051; border-radius: 10px; background: #0e1219; padding: 3px; }
+    textarea { resize: vertical; min-height: 210px; font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .controls-stack { display: grid; gap: 14px; margin-top: 18px; }
+    .tableau-panel { display: grid; gap: 14px; }
+    .tableau-panel .panel-head { grid-template-columns: minmax(0, 1fr) auto; align-items: start; column-gap: 14px; }
+    .carousel-controls { display: flex; align-items: center; gap: 8px; }
+    .carousel-label { min-width: 82px; color: var(--muted); font-size: .82rem; text-align: center; }
+    .icon-button { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid #41506a; border-radius: 10px; background: #172134; color: var(--text); cursor: pointer; }
+    .icon-button:hover { border-color: var(--accent); }
+    .preview-composition {
+      min-height: 480px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      gap: clamp(12px, 2vw, 22px);
+      padding: 22px;
+      border: 1px solid #2b3240;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #252b36 0%, #151922 72%), #151922;
+      overflow: hidden;
+    }
+    .doll-comparison { display: grid; gap: 10px; justify-items: center; }
+    .doll-comparison-label { color: var(--muted); font-size: .82rem; font-weight: 700; }
+    .figure-stack { position: relative; flex: 0 0 auto; width: min(24vw, 245px); aspect-ratio: 1024 / 1536; min-width: 180px; }
+    .mask-layer { position: absolute; inset: 0; mask-repeat: no-repeat; mask-position: center; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: 100% 100%; background-color: white; }
+    .mask-layer[data-role="power"] { filter: drop-shadow(0 0 14px color-mix(in srgb, var(--role-power), transparent 42%)); }
+    .palette-strip { display: grid; gap: 10px; }
+    .palette-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; }
+    .palette-button { text-align: left; display: grid; gap: 8px; border: 1px solid var(--line); border-radius: 12px; background: #111722; color: var(--text); padding: 10px; cursor: pointer; }
+    .palette-button:hover { border-color: var(--line-strong); }
+    .palette-button.active { outline: 2px solid var(--accent); border-color: var(--accent); background: #172134; }
+    .palette-button-title { font-size: .82rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; min-height: 24px; }
+    .mini-swatch { border: 1px solid rgba(255,255,255,.18); border-radius: 4px; min-height: 22px; }
+    .detail-layout { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr); gap: 14px; }
+    .swatch-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+    .swatch-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 10px; align-items: center; border: 1px solid #2c3442; background: #111722; border-radius: 10px; padding: 8px; }
+    .swatch { width: 46px; height: 46px; border-radius: 9px; border: 1px solid rgba(255,255,255,.22); }
+    .swatch-title { font-weight: 700; font-size: .86rem; }
+    .swatch-meta { color: var(--muted); font-size: .76rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-word; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .pill { color: #d7def0; border: 1px solid #3a4456; background: #0e1219; border-radius: 999px; padding: 2px 7px; font-size: .72rem; }
+    .paper-role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 8px; }
+    .paper-role { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; align-items: center; border: 1px solid #2c3442; border-radius: 9px; padding: 7px; background: #111722; }
+    .paper-role .chip { width: 28px; height: 28px; border-radius: 7px; border: 1px solid rgba(255,255,255,.22); }
+    .paper-role strong { display: block; font-size: .78rem; }
+    .paper-role code { display: block; font-size: .72rem; color: var(--muted); }
+    .role-map-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .copy-button { border: 1px solid #41506a; border-radius: 10px; background: #172134; color: var(--text); padding: 8px 11px; cursor: pointer; }
+    .copy-button:hover { border-color: var(--accent); }
+    @media (max-width: 980px) { .top-layout, .detail-layout { grid-template-columns: 1fr; } .tableau-panel .panel-head { grid-template-columns: 1fr; } .carousel-controls { justify-content: start; } .figure-stack { width: min(38vw, 220px); min-width: 135px; } }
+  </style>
+</head>
+<body>
+<main>
+  <header class="page-header">
+    <h1>Superhero Palette Paper Doll Generator v2</h1>
+    <p>One base OKLCH color generates eight complete palettes. Click a palette preview to compare student-uniform and full-palette paper dolls.</p>
+  </header>
+
+  <section class="top-layout">
+    <aside class="panel">
+      <div class="panel-head"><h2>Base OKLCH Color</h2><p>Color picker and OKLCH controls stay synchronized through clipped sRGB.</p></div>
+      <div class="control-grid">
+        <div class="field"><label for="baseColor">Color Picker <span class="hint">sRGB</span></label><input id="baseColor" type="color" value="#1b87ee"></div>
+        <div class="field"><label for="baseH">Hue <span class="hint">H°</span></label><input id="baseH" type="number" min="0" max="360" step="1" value="253"></div>
+        <div class="field"><label for="baseL">Lightness <span class="hint">L 0–100</span></label><input id="baseL" type="number" min="0" max="100" step="1" value="62"></div>
+        <div class="field"><label for="baseC1000">Chroma <span class="hint">C ×1000</span></label><input id="baseC1000" type="number" min="0" max="500" step="1" value="180"></div>
+      </div>
+      <div class="reference-block" aria-label="Student uniform colors">
+        <h3>Student Uniform Colors</h3>
+        <div id="schoolUniformReference" class="reference-grid"></div>
+      </div>
+    </aside>
+    <section class="panel tableau-panel">
+      <div class="panel-head">
+        <div><h2>Paper Doll Tableau</h2><p>Each stop compares the selected doll in student uniform and full palette.</p></div>
+        <div class="carousel-controls" aria-label="Paper doll carousel controls">
+          <button id="prevDoll" class="icon-button" type="button" aria-label="Previous paper doll" title="Previous paper doll">‹</button>
+          <span id="dollCarouselLabel" class="carousel-label" aria-live="polite">Male 1 of 2</span>
+          <button id="nextDoll" class="icon-button" type="button" aria-label="Next paper doll" title="Next paper doll">›</button>
+        </div>
+      </div>
+      <div id="paperRoot" class="preview-composition"></div>
+    </section>
+  </section>
+
+  <section class="panel palette-strip" style="margin-top:18px"><div class="panel-head"><h2>Complete Palette Previews</h2><p>Each tile previews the complete palette. The active tile drives the paper dolls and details below.</p></div><div id="paletteButtons" class="palette-buttons"></div></section>
+
+  <section class="detail-layout" style="margin-top:18px">
+    <section class="panel"><div class="panel-head"><h2 id="activeTitle">Active Palette</h2><p id="activeNote"></p></div><div id="paperRoles" class="paper-role-grid" style="margin-bottom:14px"></div><div id="swatchList" class="swatch-list"></div></section>
+    <details class="panel">
+      <summary class="collapsible-summary"><h2>Copyable Details</h2><p>Active complete palette and paper-doll role assignment.</p></summary>
+      <div class="collapsible-body"><textarea id="activeOutput" readonly></textarea><div class="actions"><button id="copyActive" class="copy-button" type="button">Copy Active Palette</button></div></div>
+    </details>
+  </section>
+
+  <section class="controls-stack">
+    <details class="panel">
+      <summary class="collapsible-summary"><h2>Advanced Constants</h2><p>Palette tuning controls for hue geometry, color packages, neutral values, and fixed doll settings.</p></summary>
+      <div class="collapsible-body nested-panels">
+    <section class="subpanel"><div class="panel-head"><h2>Hue Geometry Constants</h2><p>Analog 1/2, square, and split-complement hues are generated from these offsets.</p></div><div class="control-grid"><div class="field"><label for="anaOffset">Analogous Offset <span class="hint">degrees</span></label><input data-render id="anaOffset" type="number" min="0" max="180" step="1" value="30"></div><div class="field"><label for="compOffset">Complement Offset <span class="hint">degrees</span></label><input data-render id="compOffset" type="number" min="0" max="360" step="1" value="180"></div><div class="field"><label for="rightAngleOffset">Right Angle Offset <span class="hint">degrees</span></label><input data-render id="rightAngleOffset" type="number" min="0" max="180" step="1" value="90"></div><div class="field"><label for="splitOffset">Split Complement Offset <span class="hint">degrees from complement</span></label><input data-render id="splitOffset" type="number" min="0" max="90" step="1" value="30"></div></div></section>
+    <section class="subpanel"><div class="panel-head"><h2>Color Package Constants</h2><p>Deltas are applied around the base color's runtime L. Percent controls use whole-number arrows.</p></div><div class="control-grid">
+      <div class="field"><label for="mainLightDelta">Main Light Delta <span class="hint">+L</span></label><input data-render id="mainLightDelta" type="number" min="0" max="70" step="1" value="18"></div>
+      <div class="field"><label for="mainDarkDelta">Main Dark Delta <span class="hint">−L</span></label><input data-render id="mainDarkDelta" type="number" min="0" max="70" step="1" value="18"></div>
+      <div class="field"><label for="mainDesatPct">Main Desat <span class="hint">%</span></label><input data-render id="mainDesatPct" type="number" min="0" max="200" step="1" value="75"></div>
+      <div class="field"><label for="supportLightDelta">Support Light Delta <span class="hint">+L</span></label><input data-render id="supportLightDelta" type="number" min="0" max="70" step="1" value="18"></div>
+      <div class="field"><label for="supportDarkDelta">Support Dark Delta <span class="hint">−L</span></label><input data-render id="supportDarkDelta" type="number" min="0" max="70" step="1" value="18"></div>
+      <div class="field"><label for="supportDesatPct">Support Desat <span class="hint">%</span></label><input data-render id="supportDesatPct" type="number" min="0" max="200" step="1" value="75"></div>
+      <div class="field"><label for="highlightLightDelta">Highlight Light Delta <span class="hint">+L</span></label><input data-render id="highlightLightDelta" type="number" min="0" max="70" step="1" value="18"></div>
+      <div class="field"><label for="highlightDarkDelta">Highlight Dark Delta <span class="hint">−L</span></label><input data-render id="highlightDarkDelta" type="number" min="0" max="70" step="1" value="18"></div>
+      <div class="field"><label for="highlightBoostPct">Highlight Chroma Boost <span class="hint">%</span></label><input data-render id="highlightBoostPct" type="number" min="0" max="300" step="1" value="125"></div>
+    </div></section>
+    <section class="subpanel"><div class="panel-head"><h2>Neutral / Desaturated Constants</h2></div><div class="control-grid">
+      <div class="field"><label for="lOffWhiteLight">Input Desat Light <span class="hint">L</span></label><input data-render id="lOffWhiteLight" type="number" min="0" max="100" step="1" value="94"></div>
+      <div class="field"><label for="lOffWhiteDark">Input Desat Dark <span class="hint">L</span></label><input data-render id="lOffWhiteDark" type="number" min="0" max="100" step="1" value="82"></div>
+      <div class="field"><label for="cOffWhite1000">Input Desat Chroma <span class="hint">C ×1000</span></label><input data-render id="cOffWhite1000" type="number" min="0" max="150" step="1" value="50"></div>
+    </div></section>
+    <section class="subpanel"><div class="panel-head"><h2>Pure + Fixed Doll Constants</h2></div><div class="control-grid">
+      <div class="field"><label for="lPureWhite">Pure White <span class="hint">L</span></label><input data-render id="lPureWhite" type="number" min="0" max="100" step="1" value="98"></div>
+      <div class="field"><label for="lPureLightGray">Light Gray <span class="hint">L</span></label><input data-render id="lPureLightGray" type="number" min="0" max="100" step="1" value="76"></div>
+      <div class="field"><label for="lPureDarkGray">Dark Gray <span class="hint">L</span></label><input data-render id="lPureDarkGray" type="number" min="0" max="100" step="1" value="42"></div>
+      <div class="field"><label for="lPureBlack">Pure Black <span class="hint">L</span></label><input data-render id="lPureBlack" type="number" min="0" max="100" step="1" value="8"></div>
+      <div class="field"><label for="skinColor">Skin Color <span class="hint">fixed</span></label><input data-render id="skinColor" type="color" value="#d9a066"></div>
+      <div class="field"><label for="schoolUniformPrimaryColor">Uniform Primary <span class="hint">fixed</span></label><input data-render id="schoolUniformPrimaryColor" type="color" value="#dadae1"></div>
+      <div class="field"><label for="schoolUniformSecondaryColor">Uniform Secondary <span class="hint">fixed</span></label><input data-render id="schoolUniformSecondaryColor" type="color" value="#008080"></div>
+      <div class="field"><label for="schoolUniformHighlightColor">Uniform Highlight <span class="hint">fixed</span></label><input data-render id="schoolUniformHighlightColor" type="color" value="#e50000"></div>
+    </div></section>
+      </div>
+    </details>
+  </section>
+</main>
+<template id="paperDollTemplate">
+  <div class="figure-stack"></div>
+</template>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
