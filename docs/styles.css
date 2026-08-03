@@ -1,0 +1,48 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  width: min(42rem, calc(100% - 2rem));
+  margin: 4rem auto;
+}
+
+header,
+section {
+  margin-block-end: 3rem;
+}
+
+h1,
+h2,
+p {
+  margin-block-start: 0;
+}
+
+.eyebrow,
+.placeholder {
+  color: color-mix(in srgb, CanvasText 60%, Canvas);
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+output {
+  min-width: 3ch;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
