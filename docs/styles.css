@@ -35,21 +35,3 @@ p {
 .experiment-list li + li {
   margin-block-start: 0.75rem;
 }
-
-.counter {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  font: inherit;
-  cursor: pointer;
-}
-
-output {
-  min-width: 3ch;
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-}
