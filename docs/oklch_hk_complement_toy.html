@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HSL vs OKLCH vs FP-HK Complement Toy</title>
+  <style>
+    :root {
+      --bg: #f6f6f3;
+      --panel: #ffffff;
+      --ink: #181818;
+      --muted: #666;
+      --line: #d9d9d2;
+      --bad: #9b111e;
+      --good: #146c2e;
+      --code: #f0f0ec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 18px 48px;
+    }
+    h1 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.08;
+      margin: 0 0 10px;
+    }
+    h2 {
+      font-size: 1.05rem;
+      margin: 0 0 12px;
+    }
+    p { margin: 0 0 12px; }
+    .lede {
+      max-width: 900px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: 650;
+      font-size: 0.92rem;
+    }
+    input[type="color"] {
+      width: 74px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 4px;
+      background: white;
+    }
+    input[type="text"] {
+      width: 132px;
+      font: 600 0.98rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      text-transform: uppercase;
+    }
+    button {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 999px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { background: #f0f0ec; }
+    .examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .examples span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-right: 2px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: white;
+      min-width: 0;
+    }
+    .swatch {
+      position: relative;
+      height: 160px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .swatch.out::before,
+    .swatch.out::after {
+      content: "";
+      position: absolute;
+      width: 118%;
+      height: 4px;
+      background: rgb(0 0 0 / 0.72);
+      border-radius: 99px;
+      transform-origin: center;
+    }
+    .swatch.out::before { transform: rotate(36deg); }
+    .swatch.out::after { transform: rotate(-36deg); }
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 750;
+      background: rgb(255 255 255 / 0.82);
+      color: var(--ink);
+      border: 1px solid rgb(0 0 0 / 0.16);
+      backdrop-filter: blur(4px);
+    }
+    .badge.bad { color: var(--bad); }
+    .badge.good { color: var(--good); }
+    .body { padding: 13px; }
+    .title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 9px;
+    }
+    .title strong { font-size: 0.98rem; }
+    .hex {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: var(--code);
+      border-radius: 6px;
+      padding: 2px 5px;
+      font-size: 0.83rem;
+      white-space: nowrap;
+    }
+    dl {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 5px 10px;
+      margin: 0;
+      font-size: 0.86rem;
+    }
+    dt { color: var(--muted); }
+    dd {
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    .note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .note code {
+      background: var(--code);
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+    .status-line {
+      margin-top: 10px;
+      min-height: 1.2em;
+      color: var(--bad);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>HSL vs OKLCH vs Experimental FP-HK Complement</h1>
+    <p class="lede">
+      Select an sRGB base color. The page compares a normal HSL complement, an OKLCH complement, and an experimental Fairchild–Pirrotta-style Helmholtz–Kohlrausch lightness-matched complement. An × over a swatch means the computed target color is outside sRGB before clipping, so the displayed color is only a clipped approximation.
+    </p>
+
+    <section class="panel" aria-label="Controls and comparison">
+      <div class="controls">
+        <label>
+          Color
+          <input id="picker" type="color" value="#3366CC" />
+        </label>
+        <label>
+          Hex
+          <input id="hexInput" type="text" value="#3366CC" spellcheck="false" />
+        </label>
+        <div class="examples" aria-label="Example colors">
+          <span>Examples</span>
+          <button type="button" data-hex="#E0004D">red-pink</button>
+          <button type="button" data-hex="#1D4ED8">blue</button>
+          <button type="button" data-hex="#00A878">green</button>
+          <button type="button" data-hex="#FF7A00">orange</button>
+          <button type="button" data-hex="#8A2BE2">violet</button>
+        </div>
+      </div>
+      <div id="status" class="status-line" role="status" aria-live="polite"></div>
+      <div id="cards" class="grid"></div>
+    </section>
+
+    <section class="panel" style="margin-top: 16px;">
+      <h2>Prototype definition</h2>
+      <p class="note">
+        <strong>HSL complement:</strong> rotate HSL hue by 180°, keep HSL saturation and lightness.
+        <strong>OKLCH complement:</strong> rotate OKLCH hue by 180°, keep OKLCH L and C.
+        <strong>FP-HK complement:</strong> rotate OKLCH hue by 180°, keep OKLCH C, then solve for OKLCH L whose Fairchild–Pirrotta equivalent achromatic lightness approximately matches the base color.
+      </p>
+      <p class="note">
+        This is not a canonical “HK color space.” It is a deliberately small browser experiment for testing whether an H-K-informed lightness correction visibly changes the OKLCH complement result.
+      </p>
+    </section>
+  </main>
+
+<script>
+'use strict';
+
+const TAU = Math.PI * 2;
+const EPS = 1e-10;
+
+const picker = document.getElementById('picker');
+const hexInput = document.getElementById('hexInput');
+const cards = document.getElementById('cards');
+const statusEl = document.getElementById('status');
+
+function clamp01(x) {
+  return Math.min(1, Math.max(0, x));
+}
+
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
+function fmt(n, digits = 3) {
+  if (!Number.isFinite(n)) return '—';
+  return Number(n).toFixed(digits);
+}
+
+function fmtHue(h) {
+  if (!Number.isFinite(h)) return '—';
+  return fmt(mod(h, 360), 1) + '°';
+}
+
+function parseHex(hex) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return null;
+  const int = parseInt(m[1], 16);
+  return {
+    r: ((int >> 16) & 255) / 255,
+    g: ((int >> 8) & 255) / 255,
+    b: (int & 255) / 255
+  };
+}
+
+function srgbToHex(rgb) {
+  const r = Math.round(clamp01(rgb.r) * 255);
+  const g = Math.round(clamp01(rgb.g) * 255);
+  const b = Math.round(clamp01(rgb.b) * 255);
+  return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+
+function gammaToLinearChannel(c) {
+  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+function linearToGammaChannel(c) {
+  return c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055;
+}
+
+function srgbToLinear(rgb) {
+  return {
+    r: gammaToLinearChannel(rgb.r),
+    g: gammaToLinearChannel(rgb.g),
+    b: gammaToLinearChannel(rgb.b)
+  };
+}
+
+function linearToSrgb(lrgb) {
+  return {
+    r: linearToGammaChannel(lrgb.r),
+    g: linearToGammaChannel(lrgb.g),
+    b: linearToGammaChannel(lrgb.b)
+  };
+}
+
+function inSrgb(lrgb) {
+  return lrgb.r >= -1e-7 && lrgb.r <= 1 + 1e-7 &&
+         lrgb.g >= -1e-7 && lrgb.g <= 1 + 1e-7 &&
+         lrgb.b >= -1e-7 && lrgb.b <= 1 + 1e-7;
+}
+
+function clipLinear(lrgb) {
+  return {
+    r: clamp01(lrgb.r),
+    g: clamp01(lrgb.g),
+    b: clamp01(lrgb.b)
+  };
+}
+
+// ---------- HSL ----------
+function rgbToHsl(rgb) {
+  const r = rgb.r, g = rgb.g, b = rgb.b;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  let h = 0;
+  let s = 0;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h *= 60;
+  }
+  return { h, s, l };
+}
+
+function hue2rgb(p, q, t) {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1 / 6) return p + (q - p) * 6 * t;
+  if (t < 1 / 2) return q;
+  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+  return p;
+}
+
+function hslToRgb(hsl) {
+  const h = mod(hsl.h, 360) / 360;
+  const s = hsl.s;
+  const l = hsl.l;
+
+  if (s === 0) return { r: l, g: l, b: l };
+
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  return {
+    r: hue2rgb(p, q, h + 1 / 3),
+    g: hue2rgb(p, q, h),
+    b: hue2rgb(p, q, h - 1 / 3)
+  };
+}
+
+// ---------- OKLab / OKLCH ----------
+function linearSrgbToOklab(lrgb) {
+  const r = lrgb.r, g = lrgb.g, b = lrgb.b;
+  const l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
+  const m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b;
+  const s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b;
+
+  const l_ = Math.cbrt(l);
+  const m_ = Math.cbrt(m);
+  const s_ = Math.cbrt(s);
+
+  return {
+    L: 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_,
+    a: 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_,
+    b: 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
+  };
+}
+
+function oklabToLinearSrgb(lab) {
+  const l_ = lab.L + 0.3963377774 * lab.a + 0.2158037573 * lab.b;
+  const m_ = lab.L - 0.1055613458 * lab.a - 0.0638541728 * lab.b;
+  const s_ = lab.L - 0.0894841775 * lab.a - 1.2914855480 * lab.b;
+
+  const l = l_ * l_ * l_;
+  const m = m_ * m_ * m_;
+  const s = s_ * s_ * s_;
+
+  return {
+    r: +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    g: -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    b: -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s
+  };
+}
+
+function oklabToOklch(lab) {
+  const C = Math.hypot(lab.a, lab.b);
+  const h = C < EPS ? 0 : mod(Math.atan2(lab.b, lab.a) * 180 / Math.PI, 360);
+  return { L: lab.L, C, h };
+}
+
+function oklchToOklab(lch) {
+  const hr = lch.h * Math.PI / 180;
+  return {
+    L: lch.L,
+    a: lch.C * Math.cos(hr),
+    b: lch.C * Math.sin(hr)
+  };
+}
+
+function srgbToOklch(rgb) {
+  return oklabToOklch(linearSrgbToOklab(srgbToLinear(rgb)));
+}
+
+function oklchToLinearSrgb(lch) {
+  return oklabToLinearSrgb(oklchToOklab(lch));
+}
+
+// ---------- XYZ / CIELAB / CIELCh / Fairchild-Pirrotta HK lightness ----------
+function linearSrgbToXyz(lrgb) {
+  return {
+    X: 0.4124564 * lrgb.r + 0.3575761 * lrgb.g + 0.1804375 * lrgb.b,
+    Y: 0.2126729 * lrgb.r + 0.7151522 * lrgb.g + 0.0721750 * lrgb.b,
+    Z: 0.0193339 * lrgb.r + 0.1191920 * lrgb.g + 0.9503041 * lrgb.b
+  };
+}
+
+function xyzToLab(xyz) {
+  // D65 reference white, matching sRGB and OKLab assumptions here.
+  const Xn = 0.95047;
+  const Yn = 1.00000;
+  const Zn = 1.08883;
+
+  function f(t) {
+    const delta = 6 / 29;
+    const delta3 = delta * delta * delta;
+    return t > delta3 ? Math.cbrt(t) : t / (3 * delta * delta) + 4 / 29;
+  }
+
+  const x = f(xyz.X / Xn);
+  const y = f(xyz.Y / Yn);
+  const z = f(xyz.Z / Zn);
+
+  return {
+    L: 116 * y - 16,
+    a: 500 * (x - y),
+    b: 200 * (y - z)
+  };
+}
+
+function labToLch(lab) {
+  const C = Math.hypot(lab.a, lab.b);
+  const h = C < EPS ? 0 : mod(Math.atan2(lab.b, lab.a) * 180 / Math.PI, 360);
+  return { L: lab.L, C, h };
+}
+
+function lchToFairchildPirrottaLightness(lch) {
+  // Fairchild-Pirrotta equivalent achromatic lightness estimate.
+  // F1: hue/chroma contribution. F2: lightness-ratio adjustment.
+  const f1 = 0.116 * Math.abs(Math.sin(((lch.h - 90) / 2) * Math.PI / 180)) + 0.085;
+  const f2 = Math.max(0, 2.5 - 0.025 * lch.L);
+  return lch.L + f2 * f1 * lch.C;
+}
+
+function fpLightnessFromLinearSrgb(lrgb) {
+  const xyz = linearSrgbToXyz(lrgb);
+  const lab = xyzToLab(xyz);
+  const lch = labToLch(lab);
+  return lchToFairchildPirrottaLightness(lch);
+}
+
+function fpLightnessFromSrgb(rgb) {
+  return fpLightnessFromLinearSrgb(srgbToLinear(rgb));
+}
+
+function candidateFromOklch(L, C, h) {
+  const lch = { L, C, h };
+  const rawLinear = oklchToLinearSrgb(lch);
+  const clippedLinear = clipLinear(rawLinear);
+  const clippedSrgb = linearToSrgb(clippedLinear);
+  const rawSrgb = linearToSrgb(rawLinear);
+  return {
+    lch,
+    rawLinear,
+    rawSrgb,
+    clippedLinear,
+    clippedSrgb,
+    gamut: inSrgb(rawLinear),
+    hex: srgbToHex(clippedSrgb),
+    fp: fpLightnessFromLinearSrgb(rawLinear),
+    fpDisplayed: fpLightnessFromLinearSrgb(clippedLinear)
+  };
+}
+
+function solveFpHkComplement(baseOklch, targetFp) {
+  const C = baseOklch.C;
+  const h = mod(baseOklch.h + 180, 360);
+
+  // Sample the function to find a monotonic bracket or nearest fallback.
+  const samples = [];
+  for (let i = 0; i <= 200; i++) {
+    const L = i / 200;
+    const cand = candidateFromOklch(L, C, h);
+    if (Number.isFinite(cand.fp)) {
+      samples.push({ L, fp: cand.fp, diff: cand.fp - targetFp });
+    }
+  }
+
+  if (samples.length === 0) {
+    return { ...candidateFromOklch(baseOklch.L, C, h), solved: false, reason: 'No finite FP-HK samples.' };
+  }
+
+  let best = samples[0];
+  for (const s of samples) {
+    if (Math.abs(s.diff) < Math.abs(best.diff)) best = s;
+  }
+
+  let lo = null;
+  let hi = null;
+  for (let i = 0; i < samples.length - 1; i++) {
+    const a = samples[i];
+    const b = samples[i + 1];
+    if (a.diff === 0) {
+      lo = hi = a;
+      break;
+    }
+    if ((a.diff < 0 && b.diff > 0) || (a.diff > 0 && b.diff < 0) || b.diff === 0) {
+      lo = a;
+      hi = b;
+      break;
+    }
+  }
+
+  if (!lo || !hi) {
+    const cand = candidateFromOklch(best.L, C, h);
+    return { ...cand, solved: false, reason: 'Target FP-HK lightness outside sampled range; using nearest result.' };
+  }
+
+  if (lo.L === hi.L) {
+    const cand = candidateFromOklch(lo.L, C, h);
+    return { ...cand, solved: true, reason: '' };
+  }
+
+  let a = lo.L;
+  let b = hi.L;
+  let fa = lo.diff;
+  for (let i = 0; i < 36; i++) {
+    const mid = (a + b) / 2;
+    const fm = candidateFromOklch(mid, C, h).fp - targetFp;
+    if ((fa <= 0 && fm <= 0) || (fa >= 0 && fm >= 0)) {
+      a = mid;
+      fa = fm;
+    } else {
+      b = mid;
+    }
+  }
+
+  const L = (a + b) / 2;
+  const cand = candidateFromOklch(L, C, h);
+  return { ...cand, solved: true, reason: '' };
+}
+
+function makeCard(model) {
+  const swatch = document.createElement('div');
+  swatch.className = 'swatch' + (model.gamut ? '' : ' out');
+  swatch.style.background = model.hex;
+
+  const badge = document.createElement('div');
+  badge.className = 'badge ' + (model.gamut ? 'good' : 'bad');
+  badge.textContent = model.gamut ? 'sRGB' : '× out of sRGB';
+  swatch.appendChild(badge);
+
+  const card = document.createElement('article');
+  card.className = 'card';
+  card.appendChild(swatch);
+
+  const body = document.createElement('div');
+  body.className = 'body';
+  body.innerHTML = `
+    <div class="title">
+      <strong>${model.name}</strong>
+      <span class="hex">${model.hex}</span>
+    </div>
+    <dl>
+      <dt>Method</dt><dd>${model.method}</dd>
+      <dt>HSL</dt><dd>${model.hsl}</dd>
+      <dt>OKLCH</dt><dd>${model.oklch}</dd>
+      <dt>FP-HK L*</dt><dd>${model.fp}</dd>
+      <dt>Δ FP-HK</dt><dd>${model.deltaFp}</dd>
+      <dt>Note</dt><dd>${model.note}</dd>
+    </dl>
+  `;
+  card.appendChild(body);
+  return card;
+}
+
+function describeHsl(rgb) {
+  const hsl = rgbToHsl(rgb);
+  return `${fmtHue(hsl.h)} / ${fmt(hsl.s * 100, 1)}% / ${fmt(hsl.l * 100, 1)}%`;
+}
+
+function describeOklchFromSrgb(rgb) {
+  const lch = srgbToOklch(rgb);
+  return `${fmt(lch.L * 100, 2)}% / ${fmt(lch.C, 4)} / ${fmtHue(lch.h)}`;
+}
+
+function describeOklch(lch) {
+  return `${fmt(lch.L * 100, 2)}% / ${fmt(lch.C, 4)} / ${fmtHue(lch.h)}`;
+}
+
+function makeModel(name, method, rgbDisplayed, rawLinear, note, baseFp, extraOklch = null) {
+  const clippedRgb = rgbDisplayed;
+  const rawGamut = rawLinear ? inSrgb(rawLinear) : true;
+  const fpDisplay = fpLightnessFromSrgb(clippedRgb);
+  const delta = fpDisplay - baseFp;
+  return {
+    name,
+    method,
+    hex: srgbToHex(clippedRgb),
+    gamut: rawGamut,
+    hsl: describeHsl(clippedRgb),
+    oklch: extraOklch ? describeOklch(extraOklch) : describeOklchFromSrgb(clippedRgb),
+    fp: fmt(fpDisplay, 3),
+    deltaFp: (delta >= 0 ? '+' : '') + fmt(delta, 3),
+    note
+  };
+}
+
+function update(hex) {
+  const rgb = parseHex(hex);
+  statusEl.textContent = '';
+
+  if (!rgb) {
+    statusEl.textContent = 'Enter a 6-digit hex color, for example #3366CC.';
+    return;
+  }
+
+  const canonical = srgbToHex(rgb);
+  picker.value = canonical;
+  hexInput.value = canonical;
+
+  const baseFp = fpLightnessFromSrgb(rgb);
+  const baseOklch = srgbToOklch(rgb);
+
+  const hsl = rgbToHsl(rgb);
+  const hslCompRgb = hslToRgb({ h: hsl.h + 180, s: hsl.s, l: hsl.l });
+  const hslCompLinear = srgbToLinear(hslCompRgb);
+
+  const okCompLch = { L: baseOklch.L, C: baseOklch.C, h: mod(baseOklch.h + 180, 360) };
+  const okCompLinearRaw = oklchToLinearSrgb(okCompLch);
+  const okCompRgbClipped = linearToSrgb(clipLinear(okCompLinearRaw));
+
+  const hk = solveFpHkComplement(baseOklch, baseFp);
+
+  const models = [
+    makeModel(
+      'Selected Base Color',
+      'input sRGB',
+      rgb,
+      srgbToLinear(rgb),
+      'Reference color.',
+      baseFp,
+      baseOklch
+    ),
+    makeModel(
+      'HSL Complement',
+      'HSL H + 180°',
+      hslCompRgb,
+      hslCompLinear,
+      'RGB-cylinder complement; always displayable in sRGB.',
+      baseFp
+    ),
+    makeModel(
+      'OKLCH Complement',
+      'OKLCH H + 180°',
+      okCompRgbClipped,
+      okCompLinearRaw,
+      inSrgb(okCompLinearRaw) ? 'Preserves OKLCH L and C.' : 'Computed OKLCH target is outside sRGB; display is clipped.',
+      baseFp,
+      okCompLch
+    ),
+    makeModel(
+      'FP-HK Complement',
+      'OKLCH H + 180°, solve L',
+      hk.clippedSrgb,
+      hk.rawLinear,
+      (hk.solved ? 'L adjusted to match base FP-HK lightness.' : hk.reason) + (hk.gamut ? '' : ' Target is outside sRGB; display is clipped.'),
+      baseFp,
+      hk.lch
+    )
+  ];
+
+  cards.replaceChildren(...models.map(makeCard));
+}
+
+picker.addEventListener('input', () => update(picker.value));
+hexInput.addEventListener('input', () => {
+  const rgb = parseHex(hexInput.value);
+  if (rgb) update(hexInput.value);
+  else statusEl.textContent = 'Enter a 6-digit hex color, for example #3366CC.';
+});
+
+document.querySelectorAll('button[data-hex]').forEach(btn => {
+  btn.addEventListener('click', () => update(btn.dataset.hex));
+});
+
+update(picker.value);
+</script>
+</body>
+</html>

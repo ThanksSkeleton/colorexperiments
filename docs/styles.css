@@ -24,9 +24,16 @@ p {
   margin-block-start: 0;
 }
 
-.eyebrow,
-.placeholder {
+.eyebrow {
   color: color-mix(in srgb, CanvasText 60%, Canvas);
+}
+
+.experiment-list {
+  padding-inline-start: 1.25rem;
+}
+
+.experiment-list li + li {
+  margin-block-start: 0.75rem;
 }
 
 .counter {

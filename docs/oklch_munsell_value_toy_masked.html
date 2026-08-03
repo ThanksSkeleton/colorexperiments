@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OKLCH C/L Plane → sRGB, CIELAB, Munsell Value Contours</title>
+<style>
+  :root {
+    --bg: #111318;
+    --panel: #1a1d25;
+    --text: #e8eaf0;
+    --muted: #aeb5c3;
+    --border: #343846;
+    --accent: #86a8ff;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 0 0 8px;
+  }
+
+  p {
+    color: var(--muted);
+    line-height: 1.45;
+    margin: 8px 0;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(360px, 520px) minmax(320px, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+    align-items: start;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .plane-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+  }
+
+  .cursor {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    margin-left: -6.5px;
+    margin-top: -6.5px;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px black, 0 0 8px black;
+    pointer-events: none;
+    left: 50%;
+    top: 50%;
+  }
+
+  .axes {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .controls {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  label {
+    display: grid;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  input[type="range"] {
+    width: 100%;
+  }
+
+  .readout {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 8px 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+  }
+
+  .k {
+    color: var(--muted);
+  }
+
+  .v {
+    color: var(--text);
+    word-break: break-word;
+  }
+
+  .swatch {
+    width: 100%;
+    height: 84px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+
+  .note {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  code {
+    color: #d7ddff;
+  }
+
+  @media (max-width: 820px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .readout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>OKLCH C/L Plane → sRGB, CIELAB, Munsell Value Contours</h1>
+  <p>
+    Horizontal axis is OKLCH chroma <code>C</code>. Vertical axis is OKLCH lightness <code>L</code>.
+    The hue angle is controlled separately. Out-of-sRGB points are displayed after reducing chroma at the same L and hue.
+    White 50% overlay pixels mark where displayed Munsell Value is within ±0.01 of a whole number.
+  </p>
+
+  <div class="layout">
+    <section class="panel">
+      <div class="plane-wrap" id="planeWrap">
+        <canvas id="plane" width="420" height="420"></canvas>
+        <div class="cursor" id="cursor"></div>
+      </div>
+      <div class="axes">
+        <span>C 0.000</span>
+        <span>L ↑</span>
+        <span id="cMaxLabel">C 0.400</span>
+      </div>
+
+      <div class="controls">
+        <label>
+          Hue angle: <span><output id="hueOut">260</output>°</span>
+          <input id="hue" type="range" min="0" max="360" step="1" value="260" />
+        </label>
+
+        <label>
+          Plane chroma max: <span><output id="cMaxOut">0.400</output></span>
+          <input id="cMax" type="range" min="0.05" max="0.60" step="0.005" value="0.400" />
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="swatch" id="swatch"></div>
+
+      <div class="readout">
+        <div class="k">Requested OKLCH</div><div class="v" id="requested">—</div>
+        <div class="k">sRGB gamut</div><div class="v" id="gamut">—</div>
+        <div class="k">Displayed OKLCH</div><div class="v" id="clipped">—</div>
+        <div class="k">sRGB</div><div class="v" id="srgb">—</div>
+        <div class="k">HEX</div><div class="v" id="hex">—</div>
+        <div class="k">CIELAB D50</div><div class="v" id="lab">—</div>
+        <div class="k">Munsell Value</div><div class="v" id="munsell">—</div>
+        <div class="k">Reason / note</div><div class="v" id="reason">Move over the plane.</div>
+      </div>
+
+      <div class="note">
+        <p>
+          Munsell Value here means only the <strong>Value</strong> coordinate, not full Munsell hue/chroma notation.
+          It is estimated by converting displayed OKLCH → XYZ → CIELAB D50 → luminance Y, then numerically inverting
+          the Newhall–Nickerson–Judd 1943 Munsell Value luminance polynomial. The plane overlay marks approximate
+          integer Value contours with 50% white pixels.
+        </p>
+        <p>
+          If the requested OKLCH color is outside sRGB, the toy reports the Munsell Value for the chroma-clipped display color.
+        </p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+(() => {
+  const canvas = document.getElementById("plane");
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  const planeWrap = document.getElementById("planeWrap");
+  const cursor = document.getElementById("cursor");
+  const hueSlider = document.getElementById("hue");
+  const cMaxSlider = document.getElementById("cMax");
+  const hueOut = document.getElementById("hueOut");
+  const cMaxOut = document.getElementById("cMaxOut");
+  const cMaxLabel = document.getElementById("cMaxLabel");
+  const swatch = document.getElementById("swatch");
+
+  const els = {
+    requested: document.getElementById("requested"),
+    gamut: document.getElementById("gamut"),
+    clipped: document.getElementById("clipped"),
+    srgb: document.getElementById("srgb"),
+    hex: document.getElementById("hex"),
+    lab: document.getElementById("lab"),
+    munsell: document.getElementById("munsell"),
+    reason: document.getElementById("reason")
+  };
+
+  const D50 = [0.9642956764295677, 1.0, 0.8251046025104602];
+
+  function clamp(x, lo, hi) {
+    return Math.min(hi, Math.max(lo, x));
+  }
+
+  function fmt(x, n = 4) {
+    return Number.isFinite(x) ? x.toFixed(n) : "N/A";
+  }
+
+  function multiplyMatrixVector(M, v) {
+    return [
+      M[0][0] * v[0] + M[0][1] * v[1] + M[0][2] * v[2],
+      M[1][0] * v[0] + M[1][1] * v[1] + M[1][2] * v[2],
+      M[2][0] * v[0] + M[2][1] * v[1] + M[2][2] * v[2]
+    ];
+  }
+
+  function oklchToOklab(L, C, hDeg) {
+    const h = hDeg * Math.PI / 180;
+    return [L, C * Math.cos(h), C * Math.sin(h)];
+  }
+
+  function oklabToXyzD65([L, a, b]) {
+    const l_ = L + 0.3963377773761749 * a + 0.2158037573099136 * b;
+    const m_ = L - 0.1055613458156586 * a - 0.0638541728258133 * b;
+    const s_ = L - 0.0894841775298119 * a - 1.2914855480194092 * b;
+
+    const l = l_ ** 3;
+    const m = m_ ** 3;
+    const s = s_ ** 3;
+
+    return [
+       1.2268798758459243 * l - 0.5578149944602171 * m + 0.2813910456659647 * s,
+      -0.0405757452148008 * l + 1.1122868032803170 * m - 0.0717110580655164 * s,
+      -0.0763729366746601 * l - 0.4214933324022432 * m + 1.5869240198367816 * s
+    ];
+  }
+
+  function xyzD65ToLinearSrgb([X, Y, Z]) {
+    return [
+       3.2409699419045226 * X - 1.537383177570094 * Y - 0.4986107602930034 * Z,
+      -0.9692436362808796 * X + 1.8759675015077202 * Y + 0.04155505740717559 * Z,
+       0.05563007969699366 * X - 0.20397695888897652 * Y + 1.0569715142428786 * Z
+    ];
+  }
+
+  function linearToEncodedSrgbChannel(v) {
+    if (v <= 0.0031308) return 12.92 * v;
+    return 1.055 * (v ** (1 / 2.4)) - 0.055;
+  }
+
+  function encodedToByte(v) {
+    return Math.round(clamp(v, 0, 1) * 255);
+  }
+
+  function inSrgbGamutLinear(rgbLinear) {
+    const eps = 1e-7;
+    return rgbLinear.every(v => v >= -eps && v <= 1 + eps);
+  }
+
+  function oklchToDisplay(L, C, hDeg) {
+    const lab = oklchToOklab(L, C, hDeg);
+    const xyz = oklabToXyzD65(lab);
+    const linear = xyzD65ToLinearSrgb(xyz);
+    const inGamut = inSrgbGamutLinear(linear);
+    const encoded = linear.map(linearToEncodedSrgbChannel).map(v => clamp(v, 0, 1));
+    return { xyzD65: xyz, linear, encoded, inGamut };
+  }
+
+  function chromaClip(L, C, hDeg) {
+    const direct = oklchToDisplay(L, C, hDeg);
+    if (direct.inGamut) {
+      return { L, C, h: hDeg, clipped: false, display: direct };
+    }
+
+    let lo = 0;
+    let hi = C;
+    for (let i = 0; i < 24; i++) {
+      const mid = (lo + hi) / 2;
+      if (oklchToDisplay(L, mid, hDeg).inGamut) lo = mid;
+      else hi = mid;
+    }
+
+    const clippedDisplay = oklchToDisplay(L, lo, hDeg);
+    return { L, C: lo, h: hDeg, clipped: true, display: clippedDisplay };
+  }
+
+  function xyzD65ToD50(xyzD65) {
+    const M = [
+      [ 1.0479298208405488,  0.022946793341019088, -0.05019222954313557 ],
+      [ 0.029627815688159344, 0.990434484573249,   -0.01707382502938514 ],
+      [-0.009243058152591178, 0.015055144896577895, 0.7518742899580008  ]
+    ];
+    return multiplyMatrixVector(M, xyzD65);
+  }
+
+  function xyzD50ToLab([X, Y, Z]) {
+    const epsilon = 216 / 24389;
+    const kappa = 24389 / 27;
+
+    const xyz = [X / D50[0], Y / D50[1], Z / D50[2]];
+    const f = xyz.map(t => t > epsilon ? Math.cbrt(t) : (kappa * t + 16) / 116);
+
+    return [
+      116 * f[1] - 16,
+      500 * (f[0] - f[1]),
+      200 * (f[1] - f[2])
+    ];
+  }
+
+  function labToCieLuminancePercent(Lstar) {
+    const epsilon = 216 / 24389;
+    const kappa = 24389 / 27;
+    if (!Number.isFinite(Lstar)) return { ok: false, reason: "CIELAB L* is not finite." };
+    if (Lstar < 0 || Lstar > 100) {
+      return { ok: false, reason: "CIELAB L* is outside 0–100, so Munsell Value is not meaningful here." };
+    }
+
+    const y = Lstar > kappa * epsilon
+      ? ((Lstar + 16) / 116) ** 3
+      : Lstar / kappa;
+
+    return { ok: true, Y: y * 100 };
+  }
+
+  function newhallYFromMunsellValue(V) {
+    return 1.2219 * V
+      - 0.23111 * V ** 2
+      + 0.23951 * V ** 3
+      - 0.021009 * V ** 4
+      + 0.0008404 * V ** 5;
+  }
+
+  function munsellValueFromY(Y) {
+    if (!Number.isFinite(Y)) return { ok: false, reason: "Luminance Y is not finite." };
+    if (Y < 0 || Y > 100) {
+      return { ok: false, reason: "Luminance Y is outside 0–100." };
+    }
+
+    let lo = 0;
+    let hi = 10;
+
+    // Newhall polynomial gives about 102.568 at V=10. For display white Y=100, the inverse is slightly below 10.
+    for (let i = 0; i < 60; i++) {
+      const mid = (lo + hi) / 2;
+      if (newhallYFromMunsellValue(mid) < Y) lo = mid;
+      else hi = mid;
+    }
+
+    const V = (lo + hi) / 2;
+    if (V < -1e-6 || V > 10 + 1e-6) {
+      return { ok: false, reason: "No Munsell Value root in 0–10." };
+    }
+
+    return { ok: true, V: clamp(V, 0, 10) };
+  }
+
+  function rgbToHex(rgb) {
+    const bytes = rgb.map(encodedToByte);
+    return "#" + bytes.map(v => v.toString(16).padStart(2, "0")).join("");
+  }
+
+  function renderPlane() {
+    const w = canvas.width;
+    const h = canvas.height;
+    const img = ctx.createImageData(w, h);
+    const hue = Number(hueSlider.value);
+    const cMax = Number(cMaxSlider.value);
+
+    hueOut.textContent = hue.toFixed(0);
+    cMaxOut.textContent = cMax.toFixed(3);
+    cMaxLabel.textContent = `C ${cMax.toFixed(3)}`;
+
+    let p = 0;
+    for (let y = 0; y < h; y++) {
+      const L = 1 - y / (h - 1);
+      for (let x = 0; x < w; x++) {
+        const C = x / (w - 1) * cMax;
+        const mapped = chromaClip(L, C, hue);
+        let [r, g, b] = mapped.display.encoded;
+
+        // Munsell Value contour mask:
+        // draw a 50% white overlay pixel wherever displayed Munsell Value
+        // is within ±0.01 of an integer value: V0, V1, ... V10.
+        const xyzD50 = xyzD65ToD50(mapped.display.xyzD65);
+        const lab = xyzD50ToLab(xyzD50);
+        const lum = labToCieLuminancePercent(lab[0]);
+        const munsell = lum.ok ? munsellValueFromY(lum.Y) : { ok: false };
+
+        if (munsell.ok) {
+          const nearestWholeValue = Math.round(munsell.V);
+          const nearWholeValue = nearestWholeValue >= 0
+            && nearestWholeValue <= 10
+            && Math.abs(munsell.V - nearestWholeValue) <= 0.01;
+
+          if (nearWholeValue) {
+            r = r * 0.5 + 0.5;
+            g = g * 0.5 + 0.5;
+            b = b * 0.5 + 0.5;
+          }
+        }
+
+        img.data[p++] = encodedToByte(r);
+        img.data[p++] = encodedToByte(g);
+        img.data[p++] = encodedToByte(b);
+        img.data[p++] = 255;
+      }
+    }
+
+    ctx.putImageData(img, 0, 0);
+  }
+
+  function updateReadout(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    const xCss = clamp(clientX - rect.left, 0, rect.width);
+    const yCss = clamp(clientY - rect.top, 0, rect.height);
+
+    cursor.style.left = `${xCss}px`;
+    cursor.style.top = `${yCss}px`;
+
+    const x = xCss / rect.width;
+    const y = yCss / rect.height;
+
+    const L = clamp(1 - y, 0, 1);
+    const C = clamp(x * Number(cMaxSlider.value), 0, Number(cMaxSlider.value));
+    const h = Number(hueSlider.value);
+
+    const mapped = chromaClip(L, C, h);
+    const rgb = mapped.display.encoded;
+    const hex = rgbToHex(rgb);
+
+    const xyzD50 = xyzD65ToD50(mapped.display.xyzD65);
+    const lab = xyzD50ToLab(xyzD50);
+    const lum = labToCieLuminancePercent(lab[0]);
+    const munsell = lum.ok ? munsellValueFromY(lum.Y) : { ok: false, reason: lum.reason };
+
+    swatch.style.background = hex;
+
+    els.requested.textContent = `oklch(${fmt(L, 4)} ${fmt(C, 4)} ${fmt(h, 1)}deg)`;
+    els.gamut.textContent = mapped.clipped
+      ? `out of sRGB; chroma reduced from ${fmt(C, 4)} to ${fmt(mapped.C, 4)}`
+      : "in sRGB";
+    els.clipped.textContent = `oklch(${fmt(mapped.L, 4)} ${fmt(mapped.C, 4)} ${fmt(mapped.h, 1)}deg)`;
+    els.srgb.textContent = `rgb(${encodedToByte(rgb[0])}, ${encodedToByte(rgb[1])}, ${encodedToByte(rgb[2])})`;
+    els.hex.textContent = hex;
+    els.lab.textContent = `lab(${fmt(lab[0], 2)}% ${fmt(lab[1], 2)} ${fmt(lab[2], 2)})`;
+
+    if (munsell.ok) {
+      els.munsell.textContent = `V ${fmt(munsell.V, 3)} / 10`;
+      els.reason.textContent = mapped.clipped
+        ? "Requested OKLCH is outside sRGB. Munsell Value is for the displayed chroma-clipped color."
+        : "Calculated from displayed color.";
+    } else {
+      els.munsell.textContent = "N/A";
+      els.reason.textContent = munsell.reason;
+    }
+  }
+
+  let lastPointer = null;
+  let renderPending = false;
+
+  function scheduleRender() {
+    if (renderPending) return;
+    renderPending = true;
+    requestAnimationFrame(() => {
+      renderPending = false;
+      renderPlane();
+
+      const rect = canvas.getBoundingClientRect();
+      if (!lastPointer) {
+        lastPointer = {
+          clientX: rect.left + rect.width * 0.5,
+          clientY: rect.top + rect.height * 0.5
+        };
+      }
+      updateReadout(lastPointer.clientX, lastPointer.clientY);
+    });
+  }
+
+  planeWrap.addEventListener("pointermove", event => {
+    lastPointer = { clientX: event.clientX, clientY: event.clientY };
+    updateReadout(event.clientX, event.clientY);
+  });
+
+  planeWrap.addEventListener("pointerdown", event => {
+    lastPointer = { clientX: event.clientX, clientY: event.clientY };
+    updateReadout(event.clientX, event.clientY);
+  });
+
+  hueSlider.addEventListener("input", scheduleRender);
+  cMaxSlider.addEventListener("input", scheduleRender);
+
+  scheduleRender();
+})();
+</script>
+</body>
+</html>

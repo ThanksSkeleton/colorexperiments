@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>OKLCH Harmony Inspector v8</title>
+<style>
+:root{--bg:#15171b;--panel:#1e232b;--p2:#262c36;--text:#eceff4;--muted:#aab3c0;--border:#3a4352;--ok:#62d394;--bad:#ff5c5c;--warn:#ffd84d;--accent:#6bb7ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.page{max-width:1580px;margin:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.controls,.lights,.card{background:var(--panel);border:1px solid var(--border);border-radius:12px}.controls{padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px 18px}.control{display:flex;flex-direction:column;gap:8px}.control label{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}output{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:var(--accent)}
+.lights{padding:12px 14px}.lights-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:10px}.lights-head h2{margin:0;font-size:15px}.lights-head p{margin:0;color:var(--muted);font-size:12px}.light-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}.light{display:flex;align-items:center;gap:8px;background:var(--p2);border:1px solid var(--border);border-radius:10px;padding:8px 10px;min-height:38px}.bulb{width:14px;height:14px;border-radius:50%;background:#4b1f25;border:1px solid #ffffff33;box-shadow:inset 0 0 6px #000}.light.on .bulb{background:var(--ok);box-shadow:0 0 12px #62d394bb,inset 0 0 4px #fff}.light-name{font-size:13px;font-weight:700;white-space:nowrap}
+.main{display:grid;grid-template-columns:minmax(620px,700px) minmax(620px,1fr);gap:16px;align-items:start}.head{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;align-items:baseline}.head h2{margin:0;font-size:16px}.hint{margin:0;color:var(--muted);font-size:12px}.canvas-wrap{padding:14px}canvas{display:block;width:100%;height:auto;background:#111318;border:1px solid var(--border);border-radius:10px;cursor:crosshair}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px 14px;padding:0 14px 14px;color:var(--muted);font-size:12px}.legend-item{display:flex;align-items:center;gap:8px}.glyph{width:18px;height:18px;flex:0 0 auto}.glyph svg{width:18px;height:18px;display:block}
+.inspector{padding:14px;display:flex;flex-direction:column;gap:12px}.base{display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;background:var(--p2);border:1px solid var(--border);border-radius:10px;padding:12px}.swatch,.chip{position:relative;border-radius:10px;border:1px solid #ffffff24;overflow:hidden;background:linear-gradient(135deg,#222 25%,#333 25% 50%,#222 50% 75%,#333 75%);background-size:16px 16px}.swatch{width:88px;height:88px}.chip{width:58px;height:58px}.base h3{margin:0 0 6px;font-size:16px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:12px;line-height:1.35}.muted{color:var(--muted)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}.col{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#ffffff05}.col-head{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);background:#0000001f}.col-title{font-size:14px;font-weight:800}.count{font-size:12px;color:var(--muted)}
+.rows{display:flex;flex-direction:column;gap:8px;padding:10px}.row{display:grid;grid-template-columns:58px minmax(0,1fr);gap:10px;background:var(--p2);border:1px solid var(--border);border-radius:10px;padding:9px;align-items:center;min-height:88px}.row-info{display:grid;grid-template-rows:17px 32px 18px;gap:4px;min-width:0}.row-title{display:flex;justify-content:space-between;gap:8px}.row-title strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.delta{font-size:11px;color:var(--muted);white-space:nowrap}.meta{font-size:11px;color:var(--muted);overflow-wrap:anywhere;line-height:1.35;max-height:32px;overflow:hidden}
+.status{height:18px;display:grid;grid-template-columns:repeat(4,58px);gap:4px;overflow:hidden}.badge{display:inline-flex;align-items:center;justify-content:center;width:58px;height:16px;border-radius:999px;border:1px solid #ffffff29;background:#ffffff0f;color:var(--muted);font-size:9px;visibility:hidden;overflow:hidden}.badge.visible{visibility:visible}.undef{color:#ff9a9a;border-color:#ff5c5c66;background:#ff5c5c1a}.gray{color:#d6dde6;border-color:#d6dde666;background:#7f889424}.clip{color:#eceff4;border-color:#eceff459;background:#0007}.dfail{color:var(--warn);border-color:#ffd84d66;background:#ffd84d14}
+.x{position:absolute;display:none;font-size:26px;font-weight:900;inset:0;margin:auto;width:fit-content;height:fit-content;color:var(--bad);line-height:1;text-shadow:0 1px 2px #000}.note{padding:12px 14px 16px;color:var(--muted);font-size:12px;line-height:1.45}
+@media(max-width:1280px){.main{grid-template-columns:1fr}}@media(max-width:860px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+<section class="controls">
+<div class="control"><label>L <output id="lOut">65.0</output></label><input id="lIn" type="range" min="0" max="100" step="0.5" value="65"></div>
+<div class="control"><label>Sibling ΔE <output id="sibOut">0.020</output></label><input id="sibIn" type="range" min="0" max="0.2" step="0.005" value="0.02"></div>
+<div class="control"><label>Cousin ΔE <output id="couOut">0.100</output></label><input id="couIn" type="range" min="0" max="0.25" step="0.005" value="0.10"></div>
+<div class="control"><label>GraySnap ΔE <output id="grayOut">0.100</output></label><input id="grayIn" type="range" min="0" max="0.25" step="0.005" value="0.10"></div>
+<div class="control"><label>Circle max C <output id="maxCOut">0.400</output></label><input id="maxCIn" type="range" min="0.15" max="0.45" step="0.01" value="0.40"></div>
+</section>
+
+<section class="lights">
+<div class="lights-head"><h2>Harmony Availability</h2><p>Point-level predicates before doll-role mapping.</p></div>
+<div id="lights" class="light-grid"></div>
+</section>
+
+<section class="main">
+<div class="card">
+<div class="head"><h2>OKLCH H/C Circle</h2><p class="hint">Hover inside the circle. Dark mask = outside sRGB.</p></div>
+<div class="canvas-wrap"><canvas id="wheel" width="680" height="680"></canvas></div>
+<div class="legend">
+<div class="legend-item"><span class="glyph"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="5.5" fill="white" stroke="#111" stroke-width="2"/></svg></span>Important color candidate</div>
+<div class="legend-item"><span class="glyph"><svg viewBox="0 0 18 18"><rect x="4" y="4" width="10" height="10" fill="white" stroke="#111" stroke-width="2"/></svg></span>Defined sibling</div>
+<div class="legend-item"><span class="glyph"><svg viewBox="0 0 18 18"><rect x="4" y="4" width="10" height="10" fill="white" stroke="#ffd84d" stroke-width="3"/></svg></span>Sibling ΔE violation</div>
+<div class="legend-item"><span class="glyph"><svg viewBox="0 0 18 18"><circle cx="5" cy="9" r="3.5" fill="white" stroke="#111" stroke-width="1.5"/><line x1="8.5" y1="9" x2="12.5" y2="9" stroke="#aaa" stroke-width="1.5" stroke-dasharray="2 2"/><circle cx="14" cy="9" r="3.5" fill="#aaa" stroke="#eee" stroke-width="1.2"/></svg></span>C-reduced ghost + line</div>
+<div class="legend-item"><span class="glyph"><svg viewBox="0 0 18 18"><circle cx="5" cy="9" r="3.5" fill="#aaa" stroke="#eee" stroke-width="1.2"/><line x1="8.5" y1="9" x2="12.5" y2="9" stroke="#9fa7b1" stroke-width="1.5" stroke-dasharray="2 2"/><circle cx="14" cy="9" r="3.5" fill="#7f8894" stroke="#d7dbe0" stroke-width="1.2"/></svg></span>GraySnap ghost + line</div>
+</div>
+</div>
+
+<div class="card">
+<div class="head"><h2>Important / Defined Siblings</h2><p class="hint">Badges occupy fixed slots, so status changes should not jitter row layout.</p></div>
+<div class="inspector">
+<div class="base"><div id="baseSw" class="swatch"></div><div><h3>Current Point</h3><div id="baseTxt" class="mono muted">Hover over the circle.</div></div></div>
+<div class="cols">
+<section class="col"><div class="col-head"><div class="col-title">Important</div><span id="impCount" class="count">0</span></div><div id="impRows" class="rows"></div></section>
+<section class="col"><div class="col-head"><div class="col-title">Defined Siblings</div><span id="sibCount" class="count">0</span></div><div id="sibRows" class="rows"></div></section>
+</div>
+</div>
+<div class="note">Harmony lights use only important colors. C-reduced colors remain usable. Gray-snapped important colors fail hue harmonies. Siblings are extras and are listed only when valid and not gray-snapped.</div>
+</div>
+</section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cv=$('wheel'),ctx=cv.getContext('2d'),size=cv.width,center=size/2,radius=size/2-32;
+const lIn=$('lIn'),sibIn=$('sibIn'),couIn=$('couIn'),grayIn=$('grayIn'),maxCIn=$('maxCIn');
+let hover=null,wheelKey='',wheelImg=null;
+
+const importantSpecs=[
+ ['base','Base',0],['analogLeft','Analog -45',-45],['analogRight','Analog +45',45],
+ ['rightLeft','Right -90',-90],['rightRight','Right +90',90],
+ ['triadLeft','Triad -120',-120],['triadRight','Triad +120',120],
+ ['complement','Complement',180],['splitLeft','Split +157.5',157.5],['splitRight','Split +202.5',202.5]
+].map(([key,label,offset])=>({key,label,offset}));
+
+const siblingSpecs=[
+ {key:'lp',label:'L +18',apply:p=>({L:p.L+.18,C:p.C,h:p.h})},
+ {key:'lm',label:'L -18',apply:p=>({L:p.L-.18,C:p.C,h:p.h})},
+ {key:'cp',label:'C +0.10',apply:p=>({L:p.L,C:p.C+.10,h:p.h})},
+ {key:'cm',label:'C -0.10',apply:p=>({L:p.L,C:p.C-.10,h:p.h})}
+];
+
+const harmonySpecs=[
+ {key:'primal',label:'Primal',members:['base','complement']},
+ {key:'bacLeft',label:'BAC Left',members:['base','analogLeft','complement']},
+ {key:'bacRight',label:'BAC Right',members:['base','analogRight','complement']},
+ {key:'baac',label:'BAAC',members:['base','analogLeft','analogRight','complement']},
+ {key:'square',label:'Square',members:['base','rightLeft','complement','rightRight']},
+ {key:'split',label:'Split Complement',members:['base','splitLeft','splitRight']},
+ {key:'triad',label:'Triad',members:['base','triadLeft','triadRight']}
+];
+
+function wrapHue(h){let x=h%360;return x<0?x+360:x}
+function clamp01(x){return Math.max(0,Math.min(1,x))}
+function oklchToOklab(L,C,h){let r=(h||0)*Math.PI/180;return{L,a:C*Math.cos(r),b:C*Math.sin(r)}}
+function oklabToLin(L,a,b){let l_=L+.3963377774*a+.2158037573*b,m_=L-.1055613458*a-.0638541728*b,s_=L-.0894841775*a-1.291485548*b;let l=l_**3,m=m_**3,s=s_**3;return{r:+4.0767416621*l-3.3077115913*m+.2309699292*s,g:-1.2684380046*l+2.6097574011*m-.3413193965*s,b:-.0041960863*l-.7034186147*m+1.707614701*s}}
+function inGamut(rgb,e=1e-7){return rgb.r>=-e&&rgb.r<=1+e&&rgb.g>=-e&&rgb.g<=1+e&&rgb.b>=-e&&rgb.b<=1+e}
+function linToSrgb(x){return x<=.0031308?12.92*x:1.055*Math.pow(x,1/2.4)-.055}
+function dE(a,b){let L=b.L-a.L,A=b.a-a.a,B=b.b-a.b;return Math.sqrt(L*L+A*A+B*B)}
+function valid(c){return c&&Number.isFinite(c.L)&&Number.isFinite(c.C)&&Number.isFinite(c.h)&&c.L>=0&&c.L<=1&&c.C>=0}
+function reduceC(L,C,h){let lab=oklchToOklab(L,C,h),lin=oklabToLin(lab.L,lab.a,lab.b);if(inGamut(lin))return{cReduced:false,displayC:C,displayLab:lab,displayLinear:lin,displayOklch:{L,C,h}};let lo=0,hi=Math.max(0,C);for(let i=0;i<36;i++){let mid=(lo+hi)/2,ml=oklchToOklab(L,mid,h),rgb=oklabToLin(ml.L,ml.a,ml.b);if(inGamut(rgb))lo=mid;else hi=mid}let dl=oklchToOklab(L,lo,h),rgb=oklabToLin(dl.L,dl.a,dl.b);return{cReduced:true,displayC:lo,displayLab:dl,displayLinear:rgb,displayOklch:{L,C:lo,h}}}
+function graySnap(o,lab){let th=+grayIn.value;if(!o||o.C<=0)return{graySnapped:false,finalOklch:o,finalLab:lab,snapOklch:null,snapDeltaE:NaN};let comp=reduceC(o.L,o.C,wrapHue(o.h+180)),dist=dE(lab,comp.displayLab);if(dist<th){let g={L:o.L,C:0,h:0},gl=oklchToOklab(g.L,0,0);return{graySnapped:true,finalOklch:g,finalLab:gl,snapOklch:g,snapDeltaE:dist}}return{graySnapped:false,finalOklch:o,finalLab:lab,snapOklch:null,snapDeltaE:dist}}
+function realize(req){if(!valid(req))return{requested:req,defined:false,cReduced:false,graySnapped:false,displayOklch:null,displayLab:null,cReducedOklch:null,snapOklch:null,css:'transparent',hex:'—'};let r={L:req.L,C:req.C,h:wrapHue(req.h)},baseLab=oklchToOklab(r.L,r.C,r.h),red=reduceC(r.L,r.C,r.h),gs=graySnap(red.displayOklch,red.displayLab),lin=oklabToLin(gs.finalLab.L,gs.finalLab.a,gs.finalLab.b);let R=Math.round(clamp01(linToSrgb(clamp01(lin.r)))*255),G=Math.round(clamp01(linToSrgb(clamp01(lin.g)))*255),B=Math.round(clamp01(linToSrgb(clamp01(lin.b)))*255);let hex='#'+[R,G,B].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();return{requested:r,requestedLab:baseLab,defined:true,cReduced:red.cReduced,graySnapped:gs.graySnapped,displayOklch:gs.finalOklch,displayLab:gs.finalLab,cReducedOklch:red.displayOklch,cReducedLab:red.displayLab,snapOklch:gs.snapOklch,snapDeltaE:gs.snapDeltaE,css:`rgb(${R},${G},${B})`,hex}}
+function fmt(c){return c?`oklch(${(c.L*100).toFixed(1)}% ${c.C.toFixed(3)} ${c.h.toFixed(1)})`:'undefined'}
+function fde(x){return Number.isFinite(x)?x.toFixed(3):'—'}
+function fromCanvas(x,y){let dx=x-center,dy=center-y,rr=Math.hypot(dx,dy);if(rr>radius)return null;return{L:+lIn.value/100,C:rr/radius*(+maxCIn.value),h:wrapHue(Math.atan2(dy,dx)*180/Math.PI)}}
+function point(c){let rr=c.C/(+maxCIn.value)*radius,hr=c.h*Math.PI/180;return{x:center+rr*Math.cos(hr),y:center-rr*Math.sin(hr)}}
+
+function getImportant(base){return importantSpecs.map(s=>{let req={L:base.L,C:base.C,h:wrapHue(base.h+s.offset)};return{...s,requested:req,realized:realize(req),cousinViolation:false}})}
+function pairs(arr,fn){for(let i=0;i<arr.length;i++)for(let j=i+1;j<arr.length;j++)fn(arr[i],arr[j])}
+function evalHarmonies(imp){let map=new Map(imp.map(x=>[x.key,x])),th=+couIn.value;imp.forEach(x=>x.cousinViolation=false);return harmonySpecs.map(h=>{let mem=h.members.map(k=>map.get(k));if(!mem.every(m=>m&&m.realized.defined&&!m.realized.graySnapped))return{...h,available:false,reason:'undefined or GraySnap'};let ok=true;pairs(mem,(a,b)=>{let dist=dE(a.realized.displayLab,b.realized.displayLab);if(dist<th){ok=false;a.cousinViolation=true;b.cousinViolation=true}});return{...h,available:ok,reason:ok?'ok':'Cousin ΔE'}})}
+function getSiblings(imp){let th=+sibIn.value,out=[];for(let p of imp){if(!p.realized.defined||p.realized.graySnapped)continue;for(let s of siblingSpecs){let req=s.apply(p.requested),rz=realize(req);if(!rz.defined||rz.graySnapped)continue;let dist=dE(p.realized.displayLab,rz.displayLab);out.push({key:p.key+':'+s.key,label:p.label+' '+s.label,parent:p,requested:req,realized:rz,delta:dist,siblingViolation:dist<th})}}return out}
+
+function badge(t,cls,on){let e=document.createElement('span');e.className=`badge ${cls} ${on?'visible':''}`;e.textContent=t;return e}
+function row(item,kind){let r=document.createElement('div');r.className='row';let c=document.createElement('div');c.className='chip';if(item.realized.defined)c.style.background=item.realized.css;else{let x=document.createElement('div');x.className='x';x.textContent='✕';x.style.display='block';c.appendChild(x)}
+let info=document.createElement('div');info.className='row-info';let title=document.createElement('div');title.className='row-title';title.innerHTML=`<strong>${item.label}</strong><span class="delta">${kind==='sibling'?'ΔE '+fde(item.delta):''}</span>`;let meta=document.createElement('div');meta.className='meta mono';meta.innerHTML=`${fmt(item.requested)}<br>${item.realized.defined?item.realized.hex:'—'}`;let st=document.createElement('div');st.className='status';st.appendChild(badge('Undef','undef',!item.realized.defined));st.appendChild(badge('C-Clip','clip',item.realized.defined&&item.realized.cReduced));st.appendChild(badge('Gray','gray',item.realized.defined&&item.realized.graySnapped));st.appendChild(badge(kind==='sibling'?'SibΔE':'CousΔE','dfail',kind==='sibling'?item.siblingViolation:item.cousinViolation));info.append(title,meta,st);r.append(c,info);return r}
+function renderLights(results){$('lights').innerHTML='';for(let h of results){let d=document.createElement('div');d.className='light '+(h.available?'on':'');d.title=h.reason;d.innerHTML=`<span class="bulb"></span><span class="light-name">${h.label}</span>`;$('lights').appendChild(d)}}
+function updateInspector(base){let imp=getImportant(base),res=evalHarmonies(imp),sib=getSiblings(imp);renderLights(res);$('impRows').innerHTML='';$('sibRows').innerHTML='';imp.forEach(x=>$('impRows').appendChild(row(x,'important')));sib.forEach(x=>$('sibRows').appendChild(row(x,'sibling')));$('impCount').textContent=imp.length;$('sibCount').textContent=sib.length;let b=imp.find(x=>x.key==='base').realized;$('baseSw').style.background=b.defined?b.css:'transparent';$('baseTxt').innerHTML=`<div>Requested: ${fmt(base)}</div><div>Displayed: ${fmt(b.displayOklch)}</div><div>${b.hex}${b.cReduced?' | C-reduced':''}${b.graySnapped?' | GraySnap':''}</div>`;return{imp,sib,res}}
+
+function dot(p,base=false,yellow=false){ctx.save();ctx.beginPath();ctx.fillStyle='#fff';ctx.strokeStyle=yellow?'#ffd84d':'#111';ctx.lineWidth=yellow?3:2;ctx.arc(p.x,p.y,base?7:5.5,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore()}
+function square(p,yellow=false){ctx.save();let s=10;ctx.fillStyle='#fff';ctx.strokeStyle=yellow?'#ffd84d':'#111';ctx.lineWidth=yellow?3:2;ctx.beginPath();ctx.rect(p.x-s/2,p.y-s/2,s,s);ctx.fill();ctx.stroke();ctx.restore()}
+function ghost(p,sq=false,t='c'){ctx.save();ctx.fillStyle=t==='g'?'rgba(127,136,148,.88)':'rgba(180,180,180,.78)';ctx.strokeStyle=t==='g'?'rgba(215,219,224,.88)':'rgba(255,255,255,.72)';ctx.lineWidth=1.3;if(sq){let s=8;ctx.beginPath();ctx.rect(p.x-s/2,p.y-s/2,s,s)}else{ctx.beginPath();ctx.arc(p.x,p.y,4.5,0,Math.PI*2)}ctx.fill();ctx.stroke();ctx.restore()}
+function line(a,b,t='c'){ctx.save();ctx.strokeStyle=t==='g'?'rgba(159,167,177,.9)':'rgba(210,210,210,.82)';ctx.lineWidth=1.5;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.restore()}
+function ghosts(reqPt,rz,sq){let last=reqPt;if(rz.cReduced&&rz.cReducedOklch){let p=point(rz.cReducedOklch);line(reqPt,p,'c');ghost(p,sq,'c');last=p}if(rz.graySnapped&&rz.snapOklch){let p=point(rz.snapOklch);line(last,p,'g');ghost(p,sq,'g')}}
+function overlays(){if(!hover)return;let {imp,sib}=updateInspector(hover);for(let x of imp){if(!x.realized.defined||x.requested.C>+maxCIn.value)continue;let p=point(x.requested);dot(p,x.key==='base',x.cousinViolation);ghosts(p,x.realized,false)}for(let x of sib){if(!x.realized.defined||x.requested.C>+maxCIn.value)continue;let p=point(x.requested);square(p,x.siblingViolation);ghosts(p,x.realized,true)}}
+
+function renderWheel(){let L=+lIn.value/100,maxC=+maxCIn.value,key=[L,maxC,+sibIn.value,+couIn.value,+grayIn.value].map(x=>x.toFixed(4)).join('|');if(key!==wheelKey||!wheelImg){let img=ctx.createImageData(size,size),data=img.data;for(let y=0;y<size;y++)for(let x=0;x<size;x++){let i=(y*size+x)*4,dx=x-center,dy=center-y,rr=Math.hypot(dx,dy);if(rr<=radius){let C=rr/radius*maxC,h=wrapHue(Math.atan2(dy,dx)*180/Math.PI),lab=oklchToOklab(L,C,h),rgb=oklabToLin(lab.L,lab.a,lab.b);if(inGamut(rgb)){data[i]=Math.round(clamp01(linToSrgb(clamp01(rgb.r)))*255);data[i+1]=Math.round(clamp01(linToSrgb(clamp01(rgb.g)))*255);data[i+2]=Math.round(clamp01(linToSrgb(clamp01(rgb.b)))*255);data[i+3]=255}else{data[i]=17;data[i+1]=19;data[i+2]=24;data[i+3]=255}}else{data[i]=17;data[i+1]=19;data[i+2]=24;data[i+3]=255}}wheelImg=img;wheelKey=key}ctx.putImageData(wheelImg,0,0);ctx.save();ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(center,center,radius,0,Math.PI*2);ctx.stroke();ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(center-radius,center);ctx.lineTo(center+radius,center);ctx.moveTo(center,center-radius);ctx.lineTo(center,center+radius);ctx.stroke();ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('0°',center+radius-14,center-9);ctx.fillText('90°',center,center-radius+18);ctx.fillText('180°',center-radius+18,center-9);ctx.fillText('270°',center,center+radius-12);ctx.restore();overlays()}
+function outputs(){lOut.value=(+lIn.value).toFixed(1);sibOut.value=(+sibIn.value).toFixed(3);couOut.value=(+couIn.value).toFixed(3);grayOut.value=(+grayIn.value).toFixed(3);maxCOut.value=(+maxCIn.value).toFixed(3)}
+function refresh(clear=false){outputs();if(clear)wheelKey='';if(hover){hover.L=+lIn.value/100;hover.C=Math.min(hover.C,+maxCIn.value)}renderWheel()}
+cv.addEventListener('mousemove',e=>{let r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*cv.width/r.width,y=(e.clientY-r.top)*cv.height/r.height,b=fromCanvas(x,y);if(!b)return;hover=b;renderWheel()});
+cv.addEventListener('mouseleave',()=>renderWheel());
+[lIn,sibIn,couIn,grayIn,maxCIn].forEach(el=>el.addEventListener('input',()=>refresh(true)));
+outputs();renderLights(harmonySpecs.map(h=>({...h,available:false,reason:'hover over circle'})));renderWheel();
+</script>
+</body>
+</html>

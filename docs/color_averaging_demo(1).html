@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Averaging Comparison</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #111318;
+      --panel: #1b1f27;
+      --panel-2: #242a35;
+      --text: #f1f4f8;
+      --muted: #aeb7c4;
+      --border: #3a4352;
+      --accent: #72a7ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      width: min(1000px, calc(100% - 32px));
+      margin: 32px auto;
+    }
+
+    h1, h2 { margin-top: 0; }
+    h1 { font-size: 1.65rem; }
+    h2 { font-size: 1.05rem; }
+
+    .intro {
+      color: var(--muted);
+      max-width: 75ch;
+    }
+
+    .controls,
+    .result-card,
+    .notes {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .color-control {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input[type="color"] {
+      width: 64px;
+      height: 44px;
+      padding: 2px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel-2);
+      color: var(--text);
+      font: inherit;
+      font-family: ui-monospace, monospace;
+    }
+
+    .weight-control {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    input[type="range"] { width: 100%; }
+
+    button {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .source-strip {
+      display: grid;
+      grid-template-columns: 1fr 100px 1fr;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .source-color {
+      min-height: 90px;
+    }
+
+    .source-label {
+      display: grid;
+      place-items: center;
+      background: var(--panel);
+      color: var(--muted);
+    }
+
+    .results {
+      display: grid;
+      gap: 16px;
+    }
+
+    .result-card {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 16px;
+    }
+
+    .swatch {
+      min-height: 170px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .description {
+      color: var(--muted);
+      margin-top: -4px;
+    }
+
+    dl {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 7px 14px;
+      margin: 14px 0 0;
+    }
+
+    dt { color: var(--muted); }
+    dd {
+      margin: 0;
+      font-family: ui-monospace, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .warning {
+      color: #ffcf70;
+      font-weight: 700;
+    }
+
+    .notes {
+      margin-top: 20px;
+      color: var(--muted);
+    }
+
+    code {
+      color: var(--text);
+    }
+
+    @media (max-width: 700px) {
+      .controls { grid-template-columns: 1fr; }
+      .weight-control { grid-column: auto; }
+      .result-card { grid-template-columns: 1fr; }
+      .swatch { min-height: 120px; }
+      dl { grid-template-columns: 1fr; }
+      dt { margin-top: 6px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Color Averaging Comparison</h1>
+  <p class="intro">
+    Compare the weighted average of two colors in gamma-encoded sRGB,
+    linear-light RGB, and Oklab. Every result is converted back to sRGB
+    for display.
+  </p>
+
+  <section class="controls">
+    <div>
+      <label for="colorA">Color A</label>
+      <div class="color-control">
+        <input id="colorA" type="color" value="#ff6a00">
+        <input id="hexA" type="text" value="#ff6a00" spellcheck="false">
+      </div>
+    </div>
+
+    <div>
+      <label for="colorB">Color B</label>
+      <div class="color-control">
+        <input id="colorB" type="color" value="#0066ff">
+        <input id="hexB" type="text" value="#0066ff" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="weight-control">
+      <div>
+        <label for="weight">Weight of Color B: <span id="weightLabel">50%</span></label>
+        <input id="weight" type="range" min="0" max="100" value="50">
+      </div>
+      <button id="swap" type="button">Swap colors</button>
+    </div>
+  </section>
+
+  <section class="source-strip" aria-label="Source colors">
+    <div id="sourceA" class="source-color"></div>
+    <div class="source-label">Inputs</div>
+    <div id="sourceB" class="source-color"></div>
+  </section>
+
+  <section class="results">
+    <article class="result-card">
+      <div id="swatchSrgb" class="swatch"></div>
+      <div>
+        <h2>Gamma-encoded sRGB average</h2>
+        <p class="description">
+          Directly averages the stored sRGB channel values.
+        </p>
+        <dl id="dataSrgb"></dl>
+      </div>
+    </article>
+
+    <article class="result-card">
+      <div id="swatchLinear" class="swatch"></div>
+      <div>
+        <h2>Linear-light RGB average</h2>
+        <p class="description">
+          Decodes sRGB to proportional light values, averages those values,
+          then encodes the result back to sRGB.
+        </p>
+        <dl id="dataLinear"></dl>
+      </div>
+    </article>
+
+    <article class="result-card">
+      <div id="swatchOklab" class="swatch"></div>
+      <div>
+        <h2>Oklab average</h2>
+        <p class="description">
+          Converts both colors to Oklab, averages L, a, and b, then converts
+          the result back to sRGB.
+        </p>
+        <dl id="dataOklab"></dl>
+      </div>
+    </article>
+  </section>
+
+  <section class="notes">
+    <strong>Interpretation:</strong>
+    encoded sRGB averages stored numbers; linear RGB averages physical light;
+    Oklab averages positions in a perceptual color space. None is universally
+    correct for every purpose.
+  </section>
+</main>
+
+<script>
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+const mix = (a, b, t) => a * (1 - t) + b * t;
+
+function normalizeHex(value) {
+  let hex = value.trim().replace(/^#/, "");
+  if (/^[0-9a-fA-F]{3}$/.test(hex)) {
+    hex = hex.split("").map(c => c + c).join("");
+  }
+  return /^[0-9a-fA-F]{6}$/.test(hex) ? "#" + hex.toLowerCase() : null;
+}
+
+function hexToSrgb(hex) {
+  const normalized = normalizeHex(hex);
+  if (!normalized) return null;
+
+  return [
+    parseInt(normalized.slice(1, 3), 16) / 255,
+    parseInt(normalized.slice(3, 5), 16) / 255,
+    parseInt(normalized.slice(5, 7), 16) / 255
+  ];
+}
+
+function srgbToHex(rgb) {
+  return "#" + rgb.map(channel =>
+    Math.round(clamp(channel) * 255).toString(16).padStart(2, "0")
+  ).join("");
+}
+
+function decodeSrgbChannel(channel) {
+  return channel <= 0.04045
+    ? channel / 12.92
+    : Math.pow((channel + 0.055) / 1.055, 2.4);
+}
+
+function encodeSrgbChannel(channel) {
+  return channel <= 0.0031308
+    ? 12.92 * channel
+    : 1.055 * Math.pow(channel, 1 / 2.4) - 0.055;
+}
+
+function srgbToLinear(rgb) {
+  return rgb.map(decodeSrgbChannel);
+}
+
+function linearToSrgb(rgb) {
+  return rgb.map(encodeSrgbChannel);
+}
+
+function linearRgbToOklab([r, g, b]) {
+  const l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
+  const m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b;
+  const s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b;
+
+  const lRoot = Math.cbrt(l);
+  const mRoot = Math.cbrt(m);
+  const sRoot = Math.cbrt(s);
+
+  return [
+    0.2104542553 * lRoot + 0.7936177850 * mRoot - 0.0040720468 * sRoot,
+    1.9779984951 * lRoot - 2.4285922050 * mRoot + 0.4505937099 * sRoot,
+    0.0259040371 * lRoot + 0.7827717662 * mRoot - 0.8086757660 * sRoot
+  ];
+}
+
+function oklabToLinearRgb([L, a, b]) {
+  const lRoot = L + 0.3963377774 * a + 0.2158037573 * b;
+  const mRoot = L - 0.1055613458 * a - 0.0638541728 * b;
+  const sRoot = L - 0.0894841775 * a - 1.2914855480 * b;
+
+  const l = lRoot ** 3;
+  const m = mRoot ** 3;
+  const s = sRoot ** 3;
+
+  return [
+     4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s
+  ];
+}
+
+function relativeLuminance(linearRgb) {
+  return (
+    0.2126 * linearRgb[0] +
+    0.7152 * linearRgb[1] +
+    0.0722 * linearRgb[2]
+  );
+}
+
+function formatTriplet(values, digits = 5) {
+  return values.map(v => Number(v).toFixed(digits)).join(", ");
+}
+
+function setRows(element, rows) {
+  element.innerHTML = rows.map(([label, value, className = ""]) =>
+    `<dt>${label}</dt><dd class="${className}">${value}</dd>`
+  ).join("");
+}
+
+function setColorInput(colorInput, textInput, value) {
+  const normalized = normalizeHex(value);
+  if (!normalized) return false;
+  colorInput.value = normalized;
+  textInput.value = normalized;
+  return true;
+}
+
+function render() {
+  const srgbA = hexToSrgb($("colorA").value);
+  const srgbB = hexToSrgb($("colorB").value);
+  const t = Number($("weight").value) / 100;
+
+  if (!srgbA || !srgbB || !Number.isFinite(t)) return;
+
+  $("weightLabel").textContent = `${Math.round(t * 100)}%`;
+  $("sourceA").style.backgroundColor = srgbToHex(srgbA);
+  $("sourceB").style.backgroundColor = srgbToHex(srgbB);
+
+  // 1. Average gamma-encoded sRGB values directly.
+  const encodedAverage = srgbA.map((value, i) => mix(value, srgbB[i], t));
+  const encodedAverageLinear = srgbToLinear(encodedAverage);
+
+  // 2. Average decoded linear-light RGB values.
+  const linearA = srgbToLinear(srgbA);
+  const linearB = srgbToLinear(srgbB);
+  const linearAverage = linearA.map((value, i) => mix(value, linearB[i], t));
+  const linearAverageSrgbRaw = linearToSrgb(linearAverage);
+  // Use an explicit callback: Array.map passes (value, index, array),
+  // while clamp accepts optional min and max arguments.
+  const linearAverageSrgb = linearAverageSrgbRaw.map(value => clamp(value));
+
+  // 3. Average Oklab coordinates.
+  const oklabA = linearRgbToOklab(linearA);
+  const oklabB = linearRgbToOklab(linearB);
+  const oklabAverage = oklabA.map((value, i) => mix(value, oklabB[i], t));
+  const oklabAverageLinear = oklabToLinearRgb(oklabAverage);
+  const oklabAverageSrgbRaw = linearToSrgb(oklabAverageLinear);
+  const oklabOutOfGamut = oklabAverageSrgbRaw.some(
+    value => !Number.isFinite(value) || value < 0 || value > 1
+  );
+  const oklabAverageSrgb = oklabAverageSrgbRaw.map(value =>
+    Number.isFinite(value) ? clamp(value) : 0
+  );
+
+  const encodedHex = srgbToHex(encodedAverage);
+  const linearHex = srgbToHex(linearAverageSrgb);
+  const oklabHex = srgbToHex(oklabAverageSrgb);
+
+  $("swatchSrgb").style.backgroundColor = encodedHex;
+  $("swatchLinear").style.backgroundColor = linearHex;
+  $("swatchOklab").style.backgroundColor = oklabHex;
+
+  setRows($("dataSrgb"), [
+    ["Display hex", encodedHex],
+    ["Encoded sRGB", formatTriplet(encodedAverage)],
+    ["Converted linear RGB", formatTriplet(encodedAverageLinear)],
+    ["Relative luminance", relativeLuminance(encodedAverageLinear).toFixed(5)]
+  ]);
+
+  setRows($("dataLinear"), [
+    ["Display hex", linearHex],
+    ["Linear RGB average", formatTriplet(linearAverage)],
+    ["Encoded sRGB", formatTriplet(linearAverageSrgb)],
+    ["Relative luminance", relativeLuminance(linearAverage).toFixed(5)]
+  ]);
+
+  setRows($("dataOklab"), [
+    ["Display hex", oklabHex + (oklabOutOfGamut ? " (clipped)" : "")],
+    ["Oklab average", formatTriplet(oklabAverage)],
+    ["Converted linear RGB", formatTriplet(oklabAverageLinear)],
+    ["Encoded sRGB", formatTriplet(oklabAverageSrgbRaw)],
+    ["Relative luminance", relativeLuminance(oklabAverageLinear).toFixed(5)]
+  ]);
+}
+
+$("colorA").addEventListener("input", event => {
+  $("hexA").value = event.target.value;
+  render();
+});
+
+$("colorB").addEventListener("input", event => {
+  $("hexB").value = event.target.value;
+  render();
+});
+
+$("hexA").addEventListener("change", event => {
+  if (!setColorInput($("colorA"), $("hexA"), event.target.value)) {
+    $("hexA").value = $("colorA").value;
+  }
+  render();
+});
+
+$("hexB").addEventListener("change", event => {
+  if (!setColorInput($("colorB"), $("hexB"), event.target.value)) {
+    $("hexB").value = $("colorB").value;
+  }
+  render();
+});
+
+$("weight").addEventListener("input", render);
+
+$("swap").addEventListener("click", () => {
+  const oldA = $("colorA").value;
+  const oldB = $("colorB").value;
+  setColorInput($("colorA"), $("hexA"), oldB);
+  setColorInput($("colorB"), $("hexB"), oldA);
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
