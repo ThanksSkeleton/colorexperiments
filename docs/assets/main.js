@@ -1,3 +1,4 @@
+"use strict";
 const countOutput = document.querySelector("#count");
 const countButton = document.querySelector("#count-button");
 if (!countOutput || !countButton) {
