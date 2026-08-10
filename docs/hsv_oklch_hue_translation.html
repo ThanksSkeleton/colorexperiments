@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HSV and OKLCH Hue Translation</title>
+  <style>
+    :root { --bg:#15171b; --panel:#1e232b; --text:#eceff4; --muted:#aab3c0; --border:#3a4352; --accent:#6bb7ff; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    main { width:min(1040px,100%); margin:auto; padding:18px; display:grid; gap:14px; }
+    h1,h2,p { margin:0; }
+    h1 { font-size:clamp(1.35rem,4vw,2rem); }
+    .intro { color:var(--muted); line-height:1.45; max-width:78ch; }
+    .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; }
+    .swatches { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px; }
+    .swatch-card { display:grid; grid-template-columns:72px 1fr; gap:12px; align-items:center; min-width:0; }
+    .swatch { height:72px; border:1px solid #ffffff30; border-radius:9px; }
+    .swatch-card h2 { font-size:14px; margin-bottom:5px; }
+    .readout { color:var(--muted); font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; overflow-wrap:anywhere; }
+    .delta { color:var(--text); font-weight:700; }
+    .controls { padding:13px 15px; display:grid; gap:8px; }
+    label { display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-size:13px; }
+    output { color:var(--text); font-weight:700; font-variant-numeric:tabular-nums; }
+    input { width:100%; accent-color:var(--accent); }
+    .wheels { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .wheel-card { padding:12px; }
+    .wheel-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:9px; }
+    .wheel-head h2 { font-size:15px; }
+    .wheel-head span { color:var(--muted); font-size:11px; }
+    .difference-card { padding:12px; }
+    .difference-layout { display:grid; grid-template-columns:minmax(240px,320px) 1fr; gap:16px; align-items:center; }
+    .difference-layout canvas { max-width:320px; }
+    .difference-copy { color:var(--muted); font-size:12px; line-height:1.5; }
+    .gradient-key { height:14px; margin:12px 0 5px; border:1px solid #ffffff30; border-radius:999px; background:linear-gradient(90deg,#dc3737,#f5f5f5,#2db464); }
+    .gradient-labels { display:flex; justify-content:space-between; color:var(--muted); font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .canvas-stack { position:relative; aspect-ratio:1; }
+    canvas { display:block; width:100%; height:auto; border:1px solid var(--border); border-radius:10px; }
+    .base-wheel { background:#111318; }
+    .overlay { position:absolute; inset:0; cursor:crosshair; touch-action:none; }
+    .note { padding:12px 14px; color:var(--muted); font-size:12px; line-height:1.45; }
+    @media (max-width:700px) { .wheels,.swatches,.difference-layout { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>HSV and OKLCH Hue Translation</h1>
+  <p class="intro">Move across either circle. The matching marker shows where the same displayed sRGB color lands in the other space. Its hue angle usually changes because HSV and OKLCH define hue in different geometries.</p>
+
+  <section class="card swatches" aria-label="Selected color values">
+    <div class="swatch-card"><div id="hsvSwatch" class="swatch"></div><div><h2>HSV description</h2><div id="hsvReadout" class="readout">Move over a circle.</div></div></div>
+    <div class="swatch-card"><div id="oklchSwatch" class="swatch"></div><div><h2>OKLCH description</h2><div id="oklchReadout" class="readout">Move over a circle.</div></div></div>
+  </section>
+
+  <section class="card controls">
+    <label for="level">Slice level: HSV V / OKLCH L <output id="levelOut">65%</output></label>
+    <input id="level" type="range" min="5" max="95" step="1" value="65">
+  </section>
+
+  <section class="wheels">
+    <article class="card wheel-card">
+      <div class="wheel-head"><h2>HSV circle</h2><span>angle = H · radius = S</span></div>
+      <div class="canvas-stack"><canvas id="hsvWheel" class="base-wheel" width="440" height="440"></canvas><canvas id="hsvOverlay" class="overlay" width="440" height="440"></canvas></div>
+    </article>
+    <article class="card wheel-card">
+      <div class="wheel-head"><h2>OKLCH circle</h2><span>angle = h · radius = C, max 0.40</span></div>
+      <div class="canvas-stack"><canvas id="oklchWheel" class="base-wheel" width="440" height="440"></canvas><canvas id="oklchOverlay" class="overlay" width="440" height="440"></canvas></div>
+    </article>
+  </section>
+
+  <section class="card difference-card">
+    <div class="wheel-head"><h2>One-degree HSV step → OKLCH hue difference</h2><span>static map at the current V</span></div>
+    <div class="difference-layout">
+      <canvas id="differenceWheel" class="base-wheel" width="320" height="320"></canvas>
+      <div class="difference-copy">
+        <p>At every HSV coordinate, this map converts HSV₁ and HSV₂ = HSV₁ + 1° into OKLCH, then measures the shortest absolute difference between their OKLCH hue angles.</p>
+        <div class="gradient-key" aria-hidden="true"></div>
+        <div class="gradient-labels"><span>red &lt; 1°</span><span>white = 1°</span><span>green &gt; 1°</span></div>
+        <p style="margin-top:12px">The gradient reaches full red at 0° and full green at 2°; larger differences remain green. Values near the neutral center are unstable because OKLCH hue becomes undefined as chroma approaches zero.</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="card note">While HSV is the source, the OKLCH mask shows the hue/chroma domain reached by the current fixed-V HSV slice. Requested OKLCH colors are otherwise shown after reducing chroma while preserving OKLCH lightness and hue. White lines show each space's own hue angle; the destination also gets a red line at the source space's numeric angle. A solid marker is the source and an outlined marker is its conversion.</p>
+</main>
+
+<script type="module">
+  import {
+    hsvToSrgb,
+    isOklchInSrgbGamut,
+    mapOklchToSrgb,
+    normalizeHue,
+    oklchToSrgb,
+    srgbToHex,
+    srgbToHsv,
+    srgbToOklch,
+  } from "./assets/colors.js";
+
+  const SIZE = 440;
+  const CENTER = SIZE / 2;
+  const RADIUS = CENTER - 18;
+  const MAX_CHROMA = 0.40;
+  const hsvCanvas = document.getElementById("hsvWheel");
+  const oklchCanvas = document.getElementById("oklchWheel");
+  const differenceCanvas = document.getElementById("differenceWheel");
+  const hsvOverlay = document.getElementById("hsvOverlay");
+  const oklchOverlay = document.getElementById("oklchOverlay");
+  const hsvContext = hsvCanvas.getContext("2d");
+  const oklchContext = oklchCanvas.getContext("2d");
+  const differenceContext = differenceCanvas.getContext("2d");
+  const hsvOverlayContext = hsvOverlay.getContext("2d");
+  const oklchOverlayContext = oklchOverlay.getContext("2d");
+  const levelInput = document.getElementById("level");
+  let selection = null;
+  let domainCache = null;
+  let oklchBoundaryCache = null;
+  let pendingPointer = null;
+  let pointerFrame = 0;
+
+  function pointFromPolar(hue, radiusFraction) {
+    const radians = normalizeHue(hue) * Math.PI / 180;
+    return {
+      x: CENTER + radiusFraction * RADIUS * Math.cos(radians),
+      y: CENTER - radiusFraction * RADIUS * Math.sin(radians),
+    };
+  }
+
+  function polarFromEvent(event, canvas) {
+    const bounds = canvas.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) * canvas.width / bounds.width;
+    const y = (event.clientY - bounds.top) * canvas.height / bounds.height;
+    const dx = x - CENTER;
+    const dy = CENTER - y;
+    const distance = Math.hypot(dx, dy);
+    if (distance > RADIUS) return null;
+    return { hue: normalizeHue(Math.atan2(dy, dx) * 180 / Math.PI), fraction: distance / RADIUS };
+  }
+
+  function putPixel(data, index, rgb) {
+    data[index] = Math.round(rgb.r * 255);
+    data[index + 1] = Math.round(rgb.g * 255);
+    data[index + 2] = Math.round(rgb.b * 255);
+    data[index + 3] = 255;
+  }
+
+  // At fixed OKLCH lightness, the maximum in-gamut chroma is a one-dimensional
+  // function of hue. Calculate that boundary once instead of running a binary
+  // search independently for every pixel in the wheel.
+  function oklchSrgbBoundary() {
+    const L = Number(levelInput.value) / 100;
+    if (oklchBoundaryCache?.L === L) return oklchBoundaryCache.values;
+    const values = new Float64Array(720);
+    for (let bin = 0; bin < values.length; bin += 1) {
+      const h = bin / 2;
+      let low = 0;
+      let high = MAX_CHROMA;
+      for (let iteration = 0; iteration < 24; iteration += 1) {
+        const C = (low + high) / 2;
+        if (isOklchInSrgbGamut({ L, C, h })) low = C;
+        else high = C;
+      }
+      values[bin] = low;
+    }
+    oklchBoundaryCache = { L, values };
+    return values;
+  }
+
+  function boundaryChromaAt(boundary, hue) {
+    const position = normalizeHue(hue) * 2;
+    const lowIndex = Math.floor(position) % boundary.length;
+    const highIndex = (lowIndex + 1) % boundary.length;
+    const fraction = position - Math.floor(position);
+    return boundary[lowIndex] * (1 - fraction) + boundary[highIndex] * fraction;
+  }
+
+  function drawWheel(context, space) {
+    const level = Number(levelInput.value) / 100;
+    const boundary = space === "oklch" ? oklchSrgbBoundary() : null;
+    const image = context.createImageData(SIZE, SIZE);
+    for (let y = 0; y < SIZE; y += 1) {
+      for (let x = 0; x < SIZE; x += 1) {
+        const index = (y * SIZE + x) * 4;
+        const dx = x - CENTER;
+        const dy = CENTER - y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > RADIUS) {
+          putPixel(image.data, index, { r: 17 / 255, g: 19 / 255, b: 24 / 255 });
+          continue;
+        }
+        const hue = normalizeHue(Math.atan2(dy, dx) * 180 / Math.PI);
+        const fraction = distance / RADIUS;
+        const rgb = space === "hsv"
+          ? hsvToSrgb({ h: hue, s: fraction, v: level })
+          : oklchToSrgb({ L: level, C: Math.min(fraction * MAX_CHROMA, boundaryChromaAt(boundary, hue)), h: hue });
+        putPixel(image.data, index, rgb);
+      }
+    }
+    context.putImageData(image, 0, 0);
+    context.save();
+    context.strokeStyle = "rgba(255,255,255,.38)";
+    context.lineWidth = 1.5;
+    context.beginPath();
+    context.arc(CENTER, CENTER, RADIUS, 0, Math.PI * 2);
+    context.stroke();
+    context.restore();
+  }
+
+  // Project a fixed-V HSV slice into OKLCH and retain its outer chroma
+  // boundary in one-degree OKLCH hue bins. Neighbor filling avoids tiny gaps
+  // caused by the discrete samples without pretending this is an analytic hull.
+  function hsvDomainInOklch() {
+    const level = Number(levelInput.value) / 100;
+    if (domainCache?.level === level) return domainCache.boundary;
+    const boundary = new Float64Array(360);
+    for (let h = 0; h < 360; h += 1) {
+      for (let step = 1; step <= 64; step += 1) {
+        const oklch = srgbToOklch(hsvToSrgb({ h, s: step / 64, v: level }));
+        const bin = Math.round(oklch.h) % 360;
+        boundary[bin] = Math.max(boundary[bin], oklch.C);
+      }
+    }
+    const filled = new Float64Array(360);
+    for (let h = 0; h < 360; h += 1) {
+      filled[h] = Math.max(boundary[(h + 359) % 360], boundary[h], boundary[(h + 1) % 360]);
+    }
+    domainCache = { level, boundary: filled };
+    return filled;
+  }
+
+  function hsvDomainMask() {
+    const level = Number(levelInput.value) / 100;
+    if (domainCache?.mask) return domainCache.mask;
+    const boundary = hsvDomainInOklch();
+    const mask = document.createElement("canvas");
+    mask.width = SIZE;
+    mask.height = SIZE;
+    const context = mask.getContext("2d");
+    const image = context.createImageData(SIZE, SIZE);
+    for (let y = 0; y < SIZE; y += 1) {
+      for (let x = 0; x < SIZE; x += 1) {
+        const dx = x - CENTER;
+        const dy = CENTER - y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > RADIUS) continue;
+        const hue = Math.round(normalizeHue(Math.atan2(dy, dx) * 180 / Math.PI)) % 360;
+        const chroma = distance / RADIUS * MAX_CHROMA;
+        if (chroma > boundary[hue]) {
+          const index = (y * SIZE + x) * 4;
+          image.data[index] = 17;
+          image.data[index + 1] = 19;
+          image.data[index + 2] = 24;
+          image.data[index + 3] = 209;
+        }
+      }
+    }
+    context.putImageData(image, 0, 0);
+    domainCache = { ...domainCache, level, boundary, mask };
+    return mask;
+  }
+
+  function drawHueLine(context, hue, color, width) {
+    const end = pointFromPolar(hue, 1);
+    context.save();
+    context.beginPath();
+    context.moveTo(CENTER, CENTER);
+    context.lineTo(end.x, end.y);
+    context.strokeStyle = color;
+    context.lineWidth = width;
+    context.shadowColor = "rgba(0,0,0,.65)";
+    context.shadowBlur = 2;
+    context.stroke();
+    context.restore();
+  }
+
+  function drawMarker(context, point, source) {
+    context.save();
+    context.beginPath();
+    context.arc(point.x, point.y, source ? 7 : 6, 0, Math.PI * 2);
+    context.fillStyle = source ? "#fff" : "rgba(255,255,255,.18)";
+    context.strokeStyle = source ? "#111" : "#fff";
+    context.lineWidth = source ? 2.5 : 2;
+    context.fill();
+    context.stroke();
+    context.restore();
+  }
+
+  function hueDifference(a, b) {
+    const difference = Math.abs(normalizeHue(a) - normalizeHue(b));
+    return Math.min(difference, 360 - difference);
+  }
+
+  function differenceColor(value) {
+    const red = [220, 55, 55];
+    const white = [245, 245, 245];
+    const green = [45, 180, 100];
+    const start = value < 1 ? red : white;
+    const end = value < 1 ? white : green;
+    const amount = value < 1 ? Math.max(0, value) : Math.min(1, value - 1);
+    return {
+      r: (start[0] * (1 - amount) + end[0] * amount) / 255,
+      g: (start[1] * (1 - amount) + end[1] * amount) / 255,
+      b: (start[2] * (1 - amount) + end[2] * amount) / 255,
+    };
+  }
+
+  function drawDifferenceWheel() {
+    const size = differenceCanvas.width;
+    const center = size / 2;
+    const radius = center - 12;
+    const value = Number(levelInput.value) / 100;
+    const image = differenceContext.createImageData(size, size);
+    for (let y = 0; y < size; y += 1) {
+      for (let x = 0; x < size; x += 1) {
+        const index = (y * size + x) * 4;
+        const dx = x - center;
+        const dy = center - y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > radius) {
+          putPixel(image.data, index, { r: 17 / 255, g: 19 / 255, b: 24 / 255 });
+          continue;
+        }
+        const h = normalizeHue(Math.atan2(dy, dx) * 180 / Math.PI);
+        const s = distance / radius;
+        const first = srgbToOklch(hsvToSrgb({ h, s, v: value }));
+        const second = srgbToOklch(hsvToSrgb({ h: h + 1, s, v: value }));
+        putPixel(image.data, index, differenceColor(hueDifference(first.h, second.h)));
+      }
+    }
+    differenceContext.putImageData(image, 0, 0);
+    differenceContext.save();
+    differenceContext.strokeStyle = "rgba(255,255,255,.38)";
+    differenceContext.lineWidth = 1.5;
+    differenceContext.beginPath();
+    differenceContext.arc(center, center, radius, 0, Math.PI * 2);
+    differenceContext.stroke();
+    differenceContext.restore();
+  }
+
+  function updateSelection() {
+    if (!selection) return;
+    const { hsv, oklch, rgb, mapped, source } = selection;
+    const hex = srgbToHex(rgb);
+    document.getElementById("hsvSwatch").style.background = hex;
+    document.getElementById("oklchSwatch").style.background = hex;
+    document.getElementById("hsvReadout").innerHTML = `H ${hsv.h.toFixed(1)}° · S ${(hsv.s * 100).toFixed(1)}% · V ${(hsv.v * 100).toFixed(1)}%<br>${hex}`;
+    document.getElementById("oklchReadout").innerHTML = `h ${oklch.h.toFixed(1)}° · C ${oklch.C.toFixed(3)} · L ${(oklch.L * 100).toFixed(1)}%<br><span class="delta">Hue-angle difference ${hueDifference(hsv.h, oklch.h).toFixed(1)}°</span>${mapped ? " · C-reduced" : ""}`;
+
+    const hsvPoint = pointFromPolar(hsv.h, hsv.s);
+    const oklchPoint = pointFromPolar(oklch.h, Math.min(oklch.C / MAX_CHROMA, 1));
+    if (source === "hsv") {
+      oklchOverlayContext.drawImage(hsvDomainMask(), 0, 0);
+      drawHueLine(hsvOverlayContext, hsv.h, "#fff", 2);
+      drawHueLine(oklchOverlayContext, hsv.h, "#ff4d5a", 3);
+      drawHueLine(oklchOverlayContext, oklch.h, "#fff", 2);
+    } else {
+      drawHueLine(oklchOverlayContext, oklch.h, "#fff", 2);
+      drawHueLine(hsvOverlayContext, oklch.h, "#ff4d5a", 3);
+      drawHueLine(hsvOverlayContext, hsv.h, "#fff", 2);
+    }
+    drawMarker(hsvOverlayContext, hsvPoint, source === "hsv");
+    drawMarker(oklchOverlayContext, oklchPoint, source === "oklch");
+  }
+
+  function selectHsv(polar) {
+    const hsv = { h: polar.hue, s: polar.fraction, v: Number(levelInput.value) / 100 };
+    const rgb = hsvToSrgb(hsv);
+    selection = { source: "hsv", hsv, oklch: srgbToOklch(rgb), rgb, mapped: false };
+    renderOverlays();
+  }
+
+  function selectOklch(polar) {
+    const requested = { L: Number(levelInput.value) / 100, C: polar.fraction * MAX_CHROMA, h: polar.hue };
+    const result = mapOklchToSrgb(requested);
+    selection = {
+      source: "oklch",
+      hsv: srgbToHsv(result.srgb),
+      oklch: requested,
+      rgb: result.srgb,
+      mapped: result.wasMapped,
+    };
+    renderOverlays();
+  }
+
+  function renderOverlays() {
+    hsvOverlayContext.clearRect(0, 0, SIZE, SIZE);
+    oklchOverlayContext.clearRect(0, 0, SIZE, SIZE);
+    updateSelection();
+  }
+
+  function renderWheels() {
+    document.getElementById("levelOut").value = `${levelInput.value}%`;
+    drawWheel(hsvContext, "hsv");
+    drawWheel(oklchContext, "oklch");
+    drawDifferenceWheel();
+    renderOverlays();
+  }
+
+  function schedulePointer(space, polar) {
+    if (!polar) return;
+    pendingPointer = { space, polar };
+    if (pointerFrame) return;
+    pointerFrame = requestAnimationFrame(() => {
+      const pending = pendingPointer;
+      pointerFrame = 0;
+      pendingPointer = null;
+      if (pending.space === "hsv") selectHsv(pending.polar);
+      else selectOklch(pending.polar);
+    });
+  }
+
+  hsvOverlay.addEventListener("pointermove", (event) => schedulePointer("hsv", polarFromEvent(event, hsvOverlay)));
+  oklchOverlay.addEventListener("pointermove", (event) => schedulePointer("oklch", polarFromEvent(event, oklchOverlay)));
+  levelInput.addEventListener("input", () => {
+    selection = null;
+    domainCache = null;
+    oklchBoundaryCache = null;
+    renderWheels();
+  });
+
+  renderWheels();
+</script>
+</body>
+</html>

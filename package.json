@@ -6,10 +6,8 @@
     "node": ">=24 <25"
   },
   "packageManager": "npm@11.17.0",
+  "type": "module",
   "scripts": {
-    "build": "tsc"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.2"
+    "test": "node --test"
   }
 }
