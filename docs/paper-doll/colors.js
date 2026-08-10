@@ -1,6 +1,16 @@
+import {
+    GAMUT_MAPPING_METHODS,
+    hexToOklch as sharedHexToOklch,
+    oklchToHex as sharedOklchToHex
+} from "../assets/colors.js";
+import {
+    buildPaperDollHarmonyHues,
+    PAPER_DOLL_HARMONY_DEFAULTS
+} from "../assets/harmony.js";
+
 export const DEFAULT_PALETTE_CONSTANTS = {
     baseH: 253, baseL: 62, baseC: 0.18,
-    anaOffset: 30, compOffset: 180, rightAngleOffset: 90, splitOffset: 30,
+    ...PAPER_DOLL_HARMONY_DEFAULTS,
     mainLightDelta: 18, mainDarkDelta: 18, mainDesat: 0.75,
     supportLightDelta: 18, supportDarkDelta: 18, supportDesat: 0.75,
     highlightLightDelta: 18, highlightDarkDelta: 18, highlightBoost: 1.25,
@@ -23,43 +33,17 @@ export const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 export const wrapHue = (h) => ((Number(h) % 360) + 360) % 360;
 // Formats numeric color values for compact display in labels and reports.
 export const fmt = (value, digits = 2) => Number(value).toFixed(digits).replace(/\.?0+$/, "");
-// Converts an 8-bit sRGB channel into linear light for color-space math.
-function srgbToLinear(v) { v = v / 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
-// Converts a linear-light channel back into an 8-bit sRGB channel.
-function linearToSrgb(v) { v = clamp(v, 0, 1); return Math.round(255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055)); }
-// Parses a six-digit hex color string into separate sRGB channels.
-function hexToRgb(hex) { const clean = hex.replace("#", ""); return { r: parseInt(clean.slice(0, 2), 16), g: parseInt(clean.slice(2, 4), 16), b: parseInt(clean.slice(4, 6), 16) }; }
-// Serializes sRGB channels into a clipped six-digit hex color string.
-function rgbToHex(r, g, b) { return "#" + [r, g, b].map(x => clamp(Math.round(x), 0, 255).toString(16).padStart(2, "0")).join(""); }
 // Converts an OKLCH color into clipped sRGB hex for browser display.
 export function oklchToHex(L100, C, H) {
-    const L = clamp(L100, 0, 100) / 100;
-    const hRad = wrapHue(H) * Math.PI / 180;
-    const a = C * Math.cos(hRad);
-    const b = C * Math.sin(hRad);
-    const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-    const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-    const s_ = L - 0.0894841775 * a - 1.2914855480 * b;
-    const l = l_ ** 3, m = m_ ** 3, s = s_ ** 3;
-    const rLin = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
-    const gLin = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
-    const bLin = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
-    return rgbToHex(linearToSrgb(rLin), linearToSrgb(gLin), linearToSrgb(bLin));
+    return sharedOklchToHex(
+        { L: clamp(L100, 0, 100) / 100, C: Math.max(0, C), h: wrapHue(H) },
+        { method: GAMUT_MAPPING_METHODS.REDUCE_CHROMA }
+    );
 }
 // Converts a browser hex color back into OKLCH controls for editing.
 export function hexToOklch(hex) {
-    const { r, g, b } = hexToRgb(hex);
-    const R = srgbToLinear(r), G = srgbToLinear(g), B = srgbToLinear(b);
-    const l = 0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B;
-    const m = 0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B;
-    const s = 0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B;
-    const l_ = Math.cbrt(l), m_ = Math.cbrt(m), s_ = Math.cbrt(s);
-    const L = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_;
-    const a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_;
-    const bb = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_;
-    const C = Math.sqrt(a * a + bb * bb);
-    const H = C < 0.00001 ? 0 : wrapHue(Math.atan2(bb, a) * 180 / Math.PI);
-    return { L100: L * 100, C, H };
+    const { L, C, h } = sharedHexToOklch(hex);
+    return { L100: L * 100, C, H: h };
 }
 // Produces the human-readable OKLCH label used in swatch rows and text output.
 export function oklchLabel(c) { return c.h === null ? `OKLCH H none L ${fmt(c.l)} C ${fmt(c.c, 4)}` : `OKLCH H ${fmt(c.h)} L ${fmt(c.l)} C ${fmt(c.c, 4)}`; }
@@ -83,21 +67,7 @@ function makeFixedImportant(label, hex) {
 // Builds all palette variants from UI constants and structured recipe data.
 export function buildPalettes(k, recipes, options = {}) {
     const H = k.baseH, L = k.baseL, C = k.baseC;
-    const hues = {
-        input: H,
-        inputDesat: H,
-        inputDesatDark: H,
-        analog1: wrapHue(H - k.anaOffset),
-        analog2: wrapHue(H + k.anaOffset),
-        complement: wrapHue(H + k.compOffset),
-        rightAngle1: wrapHue(H + k.rightAngleOffset),
-        rightAngle2: wrapHue(H - k.rightAngleOffset),
-        splitComplement1: wrapHue(H + k.compOffset - k.splitOffset),
-        splitComplement2: wrapHue(H + k.compOffset + k.splitOffset),
-        white: null,
-        black: null,
-        primary: H
-    };
+    const hues = buildPaperDollHarmonyHues(H, k);
     const labels = {
         input: "Input",
         inputDesat: "Input Desat",

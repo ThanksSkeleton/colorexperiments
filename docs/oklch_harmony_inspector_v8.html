@@ -61,18 +61,16 @@
 </section>
 </div>
 
-<script>
+<script type="module">
+import {
+  buildHarmonyInspectorHues,
+  HARMONY_INSPECTOR_HARMONY_SPECS
+} from "./assets/harmony.js";
+
 const $=id=>document.getElementById(id);
 const cv=$('wheel'),ctx=cv.getContext('2d'),size=cv.width,center=size/2,radius=size/2-32;
 const lIn=$('lIn'),sibIn=$('sibIn'),couIn=$('couIn'),grayIn=$('grayIn'),maxCIn=$('maxCIn');
 let hover=null,wheelKey='',wheelImg=null;
-
-const importantSpecs=[
- ['base','Base',0],['analogLeft','Analog -45',-45],['analogRight','Analog +45',45],
- ['rightLeft','Right -90',-90],['rightRight','Right +90',90],
- ['triadLeft','Triad -120',-120],['triadRight','Triad +120',120],
- ['complement','Complement',180],['splitLeft','Split +157.5',157.5],['splitRight','Split +202.5',202.5]
-].map(([key,label,offset])=>({key,label,offset}));
 
 const siblingSpecs=[
  {key:'lp',label:'L +18',apply:p=>({L:p.L+.18,C:p.C,h:p.h})},
@@ -81,15 +79,7 @@ const siblingSpecs=[
  {key:'cm',label:'C -0.10',apply:p=>({L:p.L,C:p.C-.10,h:p.h})}
 ];
 
-const harmonySpecs=[
- {key:'primal',label:'Primal',members:['base','complement']},
- {key:'bacLeft',label:'BAC Left',members:['base','analogLeft','complement']},
- {key:'bacRight',label:'BAC Right',members:['base','analogRight','complement']},
- {key:'baac',label:'BAAC',members:['base','analogLeft','analogRight','complement']},
- {key:'square',label:'Square',members:['base','rightLeft','complement','rightRight']},
- {key:'split',label:'Split Complement',members:['base','splitLeft','splitRight']},
- {key:'triad',label:'Triad',members:['base','triadLeft','triadRight']}
-];
+const harmonySpecs=HARMONY_INSPECTOR_HARMONY_SPECS;
 
 function wrapHue(h){let x=h%360;return x<0?x+360:x}
 function clamp01(x){return Math.max(0,Math.min(1,x))}
@@ -107,7 +97,7 @@ function fde(x){return Number.isFinite(x)?x.toFixed(3):'—'}
 function fromCanvas(x,y){let dx=x-center,dy=center-y,rr=Math.hypot(dx,dy);if(rr>radius)return null;return{L:+lIn.value/100,C:rr/radius*(+maxCIn.value),h:wrapHue(Math.atan2(dy,dx)*180/Math.PI)}}
 function point(c){let rr=c.C/(+maxCIn.value)*radius,hr=c.h*Math.PI/180;return{x:center+rr*Math.cos(hr),y:center-rr*Math.sin(hr)}}
 
-function getImportant(base){return importantSpecs.map(s=>{let req={L:base.L,C:base.C,h:wrapHue(base.h+s.offset)};return{...s,requested:req,realized:realize(req),cousinViolation:false}})}
+function getImportant(base){return buildHarmonyInspectorHues(base.h).map(s=>{let req={L:base.L,C:base.C,h:s.h};return{...s,requested:req,realized:realize(req),cousinViolation:false}})}
 function pairs(arr,fn){for(let i=0;i<arr.length;i++)for(let j=i+1;j<arr.length;j++)fn(arr[i],arr[j])}
 function evalHarmonies(imp){let map=new Map(imp.map(x=>[x.key,x])),th=+couIn.value;imp.forEach(x=>x.cousinViolation=false);return harmonySpecs.map(h=>{let mem=h.members.map(k=>map.get(k));if(!mem.every(m=>m&&m.realized.defined&&!m.realized.graySnapped))return{...h,available:false,reason:'undefined or GraySnap'};let ok=true;pairs(mem,(a,b)=>{let dist=dE(a.realized.displayLab,b.realized.displayLab);if(dist<th){ok=false;a.cousinViolation=true;b.cousinViolation=true}});return{...h,available:ok,reason:ok?'ok':'Cousin ΔE'}})}
 function getSiblings(imp){let th=+sibIn.value,out=[];for(let p of imp){if(!p.realized.defined||p.realized.graySnapped)continue;for(let s of siblingSpecs){let req=s.apply(p.requested),rz=realize(req);if(!rz.defined||rz.graySnapped)continue;let dist=dE(p.realized.displayLab,rz.displayLab);out.push({key:p.key+':'+s.key,label:p.label+' '+s.label,parent:p,requested:req,realized:rz,delta:dist,siblingViolation:dist<th})}}return out}

@@ -12,6 +12,12 @@
 
 const SRGB_EPSILON = 1e-7;
 
+export const GAMUT_MAPPING_METHODS = Object.freeze({
+  REDUCE_CHROMA: "reduce-chroma",
+  NONE: "none",
+});
+const GAMUT_MAPPING_METHOD_VALUES = new Set(Object.values(GAMUT_MAPPING_METHODS));
+
 /** Restrict a number to a closed interval. */
 export function clamp(value, min = 0, max = 1) {
   return Math.min(max, Math.max(min, value));
@@ -175,42 +181,100 @@ export function isOklchInSrgbGamut(lch, epsilon = SRGB_EPSILON) {
 }
 
 /**
- * Map OKLCH into sRGB by reducing chroma while preserving lightness and hue.
- *
- * The binary search returns both the requested and mapped colors so callers can
- * disclose gamut mapping in their UI. `iterations` controls search precision.
+ * Convert OKLCH to sRGB using an explicit gamut treatment. The result retains
+ * both requested and converted values so callers can disclose or ignore gamut
+ * handling without losing that information inside the conversion layer.
  */
-export function mapOklchToSrgb(requested, iterations = 36) {
+export function convertOklchToSrgb(requested, options = {}) {
+  const {
+    method = GAMUT_MAPPING_METHODS.REDUCE_CHROMA,
+    iterations = 36,
+  } = options;
+  if (!GAMUT_MAPPING_METHOD_VALUES.has(method)) {
+    throw new TypeError(`Unknown OKLCH gamut mapping method: ${method}`);
+  }
+
   const normalized = {
     L: requested.L,
     C: Math.max(0, requested.C),
     h: normalizeHue(requested.h),
   };
-  const requestedLinear = oklabToLinearSrgb(oklchToOklab(normalized));
+  const rawLinearSrgb = oklabToLinearSrgb(oklchToOklab(normalized));
+  const inGamut = isLinearSrgbInGamut(rawLinearSrgb);
 
-  let mapped = normalized;
-  let wasMapped = !isLinearSrgbInGamut(requestedLinear);
+  let converted = normalized;
+  let lightnessClipped = false;
+  let chromaReduced = false;
 
-  if (wasMapped) {
+  if (method !== GAMUT_MAPPING_METHODS.NONE) {
+    const L = clamp(normalized.L);
+    lightnessClipped = L !== normalized.L;
+    converted = { ...normalized, L };
+  }
+
+  if (method === GAMUT_MAPPING_METHODS.REDUCE_CHROMA
+      && !isOklchInSrgbGamut(converted)) {
     let low = 0;
-    let high = normalized.C;
+    let high = converted.C;
     for (let i = 0; i < iterations; i += 1) {
       const C = (low + high) / 2;
-      const candidate = { ...normalized, C };
+      const candidate = { ...converted, C };
       if (isOklchInSrgbGamut(candidate)) low = C;
       else high = C;
     }
-    mapped = { ...normalized, C: low };
+    converted = { ...converted, C: low };
+    chromaReduced = low !== normalized.C;
   }
 
-  const mappedLinear = oklabToLinearSrgb(oklchToOklab(mapped));
+  const convertedRawLinearSrgb = oklabToLinearSrgb(oklchToOklab(converted));
+  const shouldClipChannels = method !== GAMUT_MAPPING_METHODS.NONE;
+  const linearSrgb = shouldClipChannels
+    ? {
+        r: clamp(convertedRawLinearSrgb.r),
+        g: clamp(convertedRawLinearSrgb.g),
+        b: clamp(convertedRawLinearSrgb.b),
+      }
+    : convertedRawLinearSrgb;
   const srgb = linearToSrgb({
-    r: clamp(mappedLinear.r),
-    g: clamp(mappedLinear.g),
-    b: clamp(mappedLinear.b),
+    r: linearSrgb.r,
+    g: linearSrgb.g,
+    b: linearSrgb.b,
   });
 
-  return { requested: normalized, mapped, srgb, wasMapped };
+  const wasClipped = lightnessClipped || chromaReduced;
+  const clipMethods = [
+    ...(lightnessClipped ? ["clip-lightness"] : []),
+    ...(chromaReduced ? [GAMUT_MAPPING_METHODS.REDUCE_CHROMA] : []),
+  ];
+  return {
+    requested: normalized,
+    converted,
+    rawLinearSrgb,
+    convertedRawLinearSrgb,
+    linearSrgb,
+    srgb,
+    inGamut,
+    wasClipped,
+    lightnessClipped,
+    chromaReduced,
+    method,
+    clipMethod: clipMethods.length === 1 ? clipMethods[0] : null,
+    clipMethods,
+    // Compatibility aliases for consumers of the original chroma-mapping API.
+    mapped: converted,
+    wasMapped: chromaReduced,
+  };
+}
+
+/**
+ * Compatibility wrapper for the original chroma-reduction API.
+ * Prefer `convertOklchToSrgb()` when the clipping method is consumer-selected.
+ */
+export function mapOklchToSrgb(requested, iterations = 36) {
+  return convertOklchToSrgb(requested, {
+    method: GAMUT_MAPPING_METHODS.REDUCE_CHROMA,
+    iterations,
+  });
 }
 
 /** Parse #RGB or #RRGGBB into normalized gamma-encoded sRGB. */
@@ -234,8 +298,8 @@ export function srgbToHex({ r, g, b }) {
 }
 
 /** Convert a display-mapped OKLCH color directly to #RRGGBB. */
-export function oklchToHex(lch) {
-  return srgbToHex(mapOklchToSrgb(lch).srgb);
+export function oklchToHex(lch, options) {
+  return srgbToHex(convertOklchToSrgb(lch, options).srgb);
 }
 
 /** Convert #RGB or #RRGGBB directly to OKLCH. */
