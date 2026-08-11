@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tonal Scheme Inspector</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #14171c;
+      --panel: #1d222a;
+      --panel-2: #252c36;
+      --line: #3a4452;
+      --text: #edf1f6;
+      --muted: #aeb8c6;
+      --accent: #72b8ff;
+      --warn: #ffd76a;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); }
+    main { width: min(1420px, 100%); margin: auto; padding: 20px; }
+    h1, h2, p { margin: 0; }
+    header { display: grid; gap: 7px; margin-bottom: 16px; }
+    header p, .hint { color: var(--muted); }
+    .controls { display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 14px; margin-bottom: 16px; }
+    .panel { border: 1px solid var(--line); border-radius: 13px; background: var(--panel); padding: 15px; }
+    .control { display: grid; gap: 9px; }
+    label { display: flex; justify-content: space-between; color: var(--muted); font-size: .84rem; }
+    output { color: var(--text); font-weight: 750; font-variant-numeric: tabular-nums; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+    .layout { display: grid; grid-template-columns: minmax(480px, 660px) minmax(480px, 1fr); gap: 16px; align-items: start; }
+    .panel-head { display: grid; gap: 5px; margin-bottom: 12px; }
+    .panel-head h2 { font-size: 1rem; }
+    .panel-head p { font-size: .8rem; }
+    .plane-layout { display: grid; grid-template-columns: 24px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 24px; gap: 7px; }
+    .axis-y, .axis-x { color: var(--muted); font-size: .72rem; display: flex; align-items: center; justify-content: center; }
+    .axis-y { writing-mode: vertical-rl; transform: rotate(180deg); }
+    .plane { position: relative; min-width: 0; touch-action: none; }
+    canvas { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 9px; cursor: crosshair; }
+    #overlay { position: absolute; inset: 0; }
+    .readout { margin-top: 10px; color: var(--muted); font: .78rem/1.45 ui-monospace, monospace; }
+    .swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+    .swatch-card { min-width: 0; padding: 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
+    .swatch-card.input { outline: 2px solid var(--accent); }
+    .swatch { height: 70px; border: 1px solid #ffffff2e; border-radius: 8px; margin-bottom: 7px; background: #111; }
+    .swatch { position: relative; overflow: hidden; }
+    .rejected-mark { position: absolute; inset: 0; display: grid; place-items: center; color: #ff4f5f; font-size: 4.7rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 3px #000; }
+    .swatch-title { display: flex; justify-content: space-between; gap: 5px; font-size: .75rem; font-weight: 750; }
+    .offset { color: var(--muted); font-weight: 500; }
+    .meta { margin-top: 4px; color: var(--muted); font: .68rem/1.4 ui-monospace, monospace; overflow-wrap: anywhere; }
+    .status { color: var(--warn); }
+    @media (max-width: 1020px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) { .controls { grid-template-columns: 1fr; } .swatches { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Tonal Scheme Inspector</h1>
+    <p>Explore potential Siblings as a 3×3 lightness/chroma neighborhood around an input color at a fixed hue.</p>
+  </header>
+
+  <section class="controls">
+    <div class="panel control">
+      <label for="hue">Hue <output id="hueOut">250°</output></label>
+      <input id="hue" type="range" min="0" max="359" step="1" value="250">
+    </div>
+    <div class="panel control">
+      <label for="deltaL">DeltaL <output id="deltaLOut">0.15</output></label>
+      <input id="deltaL" type="range" min="0" max="0.4" step="0.01" value="0.15">
+    </div>
+    <div class="panel control">
+      <label for="deltaC">DeltaC <output id="deltaCOut">0.08</output></label>
+      <input id="deltaC" type="range" min="0" max="0.2" step="0.01" value="0.08">
+    </div>
+  </section>
+
+  <section class="layout">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>OKLCH Lightness / Chroma Plane</h2>
+        <p class="hint">Move over the square to choose the center color. Dark regions are outside sRGB before snapping.</p>
+      </div>
+      <div class="plane-layout">
+        <div class="axis-y">Lightness 0 → 1</div>
+        <div id="plane" class="plane">
+          <canvas id="field" width="600" height="600"></canvas>
+          <canvas id="overlay" width="600" height="600"></canvas>
+        </div>
+        <span></span>
+        <div class="axis-x">Chroma 0 → 0.3</div>
+      </div>
+      <div id="inputReadout" class="readout"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Potential Siblings</h2>
+        <p class="hint">Columns vary chroma; rows vary lightness. The center is the selected input color.</p>
+      </div>
+      <div id="swatches" class="swatches"></div>
+    </section>
+  </section>
+</main>
+
+<script type="module">
+import {
+  convertOklchToSrgb,
+  isOklchInSrgbGamut,
+  oklchToSrgb,
+  srgbToHex
+} from "./assets/colors.js";
+
+const MAX_C = 0.3;
+const GRAY_SNAP_C = 0.04;
+const SNAPPED_C_CONFLICT = 0.06;
+const SNAPPED_L_CONFLICT = 0.12;
+const field = document.getElementById("field");
+const fieldContext = field.getContext("2d");
+const overlay = document.getElementById("overlay");
+const overlayContext = overlay.getContext("2d");
+const plane = document.getElementById("plane");
+const hueInput = document.getElementById("hue");
+const deltaLInput = document.getElementById("deltaL");
+const deltaCInput = document.getElementById("deltaC");
+const hueOut = document.getElementById("hueOut");
+const deltaLOut = document.getElementById("deltaLOut");
+const deltaCOut = document.getElementById("deltaCOut");
+const swatches = document.getElementById("swatches");
+const inputReadout = document.getElementById("inputReadout");
+
+let inputColor = { L: 0.62, C: 0.16, h: Number(hueInput.value) };
+
+function byte(channel) {
+  return Math.round(Math.max(0, Math.min(1, channel)) * 255);
+}
+
+function formatLch(color) {
+  const hue = color.C === 0 ? "none" : `${color.h.toFixed(1)}°`;
+  return `oklch(${color.L.toFixed(3)} ${color.C.toFixed(3)} ${hue})`;
+}
+
+function graySnap(color) {
+  if (color.C < GRAY_SNAP_C) {
+    return { color: { ...color, C: 0, h: 0 }, graySnapped: true };
+  }
+  return { color, graySnapped: false };
+}
+
+function renderField() {
+  const hue = Number(hueInput.value);
+  const image = fieldContext.createImageData(field.width, field.height);
+  let pixel = 0;
+
+  for (let y = 0; y < field.height; y += 1) {
+    const L = 1 - y / (field.height - 1);
+    for (let x = 0; x < field.width; x += 1) {
+      const C = x / (field.width - 1) * MAX_C;
+      const requested = { L, C, h: hue };
+      const snapped = graySnap(requested).color;
+      if (isOklchInSrgbGamut(snapped)) {
+        const rgb = oklchToSrgb(snapped);
+        image.data[pixel] = byte(rgb.r);
+        image.data[pixel + 1] = byte(rgb.g);
+        image.data[pixel + 2] = byte(rgb.b);
+      } else {
+        image.data[pixel] = 18;
+        image.data[pixel + 1] = 21;
+        image.data[pixel + 2] = 27;
+      }
+      image.data[pixel + 3] = 255;
+      pixel += 4;
+    }
+  }
+  fieldContext.putImageData(image, 0, 0);
+}
+
+function candidates() {
+  const deltaL = Number(deltaLInput.value);
+  const deltaC = Number(deltaCInput.value);
+  const rows = [deltaL, 0, -deltaL];
+  const columns = [-deltaC, 0, deltaC];
+  const result = [];
+
+  for (const lightnessOffset of rows) {
+    for (const chromaOffset of columns) {
+      result.push({
+        lightnessOffset,
+        chromaOffset,
+        requested: {
+          L: inputColor.L + lightnessOffset,
+          C: inputColor.C + chromaOffset,
+          h: inputColor.h
+        }
+      });
+    }
+  }
+  return result;
+}
+
+function offsetLabel(value, symbol) {
+  if (value === 0) return symbol;
+  return `${symbol}${value > 0 ? "+" : ""}${value.toFixed(2)}`;
+}
+
+function realizedCandidates(items) {
+  const evaluated = items.map(item => {
+    const invalidChroma = item.requested.C < 0;
+    const snapped = invalidChroma ? null : graySnap(item.requested);
+    const result = snapped ? convertOklchToSrgb(snapped.color) : null;
+    return { ...item, invalidChroma, snapped, result, excluded: false, exclusionReason: "" };
+  });
+
+  const conflicts = (left, right) =>
+    Math.abs(left.result.converted.C - right.result.converted.C) < SNAPPED_C_CONFLICT
+    && Math.abs(left.result.converted.L - right.result.converted.L) < SNAPPED_L_CONFLICT;
+
+  const nonChromaSnapped = evaluated.filter(item =>
+    item.result && !item.snapped.graySnapped && !item.result.chromaReduced);
+  const chromaSnapped = [];
+
+  for (const item of evaluated) {
+    if (!item.result) continue;
+    if (item.snapped.graySnapped) {
+      item.excluded = true;
+      item.exclusionReason = "Excluded: Gray-snapped";
+      continue;
+    }
+    if (!item.result.chromaReduced) continue;
+    if (nonChromaSnapped.some(other => other !== item && conflicts(item, other))) {
+      item.excluded = true;
+      item.exclusionReason = "Excluded: too close to a non-snapped color";
+      continue;
+    }
+    chromaSnapped.push(item);
+  }
+
+  for (let i = 0; i < chromaSnapped.length; i += 1) {
+    for (let j = i + 1; j < chromaSnapped.length; j += 1) {
+      const left = chromaSnapped[i];
+      const right = chromaSnapped[j];
+      if (!conflicts(left, right)) continue;
+
+      const leftReduction = left.requested.C - left.result.converted.C;
+      const rightReduction = right.requested.C - right.result.converted.C;
+      const rejectLeft = left.requested.C > right.requested.C
+        || (left.requested.C === right.requested.C && leftReduction > rightReduction);
+      const rejected = rejectLeft ? left : right;
+      rejected.excluded = true;
+      rejected.exclusionReason = "Excluded: more snapped member of a close C-snapped pair";
+    }
+  }
+  return evaluated;
+}
+
+function renderSwatches(items) {
+  swatches.innerHTML = "";
+  for (const item of items) {
+    const { result, snapped } = item;
+    const card = document.createElement("article");
+    const isInput = item.lightnessOffset === 0 && item.chromaOffset === 0;
+    card.className = `swatch-card${isInput ? " input" : ""}`;
+
+    const swatch = document.createElement("div");
+    swatch.className = "swatch";
+    swatch.style.background = result ? srgbToHex(result.srgb) : "transparent";
+    if (item.excluded) {
+      const rejectedMark = document.createElement("span");
+      rejectedMark.className = "rejected-mark";
+      rejectedMark.textContent = "×";
+      rejectedMark.title = item.exclusionReason;
+      swatch.appendChild(rejectedMark);
+    }
+
+    const title = document.createElement("div");
+    title.className = "swatch-title";
+    title.innerHTML = `<span>${isInput ? "Input" : "Sibling"}</span><span class="offset">${offsetLabel(item.lightnessOffset, "L")} · ${offsetLabel(item.chromaOffset, "C")}</span>`;
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    if (!result) {
+      meta.innerHTML = `${formatLch(item.requested)}<br><span class="status">Undefined: chroma below zero</span>`;
+    } else {
+      const statuses = [];
+      if (snapped.graySnapped) statuses.push("Gray-snapped");
+      if (result.lightnessClipped) statuses.push("L-clipped");
+      if (result.chromaReduced) statuses.push("C-snapped");
+      if (item.exclusionReason) statuses.push(item.exclusionReason);
+      meta.innerHTML = `Requested ${formatLch(item.requested)}<br>Displayed ${formatLch(result.converted)} · ${srgbToHex(result.srgb)}${statuses.length ? `<br><span class="status">${statuses.join(" · ")}</span>` : ""}`;
+    }
+
+    card.append(swatch, title, meta);
+    swatches.appendChild(card);
+  }
+}
+
+function pointFor(color) {
+  return {
+    x: color.C / MAX_C * overlay.width,
+    y: (1 - color.L) * overlay.height
+  };
+}
+
+function renderOverlay(items) {
+  overlayContext.clearRect(0, 0, overlay.width, overlay.height);
+  for (const item of items) {
+    if (item.requested.C < 0) continue;
+    const point = pointFor(item.requested);
+    if (point.x < 0 || point.x > overlay.width || point.y < 0 || point.y > overlay.height) continue;
+    const isInput = item.lightnessOffset === 0 && item.chromaOffset === 0;
+    overlayContext.beginPath();
+    if (isInput) {
+      overlayContext.arc(point.x, point.y, 8, 0, Math.PI * 2);
+    } else {
+      overlayContext.rect(point.x - 5, point.y - 5, 10, 10);
+    }
+    overlayContext.fillStyle = "white";
+    overlayContext.strokeStyle = isOklchInSrgbGamut(graySnap(item.requested).color) ? "#111820" : "#ffd76a";
+    overlayContext.lineWidth = isInput ? 3 : 2;
+    overlayContext.fill();
+    overlayContext.stroke();
+  }
+}
+
+function renderCandidates() {
+  inputColor.h = Number(hueInput.value);
+  const items = realizedCandidates(candidates());
+  renderSwatches(items);
+  renderOverlay(items);
+  const snapped = graySnap(inputColor);
+  const mapped = convertOklchToSrgb(snapped.color);
+  inputReadout.textContent = `Input: ${formatLch(inputColor)} · ${srgbToHex(mapped.srgb)}${snapped.graySnapped ? " · Gray-snapped" : ""}${mapped.chromaReduced ? " · C-snapped for display" : ""}`;
+}
+
+function updateOutputs() {
+  hueOut.value = `${Number(hueInput.value).toFixed(0)}°`;
+  deltaLOut.value = Number(deltaLInput.value).toFixed(2);
+  deltaCOut.value = Number(deltaCInput.value).toFixed(2);
+}
+
+function chooseInput(event) {
+  const rect = plane.getBoundingClientRect();
+  const x = Math.max(0, Math.min(rect.width, event.clientX - rect.left));
+  const y = Math.max(0, Math.min(rect.height, event.clientY - rect.top));
+  inputColor = {
+    L: 1 - y / rect.height,
+    C: x / rect.width * MAX_C,
+    h: Number(hueInput.value)
+  };
+  renderCandidates();
+}
+
+plane.addEventListener("pointermove", chooseInput);
+plane.addEventListener("pointerdown", chooseInput);
+hueInput.addEventListener("input", () => {
+  updateOutputs();
+  renderField();
+  renderCandidates();
+});
+[deltaLInput, deltaCInput].forEach(input => input.addEventListener("input", () => {
+  updateOutputs();
+  renderCandidates();
+}));
+
+updateOutputs();
+renderField();
+renderCandidates();
+</script>
+</body>
+</html>
