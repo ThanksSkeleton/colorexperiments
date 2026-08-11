@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MUNSEL SNAP</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #101216;
+      color: #f2f3f5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 40px auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 4vw, 40px);
+      letter-spacing: 0.08em;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 0 0 28px;
+      color: #b9bec8;
+      line-height: 1.5;
+    }
+
+    .toys {
+      display: grid;
+      grid-template-columns: minmax(320px, 1fr) minmax(280px, 0.72fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    figure {
+      min-width: 0;
+      margin: 0;
+      padding: 16px;
+      border: 1px solid #343943;
+      border-radius: 12px;
+      background: #191c22;
+    }
+
+    figcaption {
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .canvas-frame {
+      position: relative;
+      border: 1px solid #555c68;
+      background-color: #15171b;
+      background-image:
+        linear-gradient(45deg, #202329 25%, transparent 25%),
+        linear-gradient(-45deg, #202329 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #202329 75%),
+        linear-gradient(-45deg, transparent 75%, #202329 75%);
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+      background-size: 16px 16px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .axis-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 7px;
+      color: #969da9;
+      font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .axis-y {
+      margin-top: 5px;
+      color: #969da9;
+      font-size: 12px;
+    }
+
+    .readout {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 24px;
+      padding: 16px;
+      border: 1px solid #343943;
+      border-radius: 12px;
+      background: #191c22;
+    }
+
+    .swatch {
+      flex: 0 0 64px;
+      width: 64px;
+      height: 64px;
+      border: 1px solid #666d79;
+      border-radius: 8px;
+      background: transparent;
+    }
+
+    .values {
+      font: 14px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .status {
+      color: #b9bec8;
+    }
+
+    @media (max-width: 760px) {
+      .toys { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>MUNSEL SNAP</h1>
+    <p class="intro">
+      Explore two linked slices through OKLCH. Move across the fixed-lightness slice to
+      choose hue by angle and chroma by radius; move across the fixed-hue slice to choose chroma and
+      lightness. Checkered regions fall outside the sRGB gamut.
+    </p>
+
+    <div class="toys">
+      <figure>
+        <figcaption>Horizontal fixed-lightness slice</figcaption>
+        <div class="canvas-frame">
+          <canvas id="lightnessSlice" width="480" height="480" aria-label="Polar OKLCH hue and chroma at fixed lightness"></canvas>
+        </div>
+        <div class="axis-row"><span>Center: C 0</span><span>Radius: chroma</span><span>Edge: C 0.40</span></div>
+        <div class="axis-y">Hue is angular: 0° right · 90° up · 180° left · 270° down</div>
+      </figure>
+
+      <figure>
+        <figcaption>Vertical fixed-hue slice</figcaption>
+        <div class="canvas-frame">
+          <canvas id="hueSlice" width="320" height="480" aria-label="OKLCH chroma and lightness at fixed hue"></canvas>
+        </div>
+        <div class="axis-row"><span>C 0</span><span>Chroma →</span><span>C 0.40</span></div>
+        <div class="axis-y">Lightness: 1 at top · 0 at bottom</div>
+      </figure>
+    </div>
+
+    <section class="readout" aria-live="polite">
+      <div id="swatch" class="swatch"></div>
+      <div class="values">
+        <div id="oklchValue"></div>
+        <div id="hexValue"></div>
+        <div id="gamutStatus" class="status"></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import {
+      clamp,
+      isLinearSrgbInGamut,
+      linearToSrgb,
+      oklabToLinearSrgb,
+      oklchToOklab,
+      srgbToHex,
+    } from "./assets/colors.js";
+
+    const MAX_CHROMA = 0.4;
+    let savedColor = { L: 0.7, C: 0.14, h: 30 };
+    let proposedColor = null;
+    const lightnessCanvas = document.querySelector("#lightnessSlice");
+    const hueCanvas = document.querySelector("#hueSlice");
+    const lightnessContext = lightnessCanvas.getContext("2d");
+    const hueContext = hueCanvas.getContext("2d");
+    let frameRequested = false;
+
+    function colorAt(L, C, h) {
+      const linear = oklabToLinearSrgb(oklchToOklab({ L, C, h }));
+      if (!isLinearSrgbInGamut(linear)) return null;
+      return linearToSrgb(linear);
+    }
+
+    function byte(channel) {
+      return Math.round(clamp(channel) * 255);
+    }
+
+    function renderPixels(canvas, colorForPixel) {
+      const context = canvas.getContext("2d");
+      const image = context.createImageData(canvas.width, canvas.height);
+
+      for (let y = 0; y < canvas.height; y += 1) {
+        for (let x = 0; x < canvas.width; x += 1) {
+          const rgb = colorForPixel(x, y);
+          const offset = (y * canvas.width + x) * 4;
+          if (rgb) {
+            image.data[offset] = byte(rgb.r);
+            image.data[offset + 1] = byte(rgb.g);
+            image.data[offset + 2] = byte(rgb.b);
+            image.data[offset + 3] = 255;
+          }
+        }
+      }
+      context.putImageData(image, 0, 0);
+    }
+
+    function drawSelection(context, canvas, x, y, lineDirection, alpha) {
+      context.save();
+      context.globalAlpha = alpha;
+      context.strokeStyle = "rgba(0, 0, 0, 0.75)";
+      context.lineWidth = 5;
+      context.beginPath();
+      if (lineDirection === "vertical") {
+        context.moveTo(x, 0);
+        context.lineTo(x, canvas.height);
+      } else {
+        context.moveTo(0, y);
+        context.lineTo(canvas.width, y);
+      }
+      context.stroke();
+
+      context.strokeStyle = "white";
+      context.lineWidth = 2;
+      context.beginPath();
+      if (lineDirection === "vertical") {
+        context.moveTo(x, 0);
+        context.lineTo(x, canvas.height);
+      } else {
+        context.moveTo(0, y);
+        context.lineTo(canvas.width, y);
+      }
+      context.stroke();
+
+      context.fillStyle = "white";
+      context.strokeStyle = "black";
+      context.lineWidth = 2;
+      context.beginPath();
+      context.arc(x, y, 5, 0, Math.PI * 2);
+      context.fill();
+      context.stroke();
+      context.restore();
+    }
+
+    function drawPolarSelection(context, canvas, color, alpha) {
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.min(canvas.width, canvas.height) / 2;
+      const angle = color.h * Math.PI / 180;
+      const edgeX = centerX + Math.cos(angle) * radius;
+      const edgeY = centerY - Math.sin(angle) * radius;
+      const selectedRadius = color.C / MAX_CHROMA * radius;
+      const selectedX = centerX + Math.cos(angle) * selectedRadius;
+      const selectedY = centerY - Math.sin(angle) * selectedRadius;
+
+      context.save();
+      context.globalAlpha = alpha;
+      context.strokeStyle = "rgba(0, 0, 0, 0.75)";
+      context.lineWidth = 5;
+      context.beginPath();
+      context.moveTo(centerX, centerY);
+      context.lineTo(edgeX, edgeY);
+      context.stroke();
+
+      context.strokeStyle = "white";
+      context.lineWidth = 2;
+      context.beginPath();
+      context.moveTo(centerX, centerY);
+      context.lineTo(edgeX, edgeY);
+      context.stroke();
+
+      context.fillStyle = "white";
+      context.strokeStyle = "black";
+      context.lineWidth = 2;
+      context.beginPath();
+      context.arc(selectedX, selectedY, 5, 0, Math.PI * 2);
+      context.fill();
+      context.stroke();
+      context.restore();
+    }
+
+    function drawSavedChromaGuides() {
+      const polarCenterX = lightnessCanvas.width / 2;
+      const polarCenterY = lightnessCanvas.height / 2;
+      const polarRadius = Math.min(lightnessCanvas.width, lightnessCanvas.height) / 2;
+      const savedRadius = savedColor.C / MAX_CHROMA * polarRadius;
+      const savedX = savedColor.C / MAX_CHROMA * (hueCanvas.width - 1);
+
+      lightnessContext.save();
+      lightnessContext.globalAlpha = 0.5;
+      lightnessContext.strokeStyle = "white";
+      lightnessContext.lineWidth = 2;
+      lightnessContext.setLineDash([3, 6]);
+      lightnessContext.beginPath();
+      lightnessContext.arc(polarCenterX, polarCenterY, savedRadius, 0, Math.PI * 2);
+      lightnessContext.stroke();
+      lightnessContext.restore();
+
+      hueContext.save();
+      hueContext.globalAlpha = 0.5;
+      hueContext.strokeStyle = "white";
+      hueContext.lineWidth = 2;
+      hueContext.setLineDash([3, 6]);
+      hueContext.beginPath();
+      hueContext.moveTo(savedX, 0);
+      hueContext.lineTo(savedX, hueCanvas.height);
+      hueContext.stroke();
+      hueContext.restore();
+    }
+
+    function render() {
+      frameRequested = false;
+      const displayedColor = proposedColor ?? savedColor;
+
+      const centerX = lightnessCanvas.width / 2;
+      const centerY = lightnessCanvas.height / 2;
+      const radius = Math.min(lightnessCanvas.width, lightnessCanvas.height) / 2;
+      renderPixels(lightnessCanvas, (x, y) => {
+        const dx = x + 0.5 - centerX;
+        const dy = centerY - (y + 0.5);
+        const distance = Math.hypot(dx, dy);
+        if (distance > radius) return null;
+        const C = distance / radius * MAX_CHROMA;
+        const h = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360;
+        return colorAt(displayedColor.L, C, h);
+      });
+      renderPixels(hueCanvas, (x, y) => colorAt(
+        1 - y / (hueCanvas.height - 1),
+        x / (hueCanvas.width - 1) * MAX_CHROMA,
+        displayedColor.h,
+      ));
+      drawSavedChromaGuides();
+
+      drawPolarSelection(lightnessContext, lightnessCanvas, savedColor, 1);
+      if (proposedColor) {
+        drawPolarSelection(lightnessContext, lightnessCanvas, proposedColor, 0.5);
+      }
+
+      drawSelection(
+        hueContext,
+        hueCanvas,
+        savedColor.C / MAX_CHROMA * (hueCanvas.width - 1),
+        (1 - savedColor.L) * (hueCanvas.height - 1),
+        "horizontal",
+        1,
+      );
+      if (proposedColor) {
+        drawSelection(
+          hueContext,
+          hueCanvas,
+          proposedColor.C / MAX_CHROMA * (hueCanvas.width - 1),
+          (1 - proposedColor.L) * (hueCanvas.height - 1),
+          "horizontal",
+          0.5,
+        );
+      }
+
+      const selected = colorAt(displayedColor.L, displayedColor.C, displayedColor.h);
+      const label = proposedColor ? "PROPOSED" : "SAVED";
+      document.querySelector("#oklchValue").textContent =
+        `${label}  OKLCH L ${displayedColor.L.toFixed(3)}  C ${displayedColor.C.toFixed(3)}  H ${displayedColor.h.toFixed(1)}°`;
+      document.querySelector("#hexValue").textContent = selected
+        ? `sRGB   ${srgbToHex(selected).toUpperCase()}`
+        : "sRGB   —";
+      document.querySelector("#gamutStatus").textContent = proposedColor
+        ? "Click to save this color"
+        : "Move over an in-gamut color to propose it";
+      document.querySelector("#swatch").style.background = selected
+        ? srgbToHex(selected)
+        : "transparent";
+    }
+
+    function scheduleRender() {
+      if (!frameRequested) {
+        frameRequested = true;
+        requestAnimationFrame(render);
+      }
+    }
+
+    function canvasPosition(event, canvas) {
+      const bounds = canvas.getBoundingClientRect();
+      return {
+        x: clamp((event.clientX - bounds.left) / bounds.width),
+        y: clamp((event.clientY - bounds.top) / bounds.height),
+      };
+    }
+
+    function trackPointer(canvas, propose) {
+      canvas.addEventListener("pointermove", (event) => {
+        const candidate = propose(canvasPosition(event, canvas));
+        proposedColor = candidate && colorAt(candidate.L, candidate.C, candidate.h)
+          ? candidate
+          : null;
+        scheduleRender();
+      });
+      canvas.addEventListener("pointerleave", () => {
+        proposedColor = null;
+        scheduleRender();
+      });
+      canvas.addEventListener("click", () => {
+        if (!proposedColor) return;
+        savedColor = { ...proposedColor };
+        proposedColor = null;
+        scheduleRender();
+      });
+    }
+
+    trackPointer(lightnessCanvas, ({ x, y }) => {
+      const dx = x - 0.5;
+      const dy = 0.5 - y;
+      if (Math.hypot(dx, dy) > 0.5) return null;
+      return {
+        L: savedColor.L,
+        C: clamp(Math.hypot(dx, dy) / 0.5) * MAX_CHROMA,
+        h: (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360,
+      };
+    });
+
+    trackPointer(hueCanvas, ({ x, y }) => {
+      return {
+        L: 1 - y,
+        C: x * MAX_CHROMA,
+        h: savedColor.h,
+      };
+    });
+
+    render();
+  </script>
+</body>
+</html>
