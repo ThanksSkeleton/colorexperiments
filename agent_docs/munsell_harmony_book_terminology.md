@@ -8,6 +8,11 @@ Unless a definition explicitly says otherwise, this exploration uses a simplifie
 
 For Opposites and all derived forms of Opposites, an achromatic input returns `[undefined, undefined]`. An achromatic target is not a valid Opposite; if no chromatic target can be found, the target is `undefined`.
 
+## Rules
+
+- Chroma 2 is treated as achromatic except when selecting an Off-White 2, Off-Black 2, or Off-Gray 2. Therefore, Chroma 2 is not eligible for an extended palette or as an Inferior Brightest.
+- If no Inferior Brightest can be found for a Superior Brightest, exclude that Superior Brightest's Munsell Value column and recalculate the Superior Brightest and Inferior Brightest. Repeat this process until a valid pair is found or no eligible Value columns remain.
+
 ## Brightest
 
 A family of context-dependent palette anchors. A Brightest may be a Superior Brightest, an Equal-Lightness Brightest, or an Inferior Brightest. Palette rules must specify which Brightest relationship they use.
@@ -36,13 +41,13 @@ Given a specific color, a specific harmony, and a specific harmony member, first
 
 Given a specific color, a specific harmony, and a specific harmony member, first seek its Opposite. If the Opposite is out of gamut, reduce the Chroma of both requested coordinates in Steps of 2, without changing their Value, until in-gamut samples for both hues are found. Return the resulting ordered pair, whose members remain Opposites. Chroma 0 is not eligible. If no shared chromatic coordinate exists at that Value, return `[undefined, undefined]`.
 
-## Off-White 2 / Off-White 4 / Off-Black 2 / Off-Black 4 / Off-Gray 2 / Off-Gray 4
+## Off-White 2 / Off-Black 2 / Off-Gray 2
 
-For a given hue, these are two levels of each Off color, having exactly Chroma 2 or exactly Chroma 4:
+For a given hue, each Off color has exactly Chroma 2:
 
-- **Off-White 2 / Off-White 4:** the color at the named Chroma with the greatest Value.
-- **Off-Black 2 / Off-Black 4:** the color at the named Chroma with the least Value.
-- **Off-Gray 2 / Off-Gray 4:** the color at the named Chroma and Value 6.
+- **Off-White 2:** the color at Chroma 2 with the greatest Value.
+- **Off-Black 2:** among the colors at Chroma 2 with Values from 0.7 through 0.9, inclusive, the color with the least Value. If no Chroma 2 member exists within that Value range, the Off-Black does not exist and the result is `undefined`.
+- **Off-Gray 2:** the color at Chroma 2 and Value 6.
 
 If the required sample does not exist, the result is `undefined`.
 
@@ -82,17 +87,13 @@ Given the Superior Brightest of a main hue and a supporting hue in a harmony, th
 
 Given a main hue and a supporting hue in a harmony, the pair containing the main hue's Superior Brightest and the supporting hue's Inferior Brightest. This pair is the anchor returned by a Hierarchical Tonal Relationship request.
 
-## Malformed Off-Black
-
-An Off-Black 2 or Off-Black 4 that is outside the Dark Region. Each level may be Malformed independently. This is intentionally permitted for later data validation.
-
 ## Basic Extended Palette
 
-Starting from each Brightest color in a hue-harmony member pair, move two Chroma Steps lower (`C - 4`), then collect colors at Value offsets of `0`, `+3`, `+6`, `+9`, `-3`, `-6`, and `-9` Steps from that new coordinate. Positive Value offsets are lighter and negative Value offsets are darker. Exclude out-of-gamut colors, colors in the Dark Region, achromatic colors, and colors for which the Chroma reduction crosses through the achromatic axis into the other displayed hue.
+Starting from each Brightest color in a hue-harmony member pair, use the Brightest's own Chroma line (`C`) and expand in both Chroma directions beginning two Chroma Steps away: `C - 4`, `C - 6`, `C - 8`, and so on toward the achromatic axis, and `C + 4`, `C + 6`, `C + 8`, and so on toward the edge of the book. The immediately adjacent `C - 2` and `C + 2` lines are not used. On each eligible line, begin at the Brightest's Value and expand in both Value directions in increments of three Value Steps: `0`, `+3`, `-3`, `+6`, `-6`, and so on until the edges of the book are reached. Positive Value offsets are lighter and negative Value offsets are darker. Exclude out-of-gamut colors, colors in the Dark Region, achromatic colors, and colors for which the Chroma reduction crosses through the achromatic axis into the other displayed hue.
 
 ## Malformed Basic Extended Palette
 
-A Basic Extended Palette in which moving two Chroma Steps lower from one of the Brightest colors reaches Chroma 0 or crosses the achromatic axis into the other displayed hue. No additional extended colors are generated for that hue, so the resulting palette has extended colors from only the other hue.
+A Basic Extended Palette is Malformed for a hue only when expanding from that hue's Brightest in every eligible Chroma and Value direction produces no colors. Reaching Chroma 0, crossing the achromatic axis, encountering Chroma 2, entering the Dark Region, reaching an out-of-gamut coordinate, or reaching an edge of the book excludes only the affected coordinate or direction; it does not prevent generation in the remaining directions. If no eligible colors remain after all exclusions, include a blank for that hue and report an error.
 
 ## One-Sided Basic Extended Palette
 
@@ -100,4 +101,4 @@ A Basic Extended Palette containing either only its equal-and-darker colors (Val
 
 ## Advanced Extended Palette
 
-A Basic Extended Palette with Off-White and Off-Black colors added. Whether level 2 or level 4 Off colors are used is a context-sensitive variant.
+A Basic Extended Palette with Off-White 2, Off-Black 2, and Off-Gray 2 colors added.

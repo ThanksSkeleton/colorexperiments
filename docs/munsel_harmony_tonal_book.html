@@ -16,13 +16,13 @@
     body { margin: 0; }
 
     main {
-      width: min(1800px, calc(100% - 32px));
+      width: min(1900px, calc(100% - 32px));
       margin: 36px auto;
     }
 
     .workspace {
       display: grid;
-      grid-template-columns: minmax(290px, 390px) minmax(0, 1fr);
+      grid-template-columns: minmax(400px, 500px) minmax(0, 1fr);
       gap: 18px;
       align-items: start;
     }
@@ -38,22 +38,104 @@
     .sidebar-content { padding: 22px; }
 
     h1 {
-      margin: 0 0 8px;
+      margin: 0;
       font-size: clamp(26px, 5vw, 44px);
       letter-spacing: 0.08em;
     }
 
-    .intro {
-      max-width: 850px;
-      margin: 0;
-      color: #b9bec8;
-      line-height: 1.5;
+    .palettes {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .palette-panel {
+      padding: 13px;
+      border: 1px solid #343943;
+      border-radius: 9px;
+      background: #15181e;
+    }
+
+    .palette-panel h2 { margin: 0 0 10px; font-size: 15px; }
+
+    .palette-result { display: grid; }
+
+    .palette-groups { min-height: 1010px; }
+
+    .palette-group + .palette-group { margin-top: 10px; }
+
+    .palette-group-title {
+      margin: 0 0 5px;
+      color: #858c98;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .palette-colors {
+      display: grid;
+      grid-template-columns: repeat(7, 55px);
+      grid-auto-rows: 69px;
+      gap: 5px;
+    }
+
+    .palette-color {
+      display: grid;
+      grid-template-rows: 38px auto;
+      width: 55px;
+      height: 69px;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid #3d434e;
+      border-radius: 5px;
+      background: #20242b;
+    }
+
+    .palette-chip { border-bottom: 1px solid #3d434e; }
+
+    .palette-color-name {
+      height: 30px;
+      padding: 4px 3px;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      color: #c5cad2;
+      font: 8px/1.25 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-align: center;
+    }
+
+    .palette-color.reserved { visibility: hidden; }
+
+    .palette-color.malformed .palette-chip {
+      background-color: #171a20;
+      background-image:
+        linear-gradient(45deg, #242832 25%, transparent 25%),
+        linear-gradient(-45deg, #242832 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #242832 75%),
+        linear-gradient(-45deg, transparent 75%, #242832 75%);
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+      background-size: 12px 12px;
+    }
+
+    .palette-error-area {
+      height: 120px;
+      margin-top: 10px;
+      overflow: auto;
+      border-top: 1px solid #343943;
+    }
+
+    .palette-errors {
+      margin: 9px 0 0;
+      padding-left: 17px;
+      color: #e7adad;
+      font-size: 11px;
+      line-height: 1.4;
     }
 
     .controls {
       display: grid;
       gap: 16px;
-      margin: 24px 0 0;
+      margin-top: 22px;
     }
 
     .control-group { display: grid; gap: 7px; }
@@ -93,64 +175,10 @@
       gap: 10px;
       padding: 15px 18px;
       border-top: 1px solid #343943;
-      border-bottom: 1px solid #343943;
     }
 
-    h2 { margin: 0; font-size: 20px; }
+    .page-heading h2 { margin: 0; font-size: 20px; }
     .page-note { color: #969da9; font-size: 13px; }
-
-    .inspector {
-      display: grid;
-      grid-template-columns: 76px minmax(0, 1fr);
-      gap: 12px;
-      min-height: 92px;
-      padding: 13px 18px;
-      background: #15181e;
-    }
-
-    .inspection-field:nth-child(n + 3) { grid-column: 1 / -1; }
-
-    .inspection-swatch {
-      width: 68px;
-      height: 68px;
-      align-self: center;
-      border: 1px solid #555c68;
-      border-radius: 7px;
-      background-color: #15181e;
-      background-image:
-        linear-gradient(45deg, #242832 25%, transparent 25%),
-        linear-gradient(-45deg, #242832 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #242832 75%),
-        linear-gradient(-45deg, transparent 75%, #242832 75%);
-      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
-      background-size: 16px 16px;
-    }
-
-    .inspection-field {
-      display: grid;
-      gap: 3px;
-      align-content: center;
-      min-width: 0;
-    }
-
-    .inspection-label {
-      color: #858c98;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .inspection-value {
-      overflow-wrap: anywhere;
-      font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
-    }
-
-    .inspection-name {
-      font-family: inherit;
-      font-size: 20px;
-      font-weight: 750;
-    }
 
     .book-scroll {
       max-height: calc(100vh - 72px);
@@ -205,6 +233,8 @@
 
     .swatch {
       display: flex;
+      position: relative;
+      z-index: 1;
       justify-content: center;
       align-items: center;
       padding: 3px;
@@ -214,22 +244,12 @@
       font: 650 7px/1.05 ui-monospace, SFMono-Regular, Menlo, monospace;
       text-align: center;
       text-shadow: var(--label-shadow);
-      position: relative;
-      z-index: 1;
     }
-
-    .highlight-key { display: grid; gap: 7px; margin-top: 18px; color: #b9bec8; font-size: 12px; }
-    .key-item { display: flex; align-items: center; gap: 8px; }
-    .key-mark { width: 18px; height: 18px; border: 3px solid var(--key-color); border-radius: 5px; }
-    .diagnostics { margin-top: 18px; padding: 12px; border: 1px solid #555c68; border-radius: 7px; background: #15181e; }
-    .diagnostics h3 { margin: 0 0 7px; font-size: 13px; }
-    .diagnostics ul { margin: 0; padding-left: 18px; color: #e7adad; font-size: 12px; line-height: 1.45; }
-    .diagnostics .all-clear { margin: 0; color: #9bcaa8; font-size: 12px; }
 
     .status { margin: 20px; color: #b9bec8; }
 
-    @media (max-width: 600px) {
-      main { width: min(100% - 20px, 1800px); margin: 22px auto; }
+    @media (max-width: 760px) {
+      main { width: min(100% - 20px, 1900px); margin: 22px auto; }
       .workspace { grid-template-columns: 1fr; }
       .book-scroll { max-height: 70vh; padding: 10px; }
     }
@@ -240,11 +260,6 @@
     <section class="sidebar" aria-live="polite">
       <div class="sidebar-content">
         <h1>MUNSEL HARMONY TONAL BOOK</h1>
-        <p class="intro">
-          Two Munsell hue pages share one signed-Chroma grid. Positive Chroma belongs to the
-          primary hue, zero is the neutral axis, and negative Chroma belongs to the selected
-          harmony member. Value runs from lightest to darkest for both hues.
-        </p>
 
         <div class="controls">
           <div class="control-group">
@@ -257,73 +272,35 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="select-label" for="harmonySelect">Harmony
-              <select id="harmonySelect"></select>
+            <label class="select-label" for="angleSelect">Hue angle
+              <select id="angleSelect"></select>
             </label>
             <div class="control-buttons">
-              <button id="previousHarmony" type="button" aria-label="Previous harmony">← Previous</button>
-              <button id="nextHarmony" type="button" aria-label="Next harmony">Next →</button>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="select-label" for="memberSelect">Harmony member
-              <select id="memberSelect"></select>
-            </label>
-            <div class="control-buttons">
-              <button id="previousMember" type="button" aria-label="Previous harmony member">← Previous</button>
-              <button id="nextMember" type="button" aria-label="Next harmony member">Next →</button>
+              <button id="previousAngle" type="button" aria-label="Previous hue angle">← Previous</button>
+              <button id="nextAngle" type="button" aria-label="Next hue angle">Next →</button>
             </div>
           </div>
         </div>
-        <div class="highlight-key" aria-label="Highlight key">
-          <div class="key-item"><span class="key-mark" style="--key-color:#ffcf40"></span>Brightest</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#49e6e0"></span>Equal-Lightness Brightest</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#f18cff"></span>Opposite (hover)</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#ff884d"></span>Chroma-Clipped Opposite (hover)</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#7da6ff"></span>Self-Chroma-Clipped Opposites (hover)</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#f4f1c9"></span>Off-White 2</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#b7f06a"></span>Off-White 4</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#b09a76"></span>Off-Black 2</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#8c72ff"></span>Off-Black 4</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#76c48f"></span>Off-Gray 2</div>
-          <div class="key-item"><span class="key-mark" style="--key-color:#ff6f91"></span>Off-Gray 4</div>
-        </div>
-        <div class="diagnostics" aria-live="polite">
-          <h3>Diagnostics</h3>
-          <div id="diagnosticContent"><p class="all-clear">No undefined highlights.</p></div>
+
+        <div class="palettes">
+          <section class="palette-panel" aria-labelledby="hierarchicalTitle">
+            <h2 id="hierarchicalTitle">Hierarchical Advanced Palette</h2>
+            <div id="hierarchicalPalette" class="palette-result"></div>
+          </section>
+          <section class="palette-panel" aria-labelledby="equalTitle">
+            <h2 id="equalTitle">Equal-Lightness Advanced Palette</h2>
+            <div id="equalPalette" class="palette-result"></div>
+          </section>
         </div>
       </div>
       <div class="page-heading">
         <h2 id="pageTitle">Loading…</h2>
         <span class="page-note">Chroma: primary + → neutral 0 → related − &nbsp;·&nbsp; Value: lightest → darkest</span>
       </div>
-      <div class="inspector" aria-live="polite">
-        <div id="inspectSwatch" class="inspection-swatch" aria-hidden="true"></div>
-        <div class="inspection-field">
-          <span class="inspection-label">Munsell name</span>
-          <strong id="inspectName" class="inspection-value inspection-name">No Color</strong>
-        </div>
-        <div class="inspection-field">
-          <span class="inspection-label">Hex</span>
-          <span id="inspectHex" class="inspection-value">—</span>
-        </div>
-        <div class="inspection-field">
-          <span class="inspection-label">RGB</span>
-          <span id="inspectRgb" class="inspection-value">—</span>
-        </div>
-        <div class="inspection-field">
-          <span class="inspection-label">OKLCH</span>
-          <span id="inspectOklch" class="inspection-value">—</span>
-        </div>
-        <div class="inspection-field">
-          <span class="inspection-label">Source</span>
-          <span id="inspectSource" class="inspection-value">—</span>
-        </div>
-      </div>
       <p id="status" class="status">Loading Munsell renotations…</p>
     </section>
 
-    <section class="grid-panel" aria-label="Signed-Chroma harmony grid">
+    <section class="grid-panel" aria-label="Signed-Chroma hue-angle grid">
       <div id="bookScroll" class="book-scroll">
         <div id="bookGrid" class="book-grid"></div>
       </div>
@@ -335,41 +312,37 @@
       const HUE_FAMILIES = ["R", "YR", "Y", "GY", "G", "BG", "B", "PB", "P", "RP"];
       const HUE_STEPS = [2.5, 5, 7.5, 10];
       const CHROMAS = Array.from({ length: 13 }, (_, index) => (index + 1) * 2);
-      const HARMONIES = {
-        analogous: { name: "Analogous", members: [[3, "27 Degrees (+3)"], [-3, "−27 Degrees (−3)"]] },
-        complement: { name: "Complement", members: [[20, "180 Degrees (+20)"]] },
-        splitComplement: { name: "Split complement", members: [[17, "153 Degrees (+17)"], [23, "207 Degrees (+23)"]] },
-        triad: { name: "Triad", members: [[13, "117 Degrees (+13)"], [27, "243 Degrees (+27)"]] },
-        square: { name: "Square", members: [[10, "90 Degrees (+10)"], [20, "180 Degrees (+20)"], [30, "270 Degrees (+30)"]] },
-      };
+      const VALUE_STEP = 0.5;
+      const DARK_REGION_MIN = 0.2;
+      const DARK_REGION_MAX = 0.9;
+      const MAX_EXTENDED_COLORS = 70;
+      const RESERVED_OFF_COLOR_SLOTS = 12;
+      const PALETTE_DISPLAY_CAPACITY = 84;
+      const ANGLES = [
+        { name: "Complement", direction: "", offset: 20, label: "Complement — 20" },
+        { name: "Split Complement", direction: "LEFT", offset: -17, label: "Split Complement — LEFT (−17)" },
+        { name: "Split Complement", direction: "RIGHT", offset: 17, label: "Split Complement — RIGHT (+17)" },
+        { name: "Analog", direction: "LEFT", offset: -3, label: "Analog — LEFT (−3)" },
+        { name: "Analog", direction: "RIGHT", offset: 3, label: "Analog — RIGHT (+3)" },
+        { name: "Quarter", direction: "LEFT", offset: -10, label: "Quarter — LEFT (−10)" },
+        { name: "Quarter", direction: "RIGHT", offset: 10, label: "Quarter — RIGHT (+10)" },
+        { name: "Thirds", direction: "LEFT", offset: -13, label: "Thirds — LEFT (−13)" },
+        { name: "Thirds", direction: "RIGHT", offset: 13, label: "Thirds — RIGHT (+13)" },
+      ];
+      const ANCHOR_HIGHLIGHTS = { hierarchical: "#ffcf40", equal: "#49e6e0" };
 
       const hueSelect = document.querySelector("#hueSelect");
-      const harmonySelect = document.querySelector("#harmonySelect");
-      const memberSelect = document.querySelector("#memberSelect");
+      const angleSelect = document.querySelector("#angleSelect");
       const bookGrid = document.querySelector("#bookGrid");
       const pageTitle = document.querySelector("#pageTitle");
       const status = document.querySelector("#status");
       const bookScroll = document.querySelector("#bookScroll");
-      const inspector = {
-        swatch: document.querySelector("#inspectSwatch"),
-        name: document.querySelector("#inspectName"),
-        hex: document.querySelector("#inspectHex"),
-        rgb: document.querySelector("#inspectRgb"),
-        oklch: document.querySelector("#inspectOklch"),
-        source: document.querySelector("#inspectSource"),
-      };
-      const diagnosticContent = document.querySelector("#diagnosticContent");
-      const HIGHLIGHT_COLORS = {
-        brightest: "#ffcf40", equal: "#49e6e0", opposite: "#f18cff", clipped: "#ff884d",
-        selfClipped: "#7da6ff", offWhite2: "#f4f1c9", offWhite4: "#b7f06a",
-        offBlack2: "#b09a76", offBlack4: "#8c72ff", offGray2: "#76c48f", offGray4: "#ff6f91",
-      };
+      const hierarchicalPalette = document.querySelector("#hierarchicalPalette");
+      const equalPalette = document.querySelector("#equalPalette");
       let rowsByHue = new Map();
       let hues = [];
       let values = [];
       let swatchesByCoordinate = new Map();
-      let hoverHighlighted = [];
-      let baseDiagnosticErrors = [];
 
       function parseCsv(text) {
         const [headerLine, ...lines] = text.trim().split(/\r?\n/);
@@ -393,46 +366,23 @@
         return cell;
       }
 
-      function toHex(red, green, blue) {
-        return `#${[red, green, blue].map((channel) => channel.toString(16).padStart(2, "0")).join("")}`.toUpperCase();
+      function rgb(row) {
+        return [row.sRGB_R, row.sRGB_G, row.sRGB_B].map((channel) => Math.round(Number(channel) * 255));
       }
 
-      function inspect(row, red, green, blue) {
-        const hue = row.OKLCH_h === "" ? "none" : `${Number(row.OKLCH_h).toFixed(2)}°`;
-        inspector.swatch.style.background = `rgb(${red} ${green} ${blue})`;
-        inspector.name.textContent = row.MUNSELL_NAME;
-        inspector.hex.textContent = toHex(red, green, blue);
-        inspector.rgb.textContent = `rgb(${red}, ${green}, ${blue})`;
-        inspector.oklch.textContent = `oklch(${Number(row.OKLCH_L).toFixed(4)} ${Number(row.OKLCH_C).toFixed(4)} ${hue})`;
-        inspector.source.textContent = row.FAKE_MUNSEL === "TRUE" ? "Synthetic" : "Real";
-      }
-
-      function resetInspector() {
-        inspector.swatch.style.removeProperty("background");
-        inspector.name.textContent = "No Color";
-        inspector.hex.textContent = "—";
-        inspector.rgb.textContent = "—";
-        inspector.oklch.textContent = "—";
-        inspector.source.textContent = "—";
+      function coordinateKey(row) {
+        return `${row.H}:${Number(row.V)}:${Number(row.C)}`;
       }
 
       function makeSwatch(row, extraClass = "") {
         if (!row) return makeCell(`empty ${extraClass}`.trim());
         const swatch = makeCell(`swatch ${extraClass}`.trim(), row.MUNSELL_NAME);
-        const red = Math.round(Number(row.sRGB_R) * 255);
-        const green = Math.round(Number(row.sRGB_G) * 255);
-        const blue = Math.round(Number(row.sRGB_B) * 255);
+        const [red, green, blue] = rgb(row);
         const relativeBrightness = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
         swatch.style.background = `rgb(${red} ${green} ${blue})`;
         swatch.style.setProperty("--label-color", relativeBrightness > 145 ? "#111318" : "#fff");
         swatch.style.setProperty("--label-shadow", relativeBrightness > 145 ? "0 1px 1px rgb(255 255 255 / .25)" : "0 1px 2px rgb(0 0 0 / .8)");
-        swatch.addEventListener("pointerenter", () => inspect(row, red, green, blue));
-        swatch.addEventListener("pointerenter", () => showOppositeHighlights(row));
-        swatch.addEventListener("pointerleave", () => { resetInspector(); clearHoverHighlights(); });
-        swatch.addEventListener("focus", () => { inspect(row, red, green, blue); showOppositeHighlights(row); });
-        swatch.addEventListener("blur", () => { resetInspector(); clearHoverHighlights(); });
-        swatch.tabIndex = 0;
-        swatchesByCoordinate.set(`${row.H}:${Number(row.V)}:${Number(row.C)}`, swatch);
+        swatchesByCoordinate.set(coordinateKey(row), swatch);
         return swatch;
       }
 
@@ -440,125 +390,198 @@
         return (rowsByHue.get(hue) || []).find((row) => Number(row.V) === Number(value) && Number(row.C) === Number(chroma));
       }
 
-      function paintHighlights(swatch) {
-        const kinds = [...new Set(`${swatch.dataset.baseHighlights || ""},${swatch.dataset.hoverHighlights || ""}`.split(",").filter(Boolean))];
-        swatch.style.boxShadow = kinds.map((kind, index) => `0 0 0 ${2 + index * 3}px ${HIGHLIGHT_COLORS[kind]}`).join(", ") || "inset 0 0 0 1px rgb(0 0 0 / 0.08)";
-        swatch.style.zIndex = kinds.length ? "4" : "1";
-      }
-
-      function addHighlight(row, kind) {
-        if (!row) return false;
-        const swatch = swatchesByCoordinate.get(`${row.H}:${Number(row.V)}:${Number(row.C)}`);
-        if (!swatch) return false;
-        const kinds = new Set((swatch.dataset.baseHighlights || "").split(",").filter(Boolean));
-        kinds.add(kind);
-        swatch.dataset.baseHighlights = [...kinds].join(",");
-        paintHighlights(swatch);
-        return true;
-      }
-
-      function addHoverHighlight(row, kind) {
-        if (!row) return;
-        const swatch = swatchesByCoordinate.get(`${row.H}:${Number(row.V)}:${Number(row.C)}`);
-        if (!swatch) return;
-        swatch.dataset.hoverHighlights = kind;
-        hoverHighlighted.push(swatch);
-        paintHighlights(swatch);
-      }
-
-      function clearHoverHighlights() {
-        hoverHighlighted.forEach((swatch) => { swatch.dataset.hoverHighlights = ""; paintHighlights(swatch); });
-        hoverHighlighted = [];
-        renderDiagnostics();
-      }
-
-      function renderDiagnostics(hoverErrors = []) {
-        const errors = [...baseDiagnosticErrors, ...hoverErrors];
-        if (errors.length) {
-          const list = document.createElement("ul");
-          errors.forEach((error) => { const item = document.createElement("li"); item.textContent = error; list.append(item); });
-          diagnosticContent.replaceChildren(list);
-        } else {
-          const clear = document.createElement("p"); clear.className = "all-clear"; clear.textContent = "No undefined highlights.";
-          diagnosticContent.replaceChildren(clear);
-        }
-      }
-
-      function showOppositeHighlights(row) {
-        clearHoverHighlights();
-        if (row.H === "N" || Number(row.C) === 0) return;
-        const otherHue = row.H === hueSelect.value ? selectedRelatedHue() : row.H === selectedRelatedHue() ? hueSelect.value : null;
-        if (!otherHue) return;
-        const value = Number(row.V);
-        const chroma = Number(row.C);
-        const opposite = rowAt(otherHue, value, chroma);
-        if (opposite) { addHoverHighlight(opposite, "opposite"); return; }
-        let clipped;
-        let sharedSelf;
-        for (let candidate = chroma - 2; candidate > 0; candidate -= 2) {
-          if (!clipped) clipped = rowAt(otherHue, value, candidate);
-          if (!sharedSelf && rowAt(row.H, value, candidate) && rowAt(otherHue, value, candidate)) sharedSelf = candidate;
-        }
-        addHoverHighlight(clipped, "clipped");
-        if (sharedSelf) {
-          addHoverHighlight(rowAt(row.H, value, sharedSelf), "selfClipped");
-          addHoverHighlight(rowAt(otherHue, value, sharedSelf), "selfClipped");
-        }
-        const hoverErrors = [];
-        if (!clipped) hoverErrors.push(`Chroma-Clipped Opposite is undefined for ${row.MUNSELL_NAME} → ${otherHue}.`);
-        if (!sharedSelf) hoverErrors.push(`Self-Chroma-Clipped Opposites are undefined for ${row.MUNSELL_NAME} → ${otherHue}.`);
-        renderDiagnostics(hoverErrors);
-      }
-
-      function applyTonalHighlights(primaryHue, relatedHue) {
-        const errors = [];
-        const pairHues = [primaryHue, relatedHue];
-        pairHues.forEach((hue) => {
-          const rows = rowsByHue.get(hue) || [];
-          const brightest = [...rows].sort((a, b) => Number(b.C) - Number(a.C) || Number(b.V) - Number(a.V))[0];
-          if (!addHighlight(brightest, "brightest")) errors.push(`Brightest is undefined for ${hue}.`);
-          [2, 4].forEach((chroma) => {
-            const atChroma = rows.filter((row) => Number(row.C) === chroma);
-            const offWhite = [...atChroma].sort((a, b) => Number(b.V) - Number(a.V))[0];
-            const offBlack = [...atChroma].sort((a, b) => Number(a.V) - Number(b.V))[0];
-            const offGray = atChroma.find((row) => Number(row.V) === 6);
-            if (!addHighlight(offWhite, `offWhite${chroma}`)) errors.push(`Off-White ${chroma} is undefined for ${hue}.`);
-            if (!addHighlight(offBlack, `offBlack${chroma}`)) errors.push(`Off-Black ${chroma} is undefined for ${hue}.`);
-            if (!addHighlight(offGray, `offGray${chroma}`)) errors.push(`Off-Gray ${chroma} is undefined for ${hue}.`);
-          });
-        });
-
-        const shared = [];
-        values.forEach((value) => {
-          CHROMAS.forEach((chroma) => {
-            const first = rowAt(primaryHue, value, chroma);
-            const second = rowAt(relatedHue, value, chroma);
-            if (first && second) shared.push([first, second]);
-          });
-        });
-        const greatestSharedChroma = shared.length ? Math.max(...shared.map(([row]) => Number(row.C))) : null;
-        const brightestPairs = shared
-          .filter(([row]) => Number(row.C) === greatestSharedChroma)
-          .sort(([first], [second]) => Number(second.V) - Number(first.V));
-        const brightestPair = brightestPairs[0];
-        if (!brightestPair) errors.push(`Equal-Lightness Brightest is undefined for ${primaryHue} and ${relatedHue}.`);
-        if (brightestPair) {
-          addHighlight(brightestPair[0], "equal");
-          addHighlight(brightestPair[1], "equal");
-        }
-
-        baseDiagnosticErrors = errors;
-        renderDiagnostics();
-      }
-
-      function makeLookup(hue) {
-        return new Map((rowsByHue.get(hue) || []).map((row) => [`${Number(row.V)}:${Number(row.C)}`, row]));
+      function selectedAngle() {
+        return ANGLES[Number(angleSelect.value)];
       }
 
       function selectedRelatedHue() {
         const primaryIndex = hues.indexOf(hueSelect.value);
-        const offset = Number(memberSelect.value);
-        return hues[(primaryIndex + offset + hues.length) % hues.length];
+        return hues[(primaryIndex + selectedAngle().offset + hues.length) % hues.length];
+      }
+
+      function superiorBrightest(hue, excludedValues = new Set()) {
+        return [...(rowsByHue.get(hue) || [])]
+          .filter((row) => !excludedValues.has(Number(row.V)))
+          .sort((a, b) => Number(b.C) - Number(a.C) || Number(b.V) - Number(a.V))[0];
+      }
+
+      function hierarchicalBrightests(primaryHue, relatedHue) {
+        const excludedValues = new Set();
+        while (true) {
+          const superior = superiorBrightest(primaryHue, excludedValues);
+          if (!superior) return [undefined, undefined];
+          for (let chroma = Number(superior.C); chroma > 2; chroma -= 2) {
+            const inferior = rowAt(relatedHue, Number(superior.V), chroma);
+            if (inferior) return [superior, inferior];
+          }
+          excludedValues.add(Number(superior.V));
+        }
+      }
+
+      function equalLightnessBrightests(primaryHue, relatedHue) {
+        const shared = [];
+        (rowsByHue.get(primaryHue) || []).forEach((first) => {
+          const second = rowAt(relatedHue, Number(first.V), Number(first.C));
+          if (second) shared.push([first, second]);
+        });
+        return shared.sort(([firstA], [firstB]) => Number(firstB.C) - Number(firstA.C) || Number(firstB.V) - Number(firstA.V))[0] || [undefined, undefined];
+      }
+
+      function extend(anchor) {
+        if (!anchor) return { colors: [], malformed: false };
+        const anchorChroma = Number(anchor.C);
+        const maximumChroma = CHROMAS[CHROMAS.length - 1];
+        const chromaLines = anchorChroma > 2 ? [anchorChroma] : [];
+        for (let delta = 4; anchorChroma - delta > 0 || anchorChroma + delta <= maximumChroma; delta += 2) {
+          const lowerChroma = anchorChroma - delta;
+          const higherChroma = anchorChroma + delta;
+          if (lowerChroma > 2) chromaLines.push(lowerChroma);
+          if (higherChroma <= maximumChroma) chromaLines.push(higherChroma);
+        }
+        const maximumValue = values[0];
+        const minimumValue = values[values.length - 1];
+        const valueOffsets = [0];
+        for (let offset = 3; ; offset += 3) {
+          const lighterValue = Number((Number(anchor.V) + offset * VALUE_STEP).toFixed(10));
+          const darkerValue = Number((Number(anchor.V) - offset * VALUE_STEP).toFixed(10));
+          if (lighterValue > maximumValue && darkerValue < minimumValue) break;
+          if (lighterValue <= maximumValue) valueOffsets.push(offset);
+          if (darkerValue >= minimumValue) valueOffsets.push(-offset);
+        }
+        const colors = [];
+        chromaLines.forEach((chroma) => {
+          valueOffsets.forEach((offset) => {
+            const value = Number((Number(anchor.V) + offset * VALUE_STEP).toFixed(10));
+            if (value >= DARK_REGION_MIN && value <= DARK_REGION_MAX) return;
+            const color = rowAt(anchor.H, value, chroma);
+            if (color && !colors.includes(color)) colors.push(color);
+          });
+        });
+        return { colors, malformed: colors.length === 0 };
+      }
+
+      function offColor(hue, kind, chroma) {
+        const candidates = (rowsByHue.get(hue) || []).filter((row) => Number(row.C) === chroma);
+        if (kind === "White") return [...candidates].sort((a, b) => Number(b.V) - Number(a.V))[0];
+        if (kind === "Black") {
+          return candidates
+            .filter((row) => Number(row.V) >= 0.7 && Number(row.V) <= 0.9)
+            .sort((a, b) => Number(a.V) - Number(b.V))[0];
+        }
+        return candidates.find((row) => Number(row.V) === 6);
+      }
+
+      function paletteColor(row, label, malformed = false) {
+        if (label === "reserved") {
+          const reserved = makeCell("palette-color reserved");
+          reserved.setAttribute("aria-hidden", "true");
+          return reserved;
+        }
+        const item = makeCell(`palette-color${malformed ? " malformed" : ""}`);
+        const chip = makeCell("palette-chip");
+        const name = makeCell("palette-color-name", malformed ? `${label}\nBLANK` : row?.MUNSELL_NAME || `${label}\nUNDEFINED`);
+        if (row && !malformed) {
+          const [red, green, blue] = rgb(row);
+          chip.style.background = `rgb(${red} ${green} ${blue})`;
+          item.title = label;
+        } else {
+          item.classList.add("malformed");
+        }
+        item.append(chip, name);
+        return item;
+      }
+
+      function paletteGroup(title, entries) {
+        const group = makeCell("palette-group");
+        group.append(makeCell("palette-group-title", title));
+        const colors = makeCell("palette-colors");
+        entries.forEach((entry) => colors.append(paletteColor(entry.row, entry.label, entry.malformed)));
+        group.append(colors);
+        return group;
+      }
+
+      function advancedOffColors(hue, errors) {
+        const entries = [];
+        ["White", "Black", "Gray"].forEach((kind) => {
+          const chroma = 2;
+          const label = `Off-${kind} 2 · ${hue}`;
+          const row = offColor(hue, kind, chroma);
+          const malformed = !row;
+          if (malformed) {
+            errors.push(`${label} is undefined.`);
+          }
+          entries.push({ row, label, malformed });
+        });
+        return entries;
+      }
+
+      function highlightAnchors(anchors, kind) {
+        anchors.filter(Boolean).forEach((row) => {
+          const swatch = swatchesByCoordinate.get(coordinateKey(row));
+          if (!swatch) return;
+          const current = swatch.dataset.anchorHighlights ? swatch.dataset.anchorHighlights.split(",") : [];
+          current.push(kind);
+          swatch.dataset.anchorHighlights = [...new Set(current)].join(",");
+          const kinds = swatch.dataset.anchorHighlights.split(",");
+          swatch.style.boxShadow = kinds.map((highlightKind, index) => `0 0 0 ${2 + index * 3}px ${ANCHOR_HIGHLIGHTS[highlightKind]}`).join(", ");
+          swatch.style.zIndex = "4";
+        });
+      }
+
+      function renderPalette(container, anchors, relationship) {
+        const errors = [];
+        const primaryHue = hueSelect.value;
+        const relatedHue = selectedRelatedHue();
+        const anchorLabels = relationship === "hierarchical" ? ["Superior Brightest", "Inferior Brightest"] : ["Equal-Lightness Brightest", "Equal-Lightness Brightest"];
+        const anchorEntries = anchors.map((row, index) => {
+          if (!row) errors.push(`${anchorLabels[index]} for ${index === 0 ? primaryHue : relatedHue} is undefined.`);
+          return { row, label: `${anchorLabels[index]} · ${index === 0 ? primaryHue : relatedHue}`, malformed: !row };
+        });
+        const extendedEntries = [];
+        anchors.forEach((anchor, index) => {
+          const hue = index === 0 ? primaryHue : relatedHue;
+          const extension = extend(anchor);
+          if (extension.malformed) {
+            extendedEntries.push({ row: undefined, label: `Basic Extended · ${hue}`, malformed: true });
+            errors.push(`Basic Extended Palette for ${hue} is malformed because no eligible colors were generated in any direction.`);
+          } else {
+            extension.colors.forEach((row) => extendedEntries.push({ row, label: `Basic Extended · ${hue}`, malformed: false }));
+          }
+        });
+        const offEntries = [...advancedOffColors(primaryHue, errors), ...advancedOffColors(relatedHue, errors)];
+        while (offEntries.length < RESERVED_OFF_COLOR_SLOTS) offEntries.push({ row: undefined, label: "reserved", malformed: false });
+
+        const paletteHueOrder = [primaryHue, relatedHue];
+        extendedEntries.sort((first, second) => {
+          if (!first.row && !second.row) return 0;
+          if (!first.row) return 1;
+          if (!second.row) return -1;
+          return paletteHueOrder.indexOf(first.row.H) - paletteHueOrder.indexOf(second.row.H)
+            || Number(second.row.V) - Number(first.row.V)
+            || Number(second.row.C) - Number(first.row.C);
+        });
+        if (!extendedEntries.length) extendedEntries.push({ row: undefined, label: "No in-gamut extended colors", malformed: true });
+        while (extendedEntries.length < MAX_EXTENDED_COLORS) extendedEntries.push({ row: undefined, label: "reserved", malformed: false });
+
+        const groups = makeCell("palette-groups");
+        groups.append(
+          paletteGroup("Brightests", anchorEntries),
+          paletteGroup("Basic Extended", extendedEntries),
+          paletteGroup("Off-Whites, Off-Blacks, and Off-Grays", offEntries),
+        );
+        const errorArea = makeCell("palette-error-area");
+        if (errors.length) {
+          const list = makeCell("palette-errors");
+          errors.forEach((error) => list.append(makeCell("", error)));
+          errorArea.append(list);
+        }
+        container.replaceChildren(groups, errorArea);
+        container.dataset.displayCapacity = PALETTE_DISPLAY_CAPACITY;
+        highlightAnchors(anchors, relationship);
+      }
+
+      function makeLookup(hue) {
+        return new Map((rowsByHue.get(hue) || []).map((row) => [`${Number(row.V)}:${Number(row.C)}`, row]));
       }
 
       function renderRow(fragment, label, labelClass, lookup, chroma, extraClass = "") {
@@ -571,8 +594,6 @@
       }
 
       function renderPage() {
-        resetInspector();
-        clearHoverHighlights();
         swatchesByCoordinate = new Map();
         const primaryHue = hueSelect.value;
         const relatedHue = selectedRelatedHue();
@@ -589,38 +610,16 @@
 
         bookGrid.style.setProperty("--value-count", values.length);
         bookGrid.replaceChildren(fragment);
-        applyTonalHighlights(primaryHue, relatedHue);
-        const harmony = HARMONIES[harmonySelect.value].name;
-        const member = memberSelect.options[memberSelect.selectedIndex].text;
-        pageTitle.textContent = `${primaryHue} + ${relatedHue} — ${harmony} ${member}`;
+        renderPalette(hierarchicalPalette, hierarchicalBrightests(primaryHue, relatedHue), "hierarchical");
+        renderPalette(equalPalette, equalLightnessBrightests(primaryHue, relatedHue), "equal");
+        pageTitle.textContent = `${primaryHue} + ${relatedHue} — ${selectedAngle().label}`;
         status.hidden = true;
         history.replaceState(null, "", `#${primaryHue}`);
         bookScroll.scrollTo({ top: 0, left: 0 });
       }
 
-      function populateMembers() {
-        const previous = memberSelect.value;
-        memberSelect.replaceChildren();
-        HARMONIES[harmonySelect.value].members.forEach(([offset, label]) => memberSelect.add(new Option(label, offset)));
-        if ([...memberSelect.options].some((option) => option.value === previous)) memberSelect.value = previous;
-      }
-
-      function movePage(offset) {
-        const nextIndex = (hueSelect.selectedIndex + offset + hues.length) % hues.length;
-        hueSelect.selectedIndex = nextIndex;
-        renderPage();
-      }
-
-      function moveHarmony(offset) {
-        const nextIndex = (harmonySelect.selectedIndex + offset + harmonySelect.options.length) % harmonySelect.options.length;
-        harmonySelect.selectedIndex = nextIndex;
-        populateMembers();
-        renderPage();
-      }
-
-      function moveMember(offset) {
-        const nextIndex = (memberSelect.selectedIndex + offset + memberSelect.options.length) % memberSelect.options.length;
-        memberSelect.selectedIndex = nextIndex;
+      function moveSelect(select, offset) {
+        select.selectedIndex = (select.selectedIndex + offset + select.options.length) % select.options.length;
         renderPage();
       }
 
@@ -637,11 +636,10 @@
           hues = [...rowsByHue.keys()].filter((hue) => hue !== "N").sort((a, b) => hueRank(a) - hueRank(b));
           values = [...new Set(rows.map((row) => Number(row.V)))].sort((a, b) => b - a);
           hues.forEach((hue) => hueSelect.add(new Option(hue, hue)));
-          Object.entries(HARMONIES).forEach(([key, harmony]) => harmonySelect.add(new Option(harmony.name, key)));
-          harmonySelect.value = "analogous";
-          populateMembers();
+          ANGLES.forEach((angle, index) => angleSelect.add(new Option(angle.label, index)));
           const hashHue = decodeURIComponent(location.hash.slice(1));
           hueSelect.value = hues.includes(hashHue) ? hashHue : "5R";
+          angleSelect.value = "0";
           renderPage();
         } catch (error) {
           pageTitle.textContent = "Munsell data unavailable";
@@ -651,18 +649,15 @@
       }
 
       hueSelect.addEventListener("change", renderPage);
-      harmonySelect.addEventListener("change", () => { populateMembers(); renderPage(); });
-      memberSelect.addEventListener("change", renderPage);
-      document.querySelector("#previousHue").addEventListener("click", () => movePage(-1));
-      document.querySelector("#nextHue").addEventListener("click", () => movePage(1));
-      document.querySelector("#previousHarmony").addEventListener("click", () => moveHarmony(-1));
-      document.querySelector("#nextHarmony").addEventListener("click", () => moveHarmony(1));
-      document.querySelector("#previousMember").addEventListener("click", () => moveMember(-1));
-      document.querySelector("#nextMember").addEventListener("click", () => moveMember(1));
+      angleSelect.addEventListener("change", renderPage);
+      document.querySelector("#previousHue").addEventListener("click", () => moveSelect(hueSelect, -1));
+      document.querySelector("#nextHue").addEventListener("click", () => moveSelect(hueSelect, 1));
+      document.querySelector("#previousAngle").addEventListener("click", () => moveSelect(angleSelect, -1));
+      document.querySelector("#nextAngle").addEventListener("click", () => moveSelect(angleSelect, 1));
       window.addEventListener("keydown", (event) => {
-        if ([hueSelect, harmonySelect, memberSelect].includes(event.target)) return;
-        if (event.key === "ArrowLeft") movePage(-1);
-        if (event.key === "ArrowRight") movePage(1);
+        if ([hueSelect, angleSelect].includes(event.target)) return;
+        if (event.key === "ArrowLeft") moveSelect(hueSelect, -1);
+        if (event.key === "ArrowRight") moveSelect(hueSelect, 1);
       });
 
       initialize();

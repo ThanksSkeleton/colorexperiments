@@ -15,3 +15,13 @@ The user may override this rule for a specific task by explicitly asking the age
 For work at this project's current scope, do not perform agent-run testing or visual review. Make the requested changes and pass the resulting page to the user for examination.
 
 The user expects to revise this directive later. Until then, do not infer permission to test from a request to implement or migrate an experiment; test only when the user explicitly overrides this rule.
+
+## Local server
+
+The preferred local development server is Python's HTTP server on port 8000, serving the `docs/` directory:
+
+```sh
+python3 -m http.server 8000 --directory docs
+```
+
+After editing an HTML page, check whether this server is running. If it is not, start it before handing the page back to the user. Starting the server is not permission to perform agent-run testing or visual review.
