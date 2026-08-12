@@ -155,6 +155,51 @@ def interpolate_hue(first: float, second: float) -> float:
     return (first + difference / 2.0) % 360.0
 
 
+def munsell_value_to_luminance(value: float) -> float:
+    """Return neutral-axis luminance Y percent for a Munsell Value."""
+    # ASTM D1535's fifth-order form of the Munsell value function.
+    return (
+        1.2219 * value
+        - 0.23111 * value**2
+        + 0.23951 * value**3
+        - 0.021009 * value**4
+        + 0.0008404 * value**5
+    )
+
+
+def make_neutral_row(value: float, fake: bool, correct_published_y: bool) -> dict[str, object]:
+    """Create one displayable neutral-axis row in the published CSV schema."""
+    published_y = munsell_value_to_luminance(value)
+    luminance = published_y / 100.0
+    if correct_published_y:
+        luminance *= MAGNESIUM_OXIDE_Y_FACTOR
+
+    # A neutral under Illuminant C has the white point's chromaticity. Adapt it
+    # through the same C-to-D65 path as the chromatic renotation samples.
+    x = ILLUMINANT_C_XYZ[0] / sum(ILLUMINANT_C_XYZ)
+    y = ILLUMINANT_C_XYZ[1] / sum(ILLUMINANT_C_XYZ)
+    xyz_d65 = adapt_illuminant_c_to_d65(xyy_to_xyz(x, y, luminance))
+    oklch_l, _, _ = xyz_d65_to_oklch(xyz_d65)
+    srgb, in_srgb_gamut = xyz_d65_to_srgb(xyz_d65)
+    value_text = f"{value:.10g}"
+    suffix = "x" if fake else ""
+    return {
+        "H": "N",
+        "V": value_text,
+        "C": "0",
+        "MUNSELL_NAME": f"N {value_text}{suffix}",
+        "x": "",
+        "y": "",
+        "Y": f"{published_y:.10g}",
+        "OKLCH_L": oklch_l,
+        "OKLCH_C": 0.0,
+        "OKLCH_h": None,
+        "sRGB": srgb,
+        "IN_SRGB_GAMUT": in_srgb_gamut,
+        "FAKE_MUNSEL": fake,
+    }
+
+
 def convert(
     input_path: Path,
     output_path: Path,
@@ -163,6 +208,7 @@ def convert(
     interpolate_fake_munsell: bool = True,
 ) -> int:
     rows: list[dict[str, object]] = []
+    original_values: set[float] = set()
     with input_path.open(encoding="utf-8") as source:
         for line_number, line in enumerate(source, start=1):
             fields = line.split()
@@ -172,6 +218,7 @@ def convert(
                 raise ValueError(f"{input_path}:{line_number}: expected 6 columns, found {len(fields)}")
 
             hue_name, value_text, chroma_text, x_text, y_text, luminance_text = fields
+            original_values.add(float(value_text))
             x, y, published_y = map(float, (x_text, y_text, luminance_text))
 
             # all.dat records Y as a percentage. OKLab expects XYZ normalized so
@@ -258,6 +305,16 @@ def convert(
 
     if in_srgb_only:
         rows = [row for row in rows if row["IN_SRGB_GAMUT"] is True]
+
+    # Generate an achromatic counterpart for every Value that the chromatic
+    # book can display. Values originating in all.dat are real neutral
+    # notations; Values introduced by midpoint generation retain its synthetic
+    # convention regardless of which hue/chroma first made them displayable.
+    display_values = sorted({float(str(row["V"])) for row in rows})
+    rows.extend(
+        make_neutral_row(value, value not in original_values, correct_published_y)
+        for value in display_values
+    )
 
     with output_path.open("w", encoding="utf-8", newline="") as destination:
         writer = csv.writer(destination)
