@@ -1,0 +1,801 @@
+input_hue,harmony,member_offset,member_label,member_hue,tonal_relationship,input_anchor,member_anchor,generation_status,review_required,review_reason,input_extended_count,member_extended_count,basic_extended_palette_count,input_extension_malformed,member_extension_malformed,input_sidedness,member_sidedness,overall_sidedness,is_one_sided,input_off_black_2,input_off_black_2_malformed,input_off_black_4,input_off_black_4_malformed,member_off_black_2,member_off_black_2_malformed,member_off_black_4,member_off_black_4_malformed
+2.5R,Analogous,3,+3,10R,equal,2.5R 6/14,10R 6/14,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+2.5R,Analogous,3,+3,10R,hierarchical,2.5R 5.5/16x,10R 5.5/14x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+2.5R,Analogous,-3,-3,5RP,equal,2.5R 5.5/16x,5RP 5.5/16x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+2.5R,Analogous,-3,-3,5RP,hierarchical,2.5R 5.5/16x,5RP 5.5/16x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+2.5R,Complement,20,+20,2.5BG,equal,2.5R 7.5/8x,2.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+2.5R,Complement,20,+20,2.5BG,hierarchical,2.5R 5.5/16x,2.5BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+2.5R,Split complement,17,+17,5G,equal,2.5R 7/10,5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+2.5R,Split complement,17,+17,5G,hierarchical,2.5R 5.5/16x,5G 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+2.5R,Split complement,23,+23,10BG,equal,2.5R 7.5/8x,10BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+2.5R,Split complement,23,+23,10BG,hierarchical,2.5R 5.5/16x,10BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+2.5R,Triad,13,+13,5GY,equal,2.5R 7/10,5GY 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+2.5R,Triad,13,+13,5GY,hierarchical,2.5R 5.5/16x,5GY 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+2.5R,Triad,27,+27,10B,equal,2.5R 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+2.5R,Triad,27,+27,10B,hierarchical,2.5R 5.5/16x,10B 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+2.5R,Square,10,+10,7.5Y,equal,2.5R 7/10,7.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+2.5R,Square,10,+10,7.5Y,hierarchical,2.5R 5.5/16x,7.5Y 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+2.5R,Square,20,+20,2.5BG,equal,2.5R 7.5/8x,2.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+2.5R,Square,20,+20,2.5BG,hierarchical,2.5R 5.5/16x,2.5BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+2.5R,Square,30,+30,7.5PB,equal,2.5R 5.5/16x,7.5PB 5.5/16x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+2.5R,Square,30,+30,7.5PB,hierarchical,2.5R 5.5/16x,7.5PB 5.5/16x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+5R,Analogous,3,+3,2.5YR,equal,5R 6/14,2.5YR 6/14,ok,FALSE,,3,2,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+5R,Analogous,3,+3,2.5YR,hierarchical,5R 5/18,2.5YR 5/12,ok,FALSE,,1,4,5,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+5R,Analogous,-3,-3,7.5RP,equal,5R 5/18,7.5RP 5/18,ok,FALSE,,1,1,2,FALSE,FALSE,equal-only,equal-only,equal-only,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+5R,Analogous,-3,-3,7.5RP,hierarchical,5R 5/18,7.5RP 5/18,ok,FALSE,,1,1,2,FALSE,FALSE,equal-only,equal-only,equal-only,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+5R,Complement,20,+20,5BG,equal,5R 7.5/8x,5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+5R,Complement,20,+20,5BG,hierarchical,5R 5/18,5BG 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+5R,Split complement,17,+17,7.5G,equal,5R 7.5/8x,7.5G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+5R,Split complement,17,+17,7.5G,hierarchical,5R 5/18,7.5G 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+5R,Split complement,23,+23,2.5B,equal,5R 7.5/8x,2.5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+5R,Split complement,23,+23,2.5B,hierarchical,5R 5/18,2.5B 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+5R,Triad,13,+13,7.5GY,equal,5R 6.5/12x,7.5GY 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+5R,Triad,13,+13,7.5GY,hierarchical,5R 5/18,7.5GY 5/10,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+5R,Triad,27,+27,2.5PB,equal,5R 7/10,2.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+5R,Triad,27,+27,2.5PB,hierarchical,5R 5/18,2.5PB 5/10,ok,FALSE,,1,4,5,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+5R,Square,10,+10,10Y,equal,5R 7.5/8x,10Y 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+5R,Square,10,+10,10Y,hierarchical,5R 5/18,10Y 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+5R,Square,20,+20,5BG,equal,5R 7.5/8x,5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+5R,Square,20,+20,5BG,hierarchical,5R 5/18,5BG 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+5R,Square,30,+30,10PB,equal,5R 5/18,10PB 5/18,ok,FALSE,,1,3,4,FALSE,FALSE,equal-only,darker-only,darker-only,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+5R,Square,30,+30,10PB,hierarchical,5R 5/18,10PB 5/18,ok,FALSE,,1,3,4,FALSE,FALSE,equal-only,darker-only,darker-only,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+7.5R,Analogous,3,+3,5YR,equal,7.5R 6.5/12x,5YR 6.5/12x,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+7.5R,Analogous,3,+3,5YR,hierarchical,7.5R 5.5/18x,5YR 5.5/12x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+7.5R,Analogous,-3,-3,10RP,equal,7.5R 5.5/18x,10RP 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+7.5R,Analogous,-3,-3,10RP,hierarchical,7.5R 5.5/18x,10RP 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+7.5R,Complement,20,+20,7.5BG,equal,7.5R 7.5/8x,7.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+7.5R,Complement,20,+20,7.5BG,hierarchical,7.5R 5.5/18x,7.5BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+7.5R,Split complement,17,+17,10G,equal,7.5R 7.5/8x,10G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+7.5R,Split complement,17,+17,10G,hierarchical,7.5R 5.5/18x,10G 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+7.5R,Split complement,23,+23,5B,equal,7.5R 7.5/8x,5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+7.5R,Split complement,23,+23,5B,hierarchical,7.5R 5.5/18x,5B 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+7.5R,Triad,13,+13,10GY,equal,7.5R 6.5/12x,10GY 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+7.5R,Triad,13,+13,10GY,hierarchical,7.5R 5.5/18x,10GY 5.5/12x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+7.5R,Triad,27,+27,5PB,equal,7.5R 6/14,5PB 6/14,ok,FALSE,,3,2,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+7.5R,Triad,27,+27,5PB,hierarchical,7.5R 5.5/18x,5PB 5.5/12x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+7.5R,Square,10,+10,2.5GY,equal,7.5R 7/10,2.5GY 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+7.5R,Square,10,+10,2.5GY,hierarchical,7.5R 5.5/18x,2.5GY 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+7.5R,Square,20,+20,7.5BG,equal,7.5R 7.5/8x,7.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+7.5R,Square,20,+20,7.5BG,hierarchical,7.5R 5.5/18x,7.5BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+7.5R,Square,30,+30,2.5P,equal,7.5R 5.5/18x,2.5P 5.5/18x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+7.5R,Square,30,+30,2.5P,hierarchical,7.5R 5.5/18x,2.5P 5.5/18x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+10R,Analogous,3,+3,7.5YR,equal,10R 6.5/12x,7.5YR 6.5/12x,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+10R,Analogous,3,+3,7.5YR,hierarchical,10R 6/16,7.5YR 6/10,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+10R,Analogous,-3,-3,2.5R,equal,10R 6/14,2.5R 6/14,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+10R,Analogous,-3,-3,2.5R,hierarchical,10R 6/16,2.5R 6/14,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+10R,Complement,20,+20,10BG,equal,10R 7.5/8x,10BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+10R,Complement,20,+20,10BG,hierarchical,10R 6/16,10BG 6/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+10R,Split complement,17,+17,2.5BG,equal,10R 7.5/8x,2.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+10R,Split complement,17,+17,2.5BG,hierarchical,10R 6/16,2.5BG 6/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+10R,Split complement,23,+23,7.5B,equal,10R 7.5/8x,7.5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+10R,Split complement,23,+23,7.5B,hierarchical,10R 6/16,7.5B 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+10R,Triad,13,+13,2.5G,equal,10R 7/10,2.5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+10R,Triad,13,+13,2.5G,hierarchical,10R 6/16,2.5G 6/10,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+10R,Triad,27,+27,7.5PB,equal,10R 6/14,7.5PB 6/14,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+10R,Triad,27,+27,7.5PB,hierarchical,10R 6/16,7.5PB 6/14,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+10R,Square,10,+10,5GY,equal,10R 7/10,5GY 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+10R,Square,10,+10,5GY,hierarchical,10R 6/16,5GY 6/8,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+10R,Square,20,+20,10BG,equal,10R 7.5/8x,10BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+10R,Square,20,+20,10BG,hierarchical,10R 6/16,10BG 6/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+10R,Square,30,+30,5P,equal,10R 6/16,5P 6/16,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+10R,Square,30,+30,5P,hierarchical,10R 6/16,5P 6/16,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+2.5YR,Analogous,3,+3,10YR,equal,2.5YR 7/10,10YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+2.5YR,Analogous,3,+3,10YR,hierarchical,2.5YR 6.5/14x,10YR 6.5/10x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+2.5YR,Analogous,-3,-3,5R,equal,2.5YR 6/14,5R 6/14,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+2.5YR,Analogous,-3,-3,5R,hierarchical,2.5YR 6.5/14x,5R 6.5/12x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+2.5YR,Complement,20,+20,2.5B,equal,2.5YR 7.5/8x,2.5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+2.5YR,Complement,20,+20,2.5B,hierarchical,2.5YR 6.5/14x,2.5B 6.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+2.5YR,Split complement,17,+17,5BG,equal,2.5YR 7.5/8x,5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+2.5YR,Split complement,17,+17,5BG,hierarchical,2.5YR 6.5/14x,5BG 6.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+2.5YR,Split complement,23,+23,10B,equal,2.5YR 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+2.5YR,Split complement,23,+23,10B,hierarchical,2.5YR 6.5/14x,10B 6.5/10x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+2.5YR,Triad,13,+13,5G,equal,2.5YR 7/10,5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+2.5YR,Triad,13,+13,5G,hierarchical,2.5YR 6.5/14x,5G 6.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+2.5YR,Triad,27,+27,10PB,equal,2.5YR 6/14,10PB 6/14,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+2.5YR,Triad,27,+27,10PB,hierarchical,2.5YR 6.5/14x,10PB 6.5/12x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+2.5YR,Square,10,+10,7.5GY,equal,2.5YR 6.5/12x,7.5GY 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+2.5YR,Square,10,+10,7.5GY,hierarchical,2.5YR 6.5/14x,7.5GY 6.5/12x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+2.5YR,Square,20,+20,2.5B,equal,2.5YR 7.5/8x,2.5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+2.5YR,Square,20,+20,2.5B,hierarchical,2.5YR 6.5/14x,2.5B 6.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+2.5YR,Square,30,+30,7.5P,equal,2.5YR 6.5/14x,7.5P 6.5/14x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+2.5YR,Square,30,+30,7.5P,hierarchical,2.5YR 6.5/14x,7.5P 6.5/14x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+5YR,Analogous,3,+3,2.5Y,equal,5YR 7/10,2.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+5YR,Analogous,3,+3,2.5Y,hierarchical,5YR 7/12,2.5Y 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+5YR,Analogous,-3,-3,7.5R,equal,5YR 6.5/12x,7.5R 6.5/12x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+5YR,Analogous,-3,-3,7.5R,hierarchical,5YR 7/12,7.5R 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+5YR,Complement,20,+20,5B,equal,5YR 7.5/8x,5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+5YR,Complement,20,+20,5B,hierarchical,5YR 7/12,5B 7/8,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+5YR,Split complement,17,+17,7.5BG,equal,5YR 7.5/8x,7.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+5YR,Split complement,17,+17,7.5BG,hierarchical,5YR 7/12,7.5BG 7/8,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+5YR,Split complement,23,+23,2.5PB,equal,5YR 7/10,2.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+5YR,Split complement,23,+23,2.5PB,hierarchical,5YR 7/12,2.5PB 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+5YR,Triad,13,+13,7.5G,equal,5YR 7.5/8x,7.5G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+5YR,Triad,13,+13,7.5G,hierarchical,5YR 7/12,7.5G 7/8,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+5YR,Triad,27,+27,2.5P,equal,5YR 7/12,2.5P 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+5YR,Triad,27,+27,2.5P,hierarchical,5YR 7/12,2.5P 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+5YR,Square,10,+10,10GY,equal,5YR 7/12,10GY 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+5YR,Square,10,+10,10GY,hierarchical,5YR 7/12,10GY 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+5YR,Square,20,+20,5B,equal,5YR 7.5/8x,5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+5YR,Square,20,+20,5B,hierarchical,5YR 7/12,5B 7/8,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+5YR,Square,30,+30,10P,equal,5YR 7/12,10P 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+5YR,Square,30,+30,10P,hierarchical,5YR 7/12,10P 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+7.5YR,Analogous,3,+3,5Y,equal,7.5YR 7.5/10x,5Y 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+7.5YR,Analogous,3,+3,5Y,hierarchical,7.5YR 7.5/12x,5Y 7.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+7.5YR,Analogous,-3,-3,10R,equal,7.5YR 6.5/12x,10R 6.5/12x,ok,FALSE,,3,4,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+7.5YR,Analogous,-3,-3,10R,hierarchical,7.5YR 7.5/12x,10R 7.5/8x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+7.5YR,Complement,20,+20,7.5B,equal,7.5YR 8/8,7.5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+7.5YR,Complement,20,+20,7.5B,hierarchical,7.5YR 7.5/12x,7.5B 7.5/8x,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+7.5YR,Split complement,17,+17,10BG,equal,7.5YR 8/8,10BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+7.5YR,Split complement,17,+17,10BG,hierarchical,7.5YR 7.5/12x,10BG 7.5/8x,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+7.5YR,Split complement,23,+23,5PB,equal,7.5YR 6.5/12x,5PB 6.5/12x,ok,FALSE,,3,3,6,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+7.5YR,Split complement,23,+23,5PB,hierarchical,7.5YR 7.5/12x,5PB 7.5/8x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+7.5YR,Triad,13,+13,10G,equal,7.5YR 8/8,10G 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+7.5YR,Triad,13,+13,10G,hierarchical,7.5YR 7.5/12x,10G 7.5/8x,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+7.5YR,Triad,27,+27,5P,equal,7.5YR 7/12,5P 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+7.5YR,Triad,27,+27,5P,hierarchical,7.5YR 7.5/12x,5P 7.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+7.5YR,Square,10,+10,2.5G,equal,7.5YR 7.5/12x,2.5G 7.5/12x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+7.5YR,Square,10,+10,2.5G,hierarchical,7.5YR 7.5/12x,2.5G 7.5/12x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+7.5YR,Square,20,+20,7.5B,equal,7.5YR 8/8,7.5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+7.5YR,Square,20,+20,7.5B,hierarchical,7.5YR 7.5/12x,7.5B 7.5/8x,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+7.5YR,Square,30,+30,2.5RP,equal,7.5YR 7/12,2.5RP 7/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+7.5YR,Square,30,+30,2.5RP,hierarchical,7.5YR 7.5/12x,2.5RP 7.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+10YR,Analogous,3,+3,7.5Y,equal,10YR 8/10,7.5Y 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+10YR,Analogous,3,+3,7.5Y,hierarchical,10YR 8/10,7.5Y 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+10YR,Analogous,-3,-3,2.5YR,equal,10YR 7/10,2.5YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+10YR,Analogous,-3,-3,2.5YR,hierarchical,10YR 8/10,2.5YR 8/6,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+10YR,Complement,20,+20,10B,equal,10YR 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+10YR,Complement,20,+20,10B,hierarchical,10YR 8/10,10B 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+10YR,Split complement,17,+17,2.5B,equal,10YR 8/8,2.5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+10YR,Split complement,17,+17,2.5B,hierarchical,10YR 8/10,2.5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+10YR,Split complement,23,+23,7.5PB,equal,10YR 7/10,7.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+10YR,Split complement,23,+23,7.5PB,hierarchical,10YR 8/10,7.5PB 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+10YR,Triad,13,+13,2.5BG,equal,10YR 8/8,2.5BG 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+10YR,Triad,13,+13,2.5BG,hierarchical,10YR 8/10,2.5BG 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+10YR,Triad,27,+27,7.5P,equal,10YR 8/10,7.5P 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+10YR,Triad,27,+27,7.5P,hierarchical,10YR 8/10,7.5P 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+10YR,Square,10,+10,5G,equal,10YR 8/10,5G 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+10YR,Square,10,+10,5G,hierarchical,10YR 8/10,5G 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+10YR,Square,20,+20,10B,equal,10YR 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+10YR,Square,20,+20,10B,hierarchical,10YR 8/10,10B 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+10YR,Square,30,+30,5RP,equal,10YR 7/10,5RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+10YR,Square,30,+30,5RP,hierarchical,10YR 8/10,5RP 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+2.5Y,Analogous,3,+3,10Y,equal,2.5Y 8/10,10Y 8/10,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+2.5Y,Analogous,3,+3,10Y,hierarchical,2.5Y 8/12,10Y 8/10,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+2.5Y,Analogous,-3,-3,5YR,equal,2.5Y 7/10,5YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+2.5Y,Analogous,-3,-3,5YR,hierarchical,2.5Y 8/12,5YR 8/6,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+2.5Y,Complement,20,+20,2.5PB,equal,2.5Y 7/10,2.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+2.5Y,Complement,20,+20,2.5PB,hierarchical,2.5Y 8/12,2.5PB 8/6,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+2.5Y,Split complement,17,+17,5B,equal,2.5Y 8/8,5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+2.5Y,Split complement,17,+17,5B,hierarchical,2.5Y 8/12,5B 8/8,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+2.5Y,Split complement,23,+23,10PB,equal,2.5Y 7/10,10PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+2.5Y,Split complement,23,+23,10PB,hierarchical,2.5Y 8/12,10PB 8/6,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+2.5Y,Triad,13,+13,5BG,equal,2.5Y 8.5/8x,5BG 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+2.5Y,Triad,13,+13,5BG,hierarchical,2.5Y 8/12,5BG 8/8,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+2.5Y,Triad,27,+27,10P,equal,2.5Y 8/10,10P 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+2.5Y,Triad,27,+27,10P,hierarchical,2.5Y 8/12,10P 8/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+2.5Y,Square,10,+10,7.5G,equal,2.5Y 8/10,7.5G 8/10,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+2.5Y,Square,10,+10,7.5G,hierarchical,2.5Y 8/12,7.5G 8/10,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+2.5Y,Square,20,+20,2.5PB,equal,2.5Y 7/10,2.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+2.5Y,Square,20,+20,2.5PB,hierarchical,2.5Y 8/12,2.5PB 8/6,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+2.5Y,Square,30,+30,7.5RP,equal,2.5Y 7/10,7.5RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+2.5Y,Square,30,+30,7.5RP,hierarchical,2.5Y 8/12,7.5RP 8/6,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+5Y,Analogous,3,+3,2.5GY,equal,5Y 8.5/10x,2.5GY 8.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+5Y,Analogous,3,+3,2.5GY,hierarchical,5Y 8.5/10x,2.5GY 8.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+5Y,Analogous,-3,-3,7.5YR,equal,5Y 7.5/10x,7.5YR 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+5Y,Analogous,-3,-3,7.5YR,hierarchical,5Y 8.5/10x,7.5YR 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+5Y,Complement,20,+20,5PB,equal,5Y 7/10,5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+5Y,Complement,20,+20,5PB,hierarchical,5Y 8.5/10x,5PB 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+5Y,Split complement,17,+17,7.5B,equal,5Y 8/8,7.5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+5Y,Split complement,17,+17,7.5B,hierarchical,5Y 8.5/10x,7.5B 8.5/6x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+5Y,Split complement,23,+23,2.5P,equal,5Y 7.5/10x,2.5P 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+5Y,Split complement,23,+23,2.5P,hierarchical,5Y 8.5/10x,2.5P 8.5/6x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+5Y,Triad,13,+13,7.5BG,equal,5Y 9/8,7.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+5Y,Triad,13,+13,7.5BG,hierarchical,5Y 8.5/10x,7.5BG 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+5Y,Triad,27,+27,2.5RP,equal,5Y 7.5/10x,2.5RP 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+5Y,Triad,27,+27,2.5RP,hierarchical,5Y 8.5/10x,2.5RP 8.5/6x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+5Y,Square,10,+10,10G,equal,5Y 8.5/10x,10G 8.5/10x,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+5Y,Square,10,+10,10G,hierarchical,5Y 8.5/10x,10G 8.5/10x,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+5Y,Square,20,+20,5PB,equal,5Y 7/10,5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+5Y,Square,20,+20,5PB,hierarchical,5Y 8.5/10x,5PB 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+5Y,Square,30,+30,10RP,equal,5Y 7/10,10RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+5Y,Square,30,+30,10RP,hierarchical,5Y 8.5/10x,10RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+7.5Y,Analogous,3,+3,5GY,equal,7.5Y 9/12,5GY 9/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+7.5Y,Analogous,3,+3,5GY,hierarchical,7.5Y 9/12,5GY 9/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+7.5Y,Analogous,-3,-3,10YR,equal,7.5Y 8/10,10YR 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+7.5Y,Analogous,-3,-3,10YR,hierarchical,7.5Y 9/12,10YR 9/4,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+7.5Y,Complement,20,+20,7.5PB,equal,7.5Y 7/10,7.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+7.5Y,Complement,20,+20,7.5PB,hierarchical,7.5Y 9/12,7.5PB 9/2,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+7.5Y,Split complement,17,+17,10B,equal,7.5Y 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+7.5Y,Split complement,17,+17,10B,hierarchical,7.5Y 9/12,10B 9/4,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+7.5Y,Split complement,23,+23,5P,equal,7.5Y 7.5/10x,5P 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+7.5Y,Split complement,23,+23,5P,hierarchical,7.5Y 9/12,5P 9/4,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+7.5Y,Triad,13,+13,10BG,equal,7.5Y 9/8,10BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+7.5Y,Triad,13,+13,10BG,hierarchical,7.5Y 9/12,10BG 9/8,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+7.5Y,Triad,27,+27,5RP,equal,7.5Y 7/10,5RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+7.5Y,Triad,27,+27,5RP,hierarchical,7.5Y 9/12,5RP 9/2,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+7.5Y,Square,10,+10,2.5BG,equal,7.5Y 9/8,2.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+7.5Y,Square,10,+10,2.5BG,hierarchical,7.5Y 9/12,2.5BG 9/8,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+7.5Y,Square,20,+20,7.5PB,equal,7.5Y 7/10,7.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+7.5Y,Square,20,+20,7.5PB,hierarchical,7.5Y 9/12,7.5PB 9/2,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+7.5Y,Square,30,+30,2.5R,equal,7.5Y 7/10,2.5R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+7.5Y,Square,30,+30,2.5R,hierarchical,7.5Y 9/12,2.5R 9/2,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+10Y,Analogous,3,+3,7.5GY,equal,10Y 9/12,7.5GY 9/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+10Y,Analogous,3,+3,7.5GY,hierarchical,10Y 9.5/12x,7.5GY 9.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+10Y,Analogous,-3,-3,2.5Y,equal,10Y 8/10,2.5Y 8/10,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+10Y,Analogous,-3,-3,2.5Y,hierarchical,10Y 9.5/12x,2.5Y 9.5/2x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+10Y,Complement,20,+20,10PB,equal,10Y 7.5/8x,10PB 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+10Y,Complement,20,+20,10PB,hierarchical,10Y 9.5/12x,10PB 9.5/2x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+10Y,Split complement,17,+17,2.5PB,equal,10Y 7.5/8x,2.5PB 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+10Y,Split complement,17,+17,2.5PB,hierarchical,10Y 9.5/12x,2.5PB 9.5/2x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+10Y,Split complement,23,+23,7.5P,equal,10Y 8/10,7.5P 8/10,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+10Y,Split complement,23,+23,7.5P,hierarchical,10Y 9.5/12x,7.5P 9.5/2x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+10Y,Triad,13,+13,2.5B,equal,10Y 8.5/8x,2.5B 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+10Y,Triad,13,+13,2.5B,hierarchical,10Y 9.5/12x,2.5B 9.5/2x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+10Y,Triad,27,+27,7.5RP,equal,10Y 7.5/8x,7.5RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+10Y,Triad,27,+27,7.5RP,hierarchical,10Y 9.5/12x,7.5RP 9.5/2x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+10Y,Square,10,+10,5BG,equal,10Y 9/8,5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+10Y,Square,10,+10,5BG,hierarchical,10Y 9.5/12x,5BG 9.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+10Y,Square,20,+20,10PB,equal,10Y 7.5/8x,10PB 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+10Y,Square,20,+20,10PB,hierarchical,10Y 9.5/12x,10PB 9.5/2x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+10Y,Square,30,+30,5R,equal,10Y 7.5/8x,5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+10Y,Square,30,+30,5R,hierarchical,10Y 9.5/12x,undefined,review,TRUE,member anchor undefined,3,0,3,FALSE,FALSE,darker-only,neither,darker-only,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+2.5GY,Analogous,3,+3,10GY,equal,2.5GY 9/12,10GY 9/12,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+2.5GY,Analogous,3,+3,10GY,hierarchical,2.5GY 9.5/12x,10GY 9.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+2.5GY,Analogous,-3,-3,5Y,equal,2.5GY 8.5/10x,5Y 8.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+2.5GY,Analogous,-3,-3,5Y,hierarchical,2.5GY 9.5/12x,5Y 9.5/2x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+2.5GY,Complement,20,+20,2.5P,equal,2.5GY 7.5/10x,2.5P 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+2.5GY,Complement,20,+20,2.5P,hierarchical,2.5GY 9.5/12x,2.5P 9.5/2x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+2.5GY,Split complement,17,+17,5PB,equal,2.5GY 7/10,5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+2.5GY,Split complement,17,+17,5PB,hierarchical,2.5GY 9.5/12x,5PB 9.5/2x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+2.5GY,Split complement,23,+23,10P,equal,2.5GY 8/10,10P 8/10,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+2.5GY,Split complement,23,+23,10P,hierarchical,2.5GY 9.5/12x,10P 9.5/2x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+2.5GY,Triad,13,+13,5B,equal,2.5GY 8/8,5B 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+2.5GY,Triad,13,+13,5B,hierarchical,2.5GY 9.5/12x,5B 9.5/2x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+2.5GY,Triad,27,+27,10RP,equal,2.5GY 7/10,10RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+2.5GY,Triad,27,+27,10RP,hierarchical,2.5GY 9.5/12x,10RP 9.5/2x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+2.5GY,Square,10,+10,7.5BG,equal,2.5GY 9/8,7.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+2.5GY,Square,10,+10,7.5BG,hierarchical,2.5GY 9.5/12x,7.5BG 9.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+2.5GY,Square,20,+20,2.5P,equal,2.5GY 7.5/10x,2.5P 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+2.5GY,Square,20,+20,2.5P,hierarchical,2.5GY 9.5/12x,2.5P 9.5/2x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+2.5GY,Square,30,+30,7.5R,equal,2.5GY 7/10,7.5R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+2.5GY,Square,30,+30,7.5R,hierarchical,2.5GY 9.5/12x,undefined,review,TRUE,member anchor undefined,4,0,4,FALSE,FALSE,darker-only,neither,darker-only,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+5GY,Analogous,3,+3,2.5G,equal,5GY 8.5/12x,2.5G 8.5/12x,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+5GY,Analogous,3,+3,2.5G,hierarchical,5GY 9/12,2.5G 9/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+5GY,Analogous,-3,-3,7.5Y,equal,5GY 9/12,7.5Y 9/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+5GY,Analogous,-3,-3,7.5Y,hierarchical,5GY 9/12,7.5Y 9/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+5GY,Complement,20,+20,5P,equal,5GY 7.5/10x,5P 7.5/10x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+5GY,Complement,20,+20,5P,hierarchical,5GY 9/12,5P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+5GY,Split complement,17,+17,7.5PB,equal,5GY 7/10,7.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+5GY,Split complement,17,+17,7.5PB,hierarchical,5GY 9/12,7.5PB 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+5GY,Split complement,23,+23,2.5RP,equal,5GY 7.5/10x,2.5RP 7.5/10x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+5GY,Split complement,23,+23,2.5RP,hierarchical,5GY 9/12,2.5RP 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+5GY,Triad,13,+13,7.5B,equal,5GY 8/8,7.5B 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+5GY,Triad,13,+13,7.5B,hierarchical,5GY 9/12,7.5B 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+5GY,Triad,27,+27,2.5R,equal,5GY 7/10,2.5R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+5GY,Triad,27,+27,2.5R,hierarchical,5GY 9/12,2.5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+5GY,Square,10,+10,10BG,equal,5GY 9/8,10BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+5GY,Square,10,+10,10BG,hierarchical,5GY 9/12,10BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+5GY,Square,20,+20,5P,equal,5GY 7.5/10x,5P 7.5/10x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+5GY,Square,20,+20,5P,hierarchical,5GY 9/12,5P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+5GY,Square,30,+30,10R,equal,5GY 7/10,10R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+5GY,Square,30,+30,10R,hierarchical,5GY 9/12,10R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+7.5GY,Analogous,3,+3,5G,equal,7.5GY 9/10,5G 9/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+7.5GY,Analogous,3,+3,5G,hierarchical,7.5GY 9/14,5G 9/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+7.5GY,Analogous,-3,-3,10Y,equal,7.5GY 9/12,10Y 9/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+7.5GY,Analogous,-3,-3,10Y,hierarchical,7.5GY 9/14,10Y 9/12,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+7.5GY,Complement,20,+20,7.5P,equal,7.5GY 8/12,7.5P 8/12,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+7.5GY,Complement,20,+20,7.5P,hierarchical,7.5GY 9/14,7.5P 9/4,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+7.5GY,Split complement,17,+17,10PB,equal,7.5GY 6.5/12x,10PB 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+7.5GY,Split complement,17,+17,10PB,hierarchical,7.5GY 9/14,10PB 9/4,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+7.5GY,Split complement,23,+23,5RP,equal,7.5GY 7/12,5RP 7/12,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+7.5GY,Split complement,23,+23,5RP,hierarchical,7.5GY 9/14,5RP 9/2,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+7.5GY,Triad,13,+13,10B,equal,7.5GY 7/10,10B 7/10,ok,FALSE,,5,3,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+7.5GY,Triad,13,+13,10B,hierarchical,7.5GY 9/14,10B 9/4,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+7.5GY,Triad,27,+27,5R,equal,7.5GY 6.5/12x,5R 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+7.5GY,Triad,27,+27,5R,hierarchical,7.5GY 9/14,5R 9/2,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+7.5GY,Square,10,+10,2.5B,equal,7.5GY 8.5/8x,2.5B 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+7.5GY,Square,10,+10,2.5B,hierarchical,7.5GY 9/14,2.5B 9/6,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+7.5GY,Square,20,+20,7.5P,equal,7.5GY 8/12,7.5P 8/12,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+7.5GY,Square,20,+20,7.5P,hierarchical,7.5GY 9/14,7.5P 9/4,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+7.5GY,Square,30,+30,2.5YR,equal,7.5GY 6.5/12x,2.5YR 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+7.5GY,Square,30,+30,2.5YR,hierarchical,7.5GY 9/14,2.5YR 9/2,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+10GY,Analogous,3,+3,7.5G,equal,10GY 8.5/10x,7.5G 8.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+10GY,Analogous,3,+3,7.5G,hierarchical,10GY 8.5/16x,7.5G 8.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+10GY,Analogous,-3,-3,2.5GY,equal,10GY 9/12,2.5GY 9/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+10GY,Analogous,-3,-3,2.5GY,hierarchical,10GY 8.5/16x,2.5GY 8.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+10GY,Complement,20,+20,10P,equal,10GY 7/14,10P 7/14,ok,FALSE,,3,4,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+10GY,Complement,20,+20,10P,hierarchical,10GY 8.5/16x,10P 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+10GY,Split complement,17,+17,2.5P,equal,10GY 6.5/14x,2.5P 6.5/14x,ok,FALSE,,3,4,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+10GY,Split complement,17,+17,2.5P,hierarchical,10GY 8.5/16x,2.5P 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+10GY,Split complement,23,+23,7.5RP,equal,10GY 6.5/12x,7.5RP 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+10GY,Split complement,23,+23,7.5RP,hierarchical,10GY 8.5/16x,7.5RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+10GY,Triad,13,+13,2.5PB,equal,10GY 7/10,2.5PB 7/10,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+10GY,Triad,13,+13,2.5PB,hierarchical,10GY 8.5/16x,2.5PB 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+10GY,Triad,27,+27,7.5R,equal,10GY 6.5/12x,7.5R 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+10GY,Triad,27,+27,7.5R,hierarchical,10GY 8.5/16x,7.5R 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+10GY,Square,10,+10,5B,equal,10GY 8/8,5B 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+10GY,Square,10,+10,5B,hierarchical,10GY 8.5/16x,5B 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+10GY,Square,20,+20,10P,equal,10GY 7/14,10P 7/14,ok,FALSE,,3,4,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+10GY,Square,20,+20,10P,hierarchical,10GY 8.5/16x,10P 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+10GY,Square,30,+30,5YR,equal,10GY 7/12,5YR 7/12,ok,FALSE,,4,3,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+10GY,Square,30,+30,5YR,hierarchical,10GY 8.5/16x,5YR 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+2.5G,Analogous,3,+3,10G,equal,2.5G 8.5/10x,10G 8.5/10x,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+2.5G,Analogous,3,+3,10G,hierarchical,2.5G 8.5/12x,10G 8.5/10x,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+2.5G,Analogous,-3,-3,5GY,equal,2.5G 8.5/12x,5GY 8.5/12x,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+2.5G,Analogous,-3,-3,5GY,hierarchical,2.5G 8.5/12x,5GY 8.5/12x,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+2.5G,Complement,20,+20,2.5RP,equal,2.5G 7.5/10x,2.5RP 7.5/10x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+2.5G,Complement,20,+20,2.5RP,hierarchical,2.5G 8.5/12x,2.5RP 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+2.5G,Split complement,17,+17,5P,equal,2.5G 7.5/10x,5P 7.5/10x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+2.5G,Split complement,17,+17,5P,hierarchical,2.5G 8.5/12x,5P 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+2.5G,Split complement,23,+23,10RP,equal,2.5G 7/10,10RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+2.5G,Split complement,23,+23,10RP,hierarchical,2.5G 8.5/12x,10RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+2.5G,Triad,13,+13,5PB,equal,2.5G 7/10,5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+2.5G,Triad,13,+13,5PB,hierarchical,2.5G 8.5/12x,5PB 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+2.5G,Triad,27,+27,10R,equal,2.5G 7/10,10R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+2.5G,Triad,27,+27,10R,hierarchical,2.5G 8.5/12x,10R 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+2.5G,Square,10,+10,7.5B,equal,2.5G 8/8,7.5B 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+2.5G,Square,10,+10,7.5B,hierarchical,2.5G 8.5/12x,7.5B 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+2.5G,Square,20,+20,2.5RP,equal,2.5G 7.5/10x,2.5RP 7.5/10x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+2.5G,Square,20,+20,2.5RP,hierarchical,2.5G 8.5/12x,2.5RP 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+2.5G,Square,30,+30,7.5YR,equal,2.5G 7.5/12x,7.5YR 7.5/12x,ok,FALSE,,4,3,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+2.5G,Square,30,+30,7.5YR,hierarchical,2.5G 8.5/12x,7.5YR 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+5G,Analogous,3,+3,2.5BG,equal,5G 9/8,2.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+5G,Analogous,3,+3,2.5BG,hierarchical,5G 9/10,2.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+5G,Analogous,-3,-3,7.5GY,equal,5G 9/10,7.5GY 9/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+5G,Analogous,-3,-3,7.5GY,hierarchical,5G 9/10,7.5GY 9/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+5G,Complement,20,+20,5RP,equal,5G 7/10,5RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+5G,Complement,20,+20,5RP,hierarchical,5G 9/10,5RP 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+5G,Split complement,17,+17,7.5P,equal,5G 8/10,7.5P 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+5G,Split complement,17,+17,7.5P,hierarchical,5G 9/10,7.5P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+5G,Split complement,23,+23,2.5R,equal,5G 7/10,2.5R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+5G,Split complement,23,+23,2.5R,hierarchical,5G 9/10,2.5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+5G,Triad,13,+13,7.5PB,equal,5G 7/10,7.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+5G,Triad,13,+13,7.5PB,hierarchical,5G 9/10,7.5PB 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+5G,Triad,27,+27,2.5YR,equal,5G 7/10,2.5YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+5G,Triad,27,+27,2.5YR,hierarchical,5G 9/10,2.5YR 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+5G,Square,10,+10,10B,equal,5G 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+5G,Square,10,+10,10B,hierarchical,5G 9/10,10B 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+5G,Square,20,+20,5RP,equal,5G 7/10,5RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+5G,Square,20,+20,5RP,hierarchical,5G 9/10,5RP 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+5G,Square,30,+30,10YR,equal,5G 8/10,10YR 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+5G,Square,30,+30,10YR,hierarchical,5G 9/10,10YR 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+7.5G,Analogous,3,+3,5BG,equal,7.5G 9/8,5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+7.5G,Analogous,3,+3,5BG,hierarchical,7.5G 8.5/10x,5BG 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+7.5G,Analogous,-3,-3,10GY,equal,7.5G 8.5/10x,10GY 8.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+7.5G,Analogous,-3,-3,10GY,hierarchical,7.5G 8.5/10x,10GY 8.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+7.5G,Complement,20,+20,7.5RP,equal,7.5G 7.5/8x,7.5RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+7.5G,Complement,20,+20,7.5RP,hierarchical,7.5G 8.5/10x,7.5RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+7.5G,Split complement,17,+17,10P,equal,7.5G 8/10,10P 8/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+7.5G,Split complement,17,+17,10P,hierarchical,7.5G 8.5/10x,10P 8.5/6x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+7.5G,Split complement,23,+23,5R,equal,7.5G 7.5/8x,5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+7.5G,Split complement,23,+23,5R,hierarchical,7.5G 8.5/10x,5R 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+7.5G,Triad,13,+13,10PB,equal,7.5G 7.5/8x,10PB 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+7.5G,Triad,13,+13,10PB,hierarchical,7.5G 8.5/10x,10PB 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+7.5G,Triad,27,+27,5YR,equal,7.5G 7.5/8x,5YR 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+7.5G,Triad,27,+27,5YR,hierarchical,7.5G 8.5/10x,5YR 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+7.5G,Square,10,+10,2.5PB,equal,7.5G 7.5/8x,2.5PB 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+7.5G,Square,10,+10,2.5PB,hierarchical,7.5G 8.5/10x,2.5PB 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+7.5G,Square,20,+20,7.5RP,equal,7.5G 7.5/8x,7.5RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+7.5G,Square,20,+20,7.5RP,hierarchical,7.5G 8.5/10x,7.5RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+7.5G,Square,30,+30,2.5Y,equal,7.5G 8/10,2.5Y 8/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+7.5G,Square,30,+30,2.5Y,hierarchical,7.5G 8.5/10x,2.5Y 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+10G,Analogous,3,+3,7.5BG,equal,10G 9/8,7.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+10G,Analogous,3,+3,7.5BG,hierarchical,10G 8.5/10x,7.5BG 8.5/8x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+10G,Analogous,-3,-3,2.5G,equal,10G 8.5/10x,2.5G 8.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+10G,Analogous,-3,-3,2.5G,hierarchical,10G 8.5/10x,2.5G 8.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+10G,Complement,20,+20,10RP,equal,10G 7.5/8x,10RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+10G,Complement,20,+20,10RP,hierarchical,10G 8.5/10x,10RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+10G,Split complement,17,+17,2.5RP,equal,10G 8/8,2.5RP 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+10G,Split complement,17,+17,2.5RP,hierarchical,10G 8.5/10x,2.5RP 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+10G,Split complement,23,+23,7.5R,equal,10G 7.5/8x,7.5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+10G,Split complement,23,+23,7.5R,hierarchical,10G 8.5/10x,7.5R 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+10G,Triad,13,+13,2.5P,equal,10G 8/8,2.5P 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+10G,Triad,13,+13,2.5P,hierarchical,10G 8.5/10x,2.5P 8.5/6x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+10G,Triad,27,+27,7.5YR,equal,10G 8/8,7.5YR 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+10G,Triad,27,+27,7.5YR,hierarchical,10G 8.5/10x,7.5YR 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+10G,Square,10,+10,5PB,equal,10G 7.5/8x,5PB 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+10G,Square,10,+10,5PB,hierarchical,10G 8.5/10x,5PB 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+10G,Square,20,+20,10RP,equal,10G 7.5/8x,10RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+10G,Square,20,+20,10RP,hierarchical,10G 8.5/10x,10RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,3,0,3,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+10G,Square,30,+30,5Y,equal,10G 8.5/10x,5Y 8.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+10G,Square,30,+30,5Y,hierarchical,10G 8.5/10x,5Y 8.5/10x,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+2.5BG,Analogous,3,+3,10BG,equal,2.5BG 9/8,10BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+2.5BG,Analogous,3,+3,10BG,hierarchical,2.5BG 9/8,10BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+2.5BG,Analogous,-3,-3,5G,equal,2.5BG 9/8,5G 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+2.5BG,Analogous,-3,-3,5G,hierarchical,2.5BG 9/8,5G 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+2.5BG,Complement,20,+20,2.5R,equal,2.5BG 7.5/8x,2.5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+2.5BG,Complement,20,+20,2.5R,hierarchical,2.5BG 9/8,2.5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+2.5BG,Split complement,17,+17,5RP,equal,2.5BG 7.5/8x,5RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+2.5BG,Split complement,17,+17,5RP,hierarchical,2.5BG 9/8,5RP 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+2.5BG,Split complement,23,+23,10R,equal,2.5BG 7.5/8x,10R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+2.5BG,Split complement,23,+23,10R,hierarchical,2.5BG 9/8,10R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+2.5BG,Triad,13,+13,5P,equal,2.5BG 8/8,5P 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+2.5BG,Triad,13,+13,5P,hierarchical,2.5BG 9/8,5P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+2.5BG,Triad,27,+27,10YR,equal,2.5BG 8/8,10YR 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+2.5BG,Triad,27,+27,10YR,hierarchical,2.5BG 9/8,10YR 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+2.5BG,Square,10,+10,7.5PB,equal,2.5BG 7.5/8x,7.5PB 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+2.5BG,Square,10,+10,7.5PB,hierarchical,2.5BG 9/8,7.5PB 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+2.5BG,Square,20,+20,2.5R,equal,2.5BG 7.5/8x,2.5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+2.5BG,Square,20,+20,2.5R,hierarchical,2.5BG 9/8,2.5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+2.5BG,Square,30,+30,7.5Y,equal,2.5BG 9/8,7.5Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+2.5BG,Square,30,+30,7.5Y,hierarchical,2.5BG 9/8,7.5Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+5BG,Analogous,3,+3,2.5B,equal,5BG 8.5/8x,2.5B 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+5BG,Analogous,3,+3,2.5B,hierarchical,5BG 9/8,2.5B 9/6,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+5BG,Analogous,-3,-3,7.5G,equal,5BG 9/8,7.5G 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+5BG,Analogous,-3,-3,7.5G,hierarchical,5BG 9/8,7.5G 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+5BG,Complement,20,+20,5R,equal,5BG 7.5/8x,5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+5BG,Complement,20,+20,5R,hierarchical,5BG 9/8,5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+5BG,Split complement,17,+17,7.5RP,equal,5BG 7.5/8x,7.5RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+5BG,Split complement,17,+17,7.5RP,hierarchical,5BG 9/8,7.5RP 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+5BG,Split complement,23,+23,2.5YR,equal,5BG 7.5/8x,2.5YR 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+5BG,Split complement,23,+23,2.5YR,hierarchical,5BG 9/8,2.5YR 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+5BG,Triad,13,+13,7.5P,equal,5BG 8.5/8x,7.5P 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+5BG,Triad,13,+13,7.5P,hierarchical,5BG 9/8,7.5P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+5BG,Triad,27,+27,2.5Y,equal,5BG 8.5/8x,2.5Y 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+5BG,Triad,27,+27,2.5Y,hierarchical,5BG 9/8,2.5Y 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+5BG,Square,10,+10,10PB,equal,5BG 7.5/8x,10PB 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+5BG,Square,10,+10,10PB,hierarchical,5BG 9/8,10PB 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+5BG,Square,20,+20,5R,equal,5BG 7.5/8x,5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+5BG,Square,20,+20,5R,hierarchical,5BG 9/8,5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+5BG,Square,30,+30,10Y,equal,5BG 9/8,10Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+5BG,Square,30,+30,10Y,hierarchical,5BG 9/8,10Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+7.5BG,Analogous,3,+3,5B,equal,7.5BG 8/8,5B 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+7.5BG,Analogous,3,+3,5B,hierarchical,7.5BG 9/8,5B 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+7.5BG,Analogous,-3,-3,10G,equal,7.5BG 9/8,10G 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+7.5BG,Analogous,-3,-3,10G,hierarchical,7.5BG 9/8,10G 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,10G 0.6/2,FALSE,10G 2/4,TRUE
+7.5BG,Complement,20,+20,7.5R,equal,7.5BG 7.5/8x,7.5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+7.5BG,Complement,20,+20,7.5R,hierarchical,7.5BG 9/8,7.5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+7.5BG,Split complement,17,+17,10RP,equal,7.5BG 7.5/8x,10RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+7.5BG,Split complement,17,+17,10RP,hierarchical,7.5BG 9/8,10RP 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+7.5BG,Split complement,23,+23,5YR,equal,7.5BG 7.5/8x,5YR 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+7.5BG,Split complement,23,+23,5YR,hierarchical,7.5BG 9/8,5YR 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+7.5BG,Triad,13,+13,10P,equal,7.5BG 8/8,10P 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+7.5BG,Triad,13,+13,10P,hierarchical,7.5BG 9/8,10P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+7.5BG,Triad,27,+27,5Y,equal,7.5BG 9/8,5Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+7.5BG,Triad,27,+27,5Y,hierarchical,7.5BG 9/8,5Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+7.5BG,Square,10,+10,2.5P,equal,7.5BG 8/8,2.5P 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+7.5BG,Square,10,+10,2.5P,hierarchical,7.5BG 9/8,2.5P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+7.5BG,Square,20,+20,7.5R,equal,7.5BG 7.5/8x,7.5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+7.5BG,Square,20,+20,7.5R,hierarchical,7.5BG 9/8,7.5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+7.5BG,Square,30,+30,2.5GY,equal,7.5BG 9/8,2.5GY 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+7.5BG,Square,30,+30,2.5GY,hierarchical,7.5BG 9/8,2.5GY 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+10BG,Analogous,3,+3,7.5B,equal,10BG 8/8,7.5B 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+10BG,Analogous,3,+3,7.5B,hierarchical,10BG 9/8,7.5B 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+10BG,Analogous,-3,-3,2.5BG,equal,10BG 9/8,2.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+10BG,Analogous,-3,-3,2.5BG,hierarchical,10BG 9/8,2.5BG 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+10BG,Complement,20,+20,10R,equal,10BG 7.5/8x,10R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+10BG,Complement,20,+20,10R,hierarchical,10BG 9/8,10R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+10BG,Split complement,17,+17,2.5R,equal,10BG 7.5/8x,2.5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+10BG,Split complement,17,+17,2.5R,hierarchical,10BG 9/8,2.5R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+10BG,Split complement,23,+23,7.5YR,equal,10BG 8/8,7.5YR 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+10BG,Split complement,23,+23,7.5YR,hierarchical,10BG 9/8,7.5YR 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+10BG,Triad,13,+13,2.5RP,equal,10BG 8/8,2.5RP 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+10BG,Triad,13,+13,2.5RP,hierarchical,10BG 9/8,2.5RP 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+10BG,Triad,27,+27,7.5Y,equal,10BG 9/8,7.5Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+10BG,Triad,27,+27,7.5Y,hierarchical,10BG 9/8,7.5Y 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+10BG,Square,10,+10,5P,equal,10BG 8/8,5P 8/8,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+10BG,Square,10,+10,5P,hierarchical,10BG 9/8,5P 9/4,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+10BG,Square,20,+20,10R,equal,10BG 7.5/8x,10R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+10BG,Square,20,+20,10R,hierarchical,10BG 9/8,10R 9/2,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+10BG,Square,30,+30,5GY,equal,10BG 9/8,5GY 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+10BG,Square,30,+30,5GY,hierarchical,10BG 9/8,5GY 9/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+2.5B,Analogous,3,+3,10B,equal,2.5B 7.5/8x,10B 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+2.5B,Analogous,3,+3,10B,hierarchical,2.5B 8.5/8x,10B 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+2.5B,Analogous,-3,-3,5BG,equal,2.5B 8.5/8x,5BG 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+2.5B,Analogous,-3,-3,5BG,hierarchical,2.5B 8.5/8x,5BG 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+2.5B,Complement,20,+20,2.5YR,equal,2.5B 7.5/8x,2.5YR 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+2.5B,Complement,20,+20,2.5YR,hierarchical,2.5B 8.5/8x,2.5YR 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+2.5B,Split complement,17,+17,5R,equal,2.5B 7.5/8x,5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+2.5B,Split complement,17,+17,5R,hierarchical,2.5B 8.5/8x,5R 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+2.5B,Split complement,23,+23,10YR,equal,2.5B 8/8,10YR 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+2.5B,Split complement,23,+23,10YR,hierarchical,2.5B 8.5/8x,10YR 8.5/6x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+2.5B,Triad,13,+13,5RP,equal,2.5B 7.5/8x,5RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+2.5B,Triad,13,+13,5RP,hierarchical,2.5B 8.5/8x,5RP 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+2.5B,Triad,27,+27,10Y,equal,2.5B 8.5/8x,10Y 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+2.5B,Triad,27,+27,10Y,hierarchical,2.5B 8.5/8x,10Y 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+2.5B,Square,10,+10,7.5P,equal,2.5B 8.5/8x,7.5P 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+2.5B,Square,10,+10,7.5P,hierarchical,2.5B 8.5/8x,7.5P 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+2.5B,Square,20,+20,2.5YR,equal,2.5B 7.5/8x,2.5YR 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+2.5B,Square,20,+20,2.5YR,hierarchical,2.5B 8.5/8x,2.5YR 8.5/4x,review,TRUE,member extension crosses achromatic axis,4,0,4,FALSE,TRUE,darker-only,neither,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+2.5B,Square,30,+30,7.5GY,equal,2.5B 8.5/8x,7.5GY 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+2.5B,Square,30,+30,7.5GY,hierarchical,2.5B 8.5/8x,7.5GY 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+5B,Analogous,3,+3,2.5PB,equal,5B 7.5/8x,2.5PB 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+5B,Analogous,3,+3,2.5PB,hierarchical,5B 8/8,2.5PB 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+5B,Analogous,-3,-3,7.5BG,equal,5B 8/8,7.5BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+5B,Analogous,-3,-3,7.5BG,hierarchical,5B 8/8,7.5BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+5B,Complement,20,+20,5YR,equal,5B 7.5/8x,5YR 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+5B,Complement,20,+20,5YR,hierarchical,5B 8/8,5YR 8/6,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+5B,Split complement,17,+17,7.5R,equal,5B 7.5/8x,7.5R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+5B,Split complement,17,+17,7.5R,hierarchical,5B 8/8,7.5R 8/6,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+5B,Split complement,23,+23,2.5Y,equal,5B 8/8,2.5Y 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+5B,Split complement,23,+23,2.5Y,hierarchical,5B 8/8,2.5Y 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+5B,Triad,13,+13,7.5RP,equal,5B 7.5/8x,7.5RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+5B,Triad,13,+13,7.5RP,hierarchical,5B 8/8,7.5RP 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+5B,Triad,27,+27,2.5GY,equal,5B 8/8,2.5GY 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+5B,Triad,27,+27,2.5GY,hierarchical,5B 8/8,2.5GY 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+5B,Square,10,+10,10P,equal,5B 8/8,10P 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+5B,Square,10,+10,10P,hierarchical,5B 8/8,10P 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+5B,Square,20,+20,5YR,equal,5B 7.5/8x,5YR 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+5B,Square,20,+20,5YR,hierarchical,5B 8/8,5YR 8/6,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+5B,Square,30,+30,10GY,equal,5B 8/8,10GY 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+5B,Square,30,+30,10GY,hierarchical,5B 8/8,10GY 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+7.5B,Analogous,3,+3,5PB,equal,7.5B 7.5/8x,5PB 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+7.5B,Analogous,3,+3,5PB,hierarchical,7.5B 8/8,5PB 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+7.5B,Analogous,-3,-3,10BG,equal,7.5B 8/8,10BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+7.5B,Analogous,-3,-3,10BG,hierarchical,7.5B 8/8,10BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+7.5B,Complement,20,+20,7.5YR,equal,7.5B 8/8,7.5YR 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+7.5B,Complement,20,+20,7.5YR,hierarchical,7.5B 8/8,7.5YR 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+7.5B,Split complement,17,+17,10R,equal,7.5B 7.5/8x,10R 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+7.5B,Split complement,17,+17,10R,hierarchical,7.5B 8/8,10R 8/6,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+7.5B,Split complement,23,+23,5Y,equal,7.5B 8/8,5Y 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+7.5B,Split complement,23,+23,5Y,hierarchical,7.5B 8/8,5Y 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+7.5B,Triad,13,+13,10RP,equal,7.5B 7.5/8x,10RP 7.5/8x,ok,FALSE,,5,4,9,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+7.5B,Triad,13,+13,10RP,hierarchical,7.5B 8/8,10RP 8/6,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+7.5B,Triad,27,+27,5GY,equal,7.5B 8/8,5GY 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+7.5B,Triad,27,+27,5GY,hierarchical,7.5B 8/8,5GY 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+7.5B,Square,10,+10,2.5RP,equal,7.5B 8/8,2.5RP 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+7.5B,Square,10,+10,2.5RP,hierarchical,7.5B 8/8,2.5RP 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+7.5B,Square,20,+20,7.5YR,equal,7.5B 8/8,7.5YR 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+7.5B,Square,20,+20,7.5YR,hierarchical,7.5B 8/8,7.5YR 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+7.5B,Square,30,+30,2.5G,equal,7.5B 8/8,2.5G 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+7.5B,Square,30,+30,2.5G,hierarchical,7.5B 8/8,2.5G 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+10B,Analogous,3,+3,7.5PB,equal,10B 7/10,7.5PB 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+10B,Analogous,3,+3,7.5PB,hierarchical,10B 7/10,7.5PB 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+10B,Analogous,-3,-3,2.5B,equal,10B 7.5/8x,2.5B 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+10B,Analogous,-3,-3,2.5B,hierarchical,10B 7/10,2.5B 7/8,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+10B,Complement,20,+20,10YR,equal,10B 7/10,10YR 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+10B,Complement,20,+20,10YR,hierarchical,10B 7/10,10YR 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+10B,Split complement,17,+17,2.5YR,equal,10B 7/10,2.5YR 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+10B,Split complement,17,+17,2.5YR,hierarchical,10B 7/10,2.5YR 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+10B,Split complement,23,+23,7.5Y,equal,10B 7/10,7.5Y 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+10B,Split complement,23,+23,7.5Y,hierarchical,10B 7/10,7.5Y 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+10B,Triad,13,+13,2.5R,equal,10B 7/10,2.5R 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+10B,Triad,13,+13,2.5R,hierarchical,10B 7/10,2.5R 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+10B,Triad,27,+27,7.5GY,equal,10B 7/10,7.5GY 7/10,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+10B,Triad,27,+27,7.5GY,hierarchical,10B 7/10,7.5GY 7/10,ok,FALSE,,3,5,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+10B,Square,10,+10,5RP,equal,10B 7/10,5RP 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+10B,Square,10,+10,5RP,hierarchical,10B 7/10,5RP 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10B 0.5/2x,FALSE,10B 2/4,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+10B,Square,20,+20,10YR,equal,10B 7/10,10YR 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+10B,Square,20,+20,10YR,hierarchical,10B 7/10,10YR 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+10B,Square,30,+30,5G,equal,10B 7/10,5G 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+10B,Square,30,+30,5G,hierarchical,10B 7/10,5G 7/10,ok,FALSE,,3,4,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+2.5PB,Analogous,3,+3,10PB,equal,2.5PB 7/10,10PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+2.5PB,Analogous,3,+3,10PB,hierarchical,2.5PB 7/10,10PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+2.5PB,Analogous,-3,-3,5B,equal,2.5PB 7.5/8x,5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+2.5PB,Analogous,-3,-3,5B,hierarchical,2.5PB 7/10,5B 7/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+2.5PB,Complement,20,+20,2.5Y,equal,2.5PB 7/10,2.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+2.5PB,Complement,20,+20,2.5Y,hierarchical,2.5PB 7/10,2.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+2.5PB,Split complement,17,+17,5YR,equal,2.5PB 7/10,5YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+2.5PB,Split complement,17,+17,5YR,hierarchical,2.5PB 7/10,5YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+2.5PB,Split complement,23,+23,10Y,equal,2.5PB 7.5/8x,10Y 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+2.5PB,Split complement,23,+23,10Y,hierarchical,2.5PB 7/10,10Y 7/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+2.5PB,Triad,13,+13,5R,equal,2.5PB 7/10,5R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+2.5PB,Triad,13,+13,5R,hierarchical,2.5PB 7/10,5R 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+2.5PB,Triad,27,+27,10GY,equal,2.5PB 7/10,10GY 7/10,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+2.5PB,Triad,27,+27,10GY,hierarchical,2.5PB 7/10,10GY 7/10,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+2.5PB,Square,10,+10,7.5RP,equal,2.5PB 7/10,7.5RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+2.5PB,Square,10,+10,7.5RP,hierarchical,2.5PB 7/10,7.5RP 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+2.5PB,Square,20,+20,2.5Y,equal,2.5PB 7/10,2.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+2.5PB,Square,20,+20,2.5Y,hierarchical,2.5PB 7/10,2.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+2.5PB,Square,30,+30,7.5G,equal,2.5PB 7.5/8x,7.5G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+2.5PB,Square,30,+30,7.5G,hierarchical,2.5PB 7/10,7.5G 7/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+5PB,Analogous,3,+3,2.5P,equal,5PB 6/14,2.5P 6/14,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+5PB,Analogous,3,+3,2.5P,hierarchical,5PB 6/14,2.5P 6/14,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+5PB,Analogous,-3,-3,7.5B,equal,5PB 7.5/8x,7.5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+5PB,Analogous,-3,-3,7.5B,hierarchical,5PB 6/14,7.5B 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+5PB,Complement,20,+20,5Y,equal,5PB 7/10,5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+5PB,Complement,20,+20,5Y,hierarchical,5PB 6/14,5Y 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+5PB,Split complement,17,+17,7.5YR,equal,5PB 6.5/12x,7.5YR 6.5/12x,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+5PB,Split complement,17,+17,7.5YR,hierarchical,5PB 6/14,7.5YR 6/10,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+5PB,Split complement,23,+23,2.5GY,equal,5PB 7/10,2.5GY 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+5PB,Split complement,23,+23,2.5GY,hierarchical,5PB 6/14,2.5GY 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+5PB,Triad,13,+13,7.5R,equal,5PB 6/14,7.5R 6/14,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+5PB,Triad,13,+13,7.5R,hierarchical,5PB 6/14,7.5R 6/14,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+5PB,Triad,27,+27,2.5G,equal,5PB 7/10,2.5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+5PB,Triad,27,+27,2.5G,hierarchical,5PB 6/14,2.5G 6/10,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+5PB,Square,10,+10,10RP,equal,5PB 6/14,10RP 6/14,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+5PB,Square,10,+10,10RP,hierarchical,5PB 6/14,10RP 6/14,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+5PB,Square,20,+20,5Y,equal,5PB 7/10,5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+5PB,Square,20,+20,5Y,hierarchical,5PB 6/14,5Y 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+5PB,Square,30,+30,10G,equal,5PB 7.5/8x,10G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+5PB,Square,30,+30,10G,hierarchical,5PB 6/14,10G 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+7.5PB,Analogous,3,+3,5P,equal,7.5PB 4.5/22x,5P 4.5/22x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,lighter-only,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+7.5PB,Analogous,3,+3,5P,hierarchical,7.5PB 4/24,5P 4/20,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,lighter-only,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+7.5PB,Analogous,-3,-3,10B,equal,7.5PB 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+7.5PB,Analogous,-3,-3,10B,hierarchical,7.5PB 4/24,10B 4/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+7.5PB,Complement,20,+20,7.5Y,equal,7.5PB 7/10,7.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+7.5PB,Complement,20,+20,7.5Y,hierarchical,7.5PB 4/24,7.5Y 4/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+7.5PB,Split complement,17,+17,10YR,equal,7.5PB 7/10,10YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+7.5PB,Split complement,17,+17,10YR,hierarchical,7.5PB 4/24,10YR 4/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+7.5PB,Split complement,23,+23,5GY,equal,7.5PB 7/10,5GY 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+7.5PB,Split complement,23,+23,5GY,hierarchical,7.5PB 4/24,5GY 4/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+7.5PB,Triad,13,+13,10R,equal,7.5PB 6/14,10R 6/14,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+7.5PB,Triad,13,+13,10R,hierarchical,7.5PB 4/24,10R 4/12,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+7.5PB,Triad,27,+27,5G,equal,7.5PB 7/10,5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+7.5PB,Triad,27,+27,5G,hierarchical,7.5PB 4/24,5G 4/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+7.5PB,Square,10,+10,2.5R,equal,7.5PB 5.5/16x,2.5R 5.5/16x,ok,FALSE,,4,2,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+7.5PB,Square,10,+10,2.5R,hierarchical,7.5PB 4/24,2.5R 4/14,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+7.5PB,Square,20,+20,7.5Y,equal,7.5PB 7/10,7.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+7.5PB,Square,20,+20,7.5Y,hierarchical,7.5PB 4/24,7.5Y 4/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+7.5PB,Square,30,+30,2.5BG,equal,7.5PB 7.5/8x,2.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+7.5PB,Square,30,+30,2.5BG,hierarchical,7.5PB 4/24,2.5BG 4/4,review,TRUE,member extension crosses achromatic axis,2,0,2,FALSE,TRUE,darker-only,neither,darker-only,TRUE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+10PB,Analogous,3,+3,7.5P,equal,10PB 5/20,7.5P 5/20,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+10PB,Analogous,3,+3,7.5P,hierarchical,10PB 4/26,7.5P 4/18,ok,FALSE,,1,3,4,FALSE,FALSE,equal-only,lighter-only,lighter-only,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+10PB,Analogous,-3,-3,2.5PB,equal,10PB 7/10,2.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+10PB,Analogous,-3,-3,2.5PB,hierarchical,10PB 4/26,2.5PB 4/8,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+10PB,Complement,20,+20,10Y,equal,10PB 7.5/8x,10Y 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+10PB,Complement,20,+20,10Y,hierarchical,10PB 4/26,10Y 4/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+10PB,Split complement,17,+17,2.5Y,equal,10PB 7/10,2.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+10PB,Split complement,17,+17,2.5Y,hierarchical,10PB 4/26,2.5Y 4/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+10PB,Split complement,23,+23,7.5GY,equal,10PB 6.5/12x,7.5GY 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+10PB,Split complement,23,+23,7.5GY,hierarchical,10PB 4/26,7.5GY 4/8,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+10PB,Triad,13,+13,2.5YR,equal,10PB 6/14,2.5YR 6/14,ok,FALSE,,4,2,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+10PB,Triad,13,+13,2.5YR,hierarchical,10PB 4/26,2.5YR 4/10,ok,FALSE,,1,5,6,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+10PB,Triad,27,+27,7.5G,equal,10PB 7.5/8x,7.5G 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+10PB,Triad,27,+27,7.5G,hierarchical,10PB 4/26,7.5G 4/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+10PB,Square,10,+10,5R,equal,10PB 5/18,5R 5/18,ok,FALSE,,3,1,4,FALSE,FALSE,darker-only,equal-only,darker-only,TRUE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+10PB,Square,10,+10,5R,hierarchical,10PB 4/26,5R 4/14,ok,FALSE,,1,4,5,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+10PB,Square,20,+20,10Y,equal,10PB 7.5/8x,10Y 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+10PB,Square,20,+20,10Y,hierarchical,10PB 4/26,10Y 4/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+10PB,Square,30,+30,5BG,equal,10PB 7.5/8x,5BG 7.5/8x,ok,FALSE,,5,5,10,FALSE,FALSE,two-sided,two-sided,two-sided,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+10PB,Square,30,+30,5BG,hierarchical,10PB 4/26,5BG 4/4,review,TRUE,member extension crosses achromatic axis,1,0,1,FALSE,TRUE,equal-only,neither,equal-only,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+2.5P,Analogous,3,+3,10P,equal,2.5P 5.5/20x,10P 5.5/20x,ok,FALSE,,3,3,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+2.5P,Analogous,3,+3,10P,hierarchical,2.5P 5/24,10P 5/20,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+2.5P,Analogous,-3,-3,5PB,equal,2.5P 6/14,5PB 6/14,ok,FALSE,,5,2,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+2.5P,Analogous,-3,-3,5PB,hierarchical,2.5P 5/24,5PB 5/12,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+2.5P,Complement,20,+20,2.5GY,equal,2.5P 7.5/10x,2.5GY 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+2.5P,Complement,20,+20,2.5GY,hierarchical,2.5P 5/24,2.5GY 5/8,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+2.5P,Split complement,17,+17,5Y,equal,2.5P 7.5/10x,5Y 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+2.5P,Split complement,17,+17,5Y,hierarchical,2.5P 5/24,5Y 5/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+2.5P,Split complement,23,+23,10GY,equal,2.5P 6.5/14x,10GY 6.5/14x,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+2.5P,Split complement,23,+23,10GY,hierarchical,2.5P 5/24,10GY 5/10,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+2.5P,Triad,13,+13,5YR,equal,2.5P 7/12,5YR 7/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+2.5P,Triad,13,+13,5YR,hierarchical,2.5P 5/24,5YR 5/10,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+2.5P,Triad,27,+27,10G,equal,2.5P 8/8,10G 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+2.5P,Triad,27,+27,10G,hierarchical,2.5P 5/24,10G 5/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+2.5P,Square,10,+10,7.5R,equal,2.5P 5.5/18x,7.5R 5.5/18x,ok,FALSE,,3,2,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+2.5P,Square,10,+10,7.5R,hierarchical,2.5P 5/24,7.5R 5/18,ok,FALSE,,2,1,3,FALSE,FALSE,darker-only,equal-only,darker-only,TRUE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+2.5P,Square,20,+20,2.5GY,equal,2.5P 7.5/10x,2.5GY 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+2.5P,Square,20,+20,2.5GY,hierarchical,2.5P 5/24,2.5GY 5/8,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+2.5P,Square,30,+30,7.5BG,equal,2.5P 8/8,7.5BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+2.5P,Square,30,+30,7.5BG,hierarchical,2.5P 5/24,7.5BG 5/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+5P,Analogous,3,+3,2.5RP,equal,5P 5.5/20x,2.5RP 5.5/20x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+5P,Analogous,3,+3,2.5RP,hierarchical,5P 5/26,2.5RP 5/20,ok,FALSE,,1,2,3,FALSE,FALSE,equal-only,lighter-only,lighter-only,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+5P,Analogous,-3,-3,7.5PB,equal,5P 4.5/22x,7.5PB 4.5/22x,ok,FALSE,,2,2,4,FALSE,FALSE,lighter-only,darker-only,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+5P,Analogous,-3,-3,7.5PB,hierarchical,5P 5/26,7.5PB 5/18,ok,FALSE,,1,3,4,FALSE,FALSE,equal-only,darker-only,darker-only,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,7.5PB 0.2/2,FALSE,7.5PB 0.2/4,FALSE
+5P,Complement,20,+20,5GY,equal,5P 7.5/10x,5GY 7.5/10x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+5P,Complement,20,+20,5GY,hierarchical,5P 5/26,5GY 5/8,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+5P,Split complement,17,+17,7.5Y,equal,5P 7.5/10x,7.5Y 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+5P,Split complement,17,+17,7.5Y,hierarchical,5P 5/26,7.5Y 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+5P,Split complement,23,+23,2.5G,equal,5P 7.5/10x,2.5G 7.5/10x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+5P,Split complement,23,+23,2.5G,hierarchical,5P 5/26,2.5G 5/8,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+5P,Triad,13,+13,7.5YR,equal,5P 7/12,7.5YR 7/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+5P,Triad,13,+13,7.5YR,hierarchical,5P 5/26,7.5YR 5/10,ok,FALSE,,1,4,5,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+5P,Triad,27,+27,2.5BG,equal,5P 8/8,2.5BG 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+5P,Triad,27,+27,2.5BG,hierarchical,5P 5/26,2.5BG 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+5P,Square,10,+10,10R,equal,5P 6/16,10R 6/16,ok,FALSE,,3,2,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+5P,Square,10,+10,10R,hierarchical,5P 5/26,10R 5/14,ok,FALSE,,1,3,4,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,10R 0.4/2,FALSE,10R 0.6/4,FALSE
+5P,Square,20,+20,5GY,equal,5P 7.5/10x,5GY 7.5/10x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+5P,Square,20,+20,5GY,hierarchical,5P 5/26,5GY 5/8,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+5P,Square,30,+30,10BG,equal,5P 8/8,10BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+5P,Square,30,+30,10BG,hierarchical,5P 5/26,10BG 5/6,ok,FALSE,,1,6,7,FALSE,FALSE,equal-only,two-sided,mixed,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+7.5P,Analogous,3,+3,5RP,equal,7.5P 5.5/18x,5RP 5.5/18x,ok,FALSE,,3,2,5,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+7.5P,Analogous,3,+3,5RP,hierarchical,7.5P 6/24,5RP 6/16,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE
+7.5P,Analogous,-3,-3,10PB,equal,7.5P 5/20,10PB 5/20,ok,FALSE,,3,3,6,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+7.5P,Analogous,-3,-3,10PB,hierarchical,7.5P 6/24,10PB 6/16,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,10PB 0.2/2,FALSE,10PB 0.3/4x,FALSE
+7.5P,Complement,20,+20,7.5GY,equal,7.5P 8/12,7.5GY 8/12,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+7.5P,Complement,20,+20,7.5GY,hierarchical,7.5P 6/24,7.5GY 6/10,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+7.5P,Split complement,17,+17,10Y,equal,7.5P 8/10,10Y 8/10,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+7.5P,Split complement,17,+17,10Y,hierarchical,7.5P 6/24,10Y 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+7.5P,Split complement,23,+23,5G,equal,7.5P 8/10,5G 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+7.5P,Split complement,23,+23,5G,hierarchical,7.5P 6/24,5G 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+7.5P,Triad,13,+13,10YR,equal,7.5P 8/10,10YR 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+7.5P,Triad,13,+13,10YR,hierarchical,7.5P 6/24,10YR 6/10,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+7.5P,Triad,27,+27,5BG,equal,7.5P 8.5/8x,5BG 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+7.5P,Triad,27,+27,5BG,hierarchical,7.5P 6/24,5BG 6/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+7.5P,Square,10,+10,2.5YR,equal,7.5P 6.5/14x,2.5YR 6.5/14x,ok,FALSE,,5,2,7,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+7.5P,Square,10,+10,2.5YR,hierarchical,7.5P 6/24,2.5YR 6/14,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,2.5YR 0.3/2x,FALSE,2.5YR 0.6/4,FALSE
+7.5P,Square,20,+20,7.5GY,equal,7.5P 8/12,7.5GY 8/12,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+7.5P,Square,20,+20,7.5GY,hierarchical,7.5P 6/24,7.5GY 6/10,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+7.5P,Square,30,+30,2.5B,equal,7.5P 8.5/8x,2.5B 8.5/8x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+7.5P,Square,30,+30,2.5B,hierarchical,7.5P 6/24,2.5B 6/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+10P,Analogous,3,+3,7.5RP,equal,10P 5.5/18x,7.5RP 5.5/18x,ok,FALSE,,3,2,5,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+10P,Analogous,3,+3,7.5RP,hierarchical,10P 6/22,7.5RP 6/16,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE
+10P,Analogous,-3,-3,2.5P,equal,10P 5.5/20x,2.5P 5.5/20x,ok,FALSE,,3,3,6,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+10P,Analogous,-3,-3,2.5P,hierarchical,10P 6/22,2.5P 6/18,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,2.5P 0.2/2,FALSE,2.5P 0.3/4x,FALSE
+10P,Complement,20,+20,10GY,equal,10P 7/14,10GY 7/14,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+10P,Complement,20,+20,10GY,hierarchical,10P 6/22,10GY 6/12,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+10P,Split complement,17,+17,2.5GY,equal,10P 8/10,2.5GY 8/10,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+10P,Split complement,17,+17,2.5GY,hierarchical,10P 6/22,2.5GY 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+10P,Split complement,23,+23,7.5G,equal,10P 8/10,7.5G 8/10,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+10P,Split complement,23,+23,7.5G,hierarchical,10P 6/22,7.5G 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+10P,Triad,13,+13,2.5Y,equal,10P 8/10,2.5Y 8/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+10P,Triad,13,+13,2.5Y,hierarchical,10P 6/22,2.5Y 6/8,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+10P,Triad,27,+27,7.5BG,equal,10P 8/8,7.5BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+10P,Triad,27,+27,7.5BG,hierarchical,10P 6/22,7.5BG 6/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+10P,Square,10,+10,5YR,equal,10P 7/12,5YR 7/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+10P,Square,10,+10,5YR,hierarchical,10P 6/22,5YR 6/12,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,5YR 0.4/2,FALSE,5YR 1/4,TRUE
+10P,Square,20,+20,10GY,equal,10P 7/14,10GY 7/14,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+10P,Square,20,+20,10GY,hierarchical,10P 6/22,10GY 6/12,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+10P,Square,30,+30,5B,equal,10P 8/8,5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+10P,Square,30,+30,5B,hierarchical,10P 6/22,5B 6/6,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+2.5RP,Analogous,3,+3,10RP,equal,2.5RP 5.5/18x,10RP 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+2.5RP,Analogous,3,+3,10RP,hierarchical,2.5RP 5.5/20x,10RP 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE
+2.5RP,Analogous,-3,-3,5P,equal,2.5RP 5.5/20x,5P 5.5/20x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+2.5RP,Analogous,-3,-3,5P,hierarchical,2.5RP 5.5/20x,5P 5.5/20x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,5P 0.2/2,FALSE,5P 0.4/4,FALSE
+2.5RP,Complement,20,+20,2.5G,equal,2.5RP 7.5/10x,2.5G 7.5/10x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+2.5RP,Complement,20,+20,2.5G,hierarchical,2.5RP 5.5/20x,2.5G 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+2.5RP,Split complement,17,+17,5GY,equal,2.5RP 7.5/10x,5GY 7.5/10x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+2.5RP,Split complement,17,+17,5GY,hierarchical,2.5RP 5.5/20x,5GY 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,5GY 0.4/2,FALSE,5GY 1.5/4x,TRUE
+2.5RP,Split complement,23,+23,10G,equal,2.5RP 8/8,10G 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+2.5RP,Split complement,23,+23,10G,hierarchical,2.5RP 5.5/20x,10G 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+2.5RP,Triad,13,+13,5Y,equal,2.5RP 7.5/10x,5Y 7.5/10x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+2.5RP,Triad,13,+13,5Y,hierarchical,2.5RP 5.5/20x,5Y 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+2.5RP,Triad,27,+27,10BG,equal,2.5RP 8/8,10BG 8/8,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+2.5RP,Triad,27,+27,10BG,hierarchical,2.5RP 5.5/20x,10BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,10BG 0.7/2x,FALSE,10BG 2.5/4x,TRUE
+2.5RP,Square,10,+10,7.5YR,equal,2.5RP 7/12,7.5YR 7/12,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+2.5RP,Square,10,+10,7.5YR,hierarchical,2.5RP 5.5/20x,7.5YR 5.5/10x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,7.5YR 0.6/2,FALSE,7.5YR 1.5/4x,TRUE
+2.5RP,Square,20,+20,2.5G,equal,2.5RP 7.5/10x,2.5G 7.5/10x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+2.5RP,Square,20,+20,2.5G,hierarchical,2.5RP 5.5/20x,2.5G 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+2.5RP,Square,30,+30,7.5B,equal,2.5RP 8/8,7.5B 8/8,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+2.5RP,Square,30,+30,7.5B,hierarchical,2.5RP 5.5/20x,7.5B 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+5RP,Analogous,3,+3,2.5R,equal,5RP 5.5/16x,2.5R 5.5/16x,ok,FALSE,,3,2,5,FALSE,FALSE,two-sided,darker-only,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+5RP,Analogous,3,+3,2.5R,hierarchical,5RP 5.5/18x,2.5R 5.5/16x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,2.5R 0.4/2,FALSE,2.5R 0.6/4,FALSE
+5RP,Analogous,-3,-3,7.5P,equal,5RP 5.5/18x,7.5P 5.5/18x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+5RP,Analogous,-3,-3,7.5P,hierarchical,5RP 5.5/18x,7.5P 5.5/18x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,7.5P 0.3/2x,FALSE,7.5P 0.4/4,FALSE
+5RP,Complement,20,+20,5G,equal,5RP 7/10,5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+5RP,Complement,20,+20,5G,hierarchical,5RP 5.5/18x,5G 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+5RP,Split complement,17,+17,7.5GY,equal,5RP 7/12,7.5GY 7/12,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+5RP,Split complement,17,+17,7.5GY,hierarchical,5RP 5.5/18x,7.5GY 5.5/10x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,7.5GY 0.4/2,FALSE,7.5GY 0.9/4x,FALSE
+5RP,Split complement,23,+23,2.5BG,equal,5RP 7.5/8x,2.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+5RP,Split complement,23,+23,2.5BG,hierarchical,5RP 5.5/18x,2.5BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,2.5BG 0.6/2,FALSE,2.5BG 2/4,TRUE
+5RP,Triad,13,+13,7.5Y,equal,5RP 7/10,7.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+5RP,Triad,13,+13,7.5Y,hierarchical,5RP 5.5/18x,7.5Y 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,7.5Y 0.8/2,FALSE,7.5Y 2/4,TRUE
+5RP,Triad,27,+27,2.5B,equal,5RP 7.5/8x,2.5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+5RP,Triad,27,+27,2.5B,hierarchical,5RP 5.5/18x,2.5B 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,2.5B 0.7/2x,FALSE,2.5B 2.5/4x,TRUE
+5RP,Square,10,+10,10YR,equal,5RP 7/10,10YR 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+5RP,Square,10,+10,10YR,hierarchical,5RP 5.5/18x,10YR 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,10YR 0.8/2,FALSE,10YR 2/4,TRUE
+5RP,Square,20,+20,5G,equal,5RP 7/10,5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+5RP,Square,20,+20,5G,hierarchical,5RP 5.5/18x,5G 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,5G 0.5/2x,FALSE,5G 2/4,TRUE
+5RP,Square,30,+30,10B,equal,5RP 7/10,10B 7/10,ok,FALSE,,4,3,7,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+5RP,Square,30,+30,10B,hierarchical,5RP 5.5/18x,10B 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,5RP 0.3/2x,FALSE,5RP 0.5/4x,FALSE,10B 0.5/2x,FALSE,10B 2/4,TRUE
+7.5RP,Analogous,3,+3,5R,equal,7.5RP 5/18,5R 5/18,ok,FALSE,,1,1,2,FALSE,FALSE,equal-only,equal-only,equal-only,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+7.5RP,Analogous,3,+3,5R,hierarchical,7.5RP 5.5/18x,5R 5.5/16x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,5R 0.4/2,FALSE,5R 0.6/4,FALSE
+7.5RP,Analogous,-3,-3,10P,equal,7.5RP 5.5/18x,10P 5.5/18x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+7.5RP,Analogous,-3,-3,10P,hierarchical,7.5RP 5.5/18x,10P 5.5/18x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,10P 0.3/2x,FALSE,10P 0.4/4,FALSE
+7.5RP,Complement,20,+20,7.5G,equal,7.5RP 7.5/8x,7.5G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+7.5RP,Complement,20,+20,7.5G,hierarchical,7.5RP 5.5/18x,7.5G 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+7.5RP,Split complement,17,+17,10GY,equal,7.5RP 6.5/12x,10GY 6.5/12x,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+7.5RP,Split complement,17,+17,10GY,hierarchical,7.5RP 5.5/18x,10GY 5.5/12x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,10GY 0.4/2,FALSE,10GY 1.5/4x,TRUE
+7.5RP,Split complement,23,+23,5BG,equal,7.5RP 7.5/8x,5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+7.5RP,Split complement,23,+23,5BG,hierarchical,7.5RP 5.5/18x,5BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,5BG 0.7/2x,FALSE,5BG 2.5/4x,TRUE
+7.5RP,Triad,13,+13,10Y,equal,7.5RP 7.5/8x,10Y 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+7.5RP,Triad,13,+13,10Y,hierarchical,7.5RP 5.5/18x,10Y 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,10Y 0.7/2x,FALSE,10Y 2/4,TRUE
+7.5RP,Triad,27,+27,5B,equal,7.5RP 7.5/8x,5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+7.5RP,Triad,27,+27,5B,hierarchical,7.5RP 5.5/18x,5B 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,5B 0.7/2x,FALSE,5B 2.5/4x,TRUE
+7.5RP,Square,10,+10,2.5Y,equal,7.5RP 7/10,2.5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+7.5RP,Square,10,+10,2.5Y,hierarchical,7.5RP 5.5/18x,2.5Y 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,2.5Y 0.8/2,FALSE,2.5Y 2/4,TRUE
+7.5RP,Square,20,+20,7.5G,equal,7.5RP 7.5/8x,7.5G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+7.5RP,Square,20,+20,7.5G,hierarchical,7.5RP 5.5/18x,7.5G 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,7.5G 0.5/2x,FALSE,7.5G 2/4,TRUE
+7.5RP,Square,30,+30,2.5PB,equal,7.5RP 7/10,2.5PB 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+7.5RP,Square,30,+30,2.5PB,hierarchical,7.5RP 5.5/18x,2.5PB 5.5/10x,ok,FALSE,,2,4,6,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,7.5RP 0.3/2x,FALSE,7.5RP 0.5/4x,FALSE,2.5PB 0.4/2,FALSE,2.5PB 1/4,TRUE
+10RP,Analogous,3,+3,7.5R,equal,10RP 5.5/18x,7.5R 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+10RP,Analogous,3,+3,7.5R,hierarchical,10RP 5.5/18x,7.5R 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,7.5R 0.4/2,FALSE,7.5R 0.6/4,FALSE
+10RP,Analogous,-3,-3,2.5RP,equal,10RP 5.5/18x,2.5RP 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+10RP,Analogous,-3,-3,2.5RP,hierarchical,10RP 5.5/18x,2.5RP 5.5/18x,ok,FALSE,,2,2,4,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,2.5RP 0.3/2x,FALSE,2.5RP 0.5/4x,FALSE
+10RP,Complement,20,+20,10G,equal,10RP 7.5/8x,10G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+10RP,Complement,20,+20,10G,hierarchical,10RP 5.5/18x,10G 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+10RP,Split complement,17,+17,2.5G,equal,10RP 7/10,2.5G 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+10RP,Split complement,17,+17,2.5G,hierarchical,10RP 5.5/18x,2.5G 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,2.5G 0.4/2,FALSE,2.5G 1.5/4x,TRUE
+10RP,Split complement,23,+23,7.5BG,equal,10RP 7.5/8x,7.5BG 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+10RP,Split complement,23,+23,7.5BG,hierarchical,10RP 5.5/18x,7.5BG 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,7.5BG 0.7/2x,FALSE,7.5BG 2.5/4x,TRUE
+10RP,Triad,13,+13,2.5GY,equal,10RP 7/10,2.5GY 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+10RP,Triad,13,+13,2.5GY,hierarchical,10RP 5.5/18x,2.5GY 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,2.5GY 0.6/2,FALSE,2.5GY 2/4,TRUE
+10RP,Triad,27,+27,7.5B,equal,10RP 7.5/8x,7.5B 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+10RP,Triad,27,+27,7.5B,hierarchical,10RP 5.5/18x,7.5B 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,7.5B 0.6/2,FALSE,7.5B 2/4,TRUE
+10RP,Square,10,+10,5Y,equal,10RP 7/10,5Y 7/10,ok,FALSE,,4,4,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+10RP,Square,10,+10,5Y,hierarchical,10RP 5.5/18x,5Y 5.5/8x,ok,FALSE,,2,5,7,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,5Y 0.8/2,FALSE,5Y 2/4,TRUE
+10RP,Square,20,+20,10G,equal,10RP 7.5/8x,10G 7.5/8x,ok,FALSE,,4,5,9,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+10RP,Square,20,+20,10G,hierarchical,10RP 5.5/18x,10G 5.5/6x,ok,FALSE,,2,6,8,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,10G 0.6/2,FALSE,10G 2/4,TRUE
+10RP,Square,30,+30,5PB,equal,10RP 6/14,5PB 6/14,ok,FALSE,,3,2,5,FALSE,FALSE,darker-only,darker-only,darker-only,TRUE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE
+10RP,Square,30,+30,5PB,hierarchical,10RP 5.5/18x,5PB 5.5/12x,ok,FALSE,,2,3,5,FALSE,FALSE,darker-only,two-sided,mixed,FALSE,10RP 0.3/2x,FALSE,10RP 0.6/4,FALSE,5PB 0.3/2x,FALSE,5PB 0.6/4,FALSE

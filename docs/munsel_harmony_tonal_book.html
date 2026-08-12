@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MUNSEL HARMONY BOOK</title>
+  <title>MUNSEL HARMONY TONAL BOOK</title>
   <style>
     :root {
       color-scheme: dark;
@@ -214,7 +214,17 @@
       font: 650 7px/1.05 ui-monospace, SFMono-Regular, Menlo, monospace;
       text-align: center;
       text-shadow: var(--label-shadow);
+      position: relative;
+      z-index: 1;
     }
+
+    .highlight-key { display: grid; gap: 7px; margin-top: 18px; color: #b9bec8; font-size: 12px; }
+    .key-item { display: flex; align-items: center; gap: 8px; }
+    .key-mark { width: 18px; height: 18px; border: 3px solid var(--key-color); border-radius: 5px; }
+    .diagnostics { margin-top: 18px; padding: 12px; border: 1px solid #555c68; border-radius: 7px; background: #15181e; }
+    .diagnostics h3 { margin: 0 0 7px; font-size: 13px; }
+    .diagnostics ul { margin: 0; padding-left: 18px; color: #e7adad; font-size: 12px; line-height: 1.45; }
+    .diagnostics .all-clear { margin: 0; color: #9bcaa8; font-size: 12px; }
 
     .status { margin: 20px; color: #b9bec8; }
 
@@ -229,7 +239,7 @@
   <main class="workspace">
     <section class="sidebar" aria-live="polite">
       <div class="sidebar-content">
-        <h1>MUNSEL HARMONY BOOK</h1>
+        <h1>MUNSEL HARMONY TONAL BOOK</h1>
         <p class="intro">
           Two Munsell hue pages share one signed-Chroma grid. Positive Chroma belongs to the
           primary hue, zero is the neutral axis, and negative Chroma belongs to the selected
@@ -264,6 +274,23 @@
               <button id="nextMember" type="button" aria-label="Next harmony member">Next →</button>
             </div>
           </div>
+        </div>
+        <div class="highlight-key" aria-label="Highlight key">
+          <div class="key-item"><span class="key-mark" style="--key-color:#ffcf40"></span>Brightest</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#49e6e0"></span>Equal-Lightness Brightest</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#f18cff"></span>Opposite (hover)</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#ff884d"></span>Chroma-Clipped Opposite (hover)</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#7da6ff"></span>Self-Chroma-Clipped Opposites (hover)</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#f4f1c9"></span>Off-White 2</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#b7f06a"></span>Off-White 4</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#b09a76"></span>Off-Black 2</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#8c72ff"></span>Off-Black 4</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#76c48f"></span>Off-Gray 2</div>
+          <div class="key-item"><span class="key-mark" style="--key-color:#ff6f91"></span>Off-Gray 4</div>
+        </div>
+        <div class="diagnostics" aria-live="polite">
+          <h3>Diagnostics</h3>
+          <div id="diagnosticContent"><p class="all-clear">No undefined highlights.</p></div>
         </div>
       </div>
       <div class="page-heading">
@@ -331,9 +358,18 @@
         oklch: document.querySelector("#inspectOklch"),
         source: document.querySelector("#inspectSource"),
       };
+      const diagnosticContent = document.querySelector("#diagnosticContent");
+      const HIGHLIGHT_COLORS = {
+        brightest: "#ffcf40", equal: "#49e6e0", opposite: "#f18cff", clipped: "#ff884d",
+        selfClipped: "#7da6ff", offWhite2: "#f4f1c9", offWhite4: "#b7f06a",
+        offBlack2: "#b09a76", offBlack4: "#8c72ff", offGray2: "#76c48f", offGray4: "#ff6f91",
+      };
       let rowsByHue = new Map();
       let hues = [];
       let values = [];
+      let swatchesByCoordinate = new Map();
+      let hoverHighlighted = [];
+      let baseDiagnosticErrors = [];
 
       function parseCsv(text) {
         const [headerLine, ...lines] = text.trim().split(/\r?\n/);
@@ -391,11 +427,128 @@
         swatch.style.setProperty("--label-color", relativeBrightness > 145 ? "#111318" : "#fff");
         swatch.style.setProperty("--label-shadow", relativeBrightness > 145 ? "0 1px 1px rgb(255 255 255 / .25)" : "0 1px 2px rgb(0 0 0 / .8)");
         swatch.addEventListener("pointerenter", () => inspect(row, red, green, blue));
-        swatch.addEventListener("pointerleave", resetInspector);
-        swatch.addEventListener("focus", () => inspect(row, red, green, blue));
-        swatch.addEventListener("blur", resetInspector);
+        swatch.addEventListener("pointerenter", () => showOppositeHighlights(row));
+        swatch.addEventListener("pointerleave", () => { resetInspector(); clearHoverHighlights(); });
+        swatch.addEventListener("focus", () => { inspect(row, red, green, blue); showOppositeHighlights(row); });
+        swatch.addEventListener("blur", () => { resetInspector(); clearHoverHighlights(); });
         swatch.tabIndex = 0;
+        swatchesByCoordinate.set(`${row.H}:${Number(row.V)}:${Number(row.C)}`, swatch);
         return swatch;
+      }
+
+      function rowAt(hue, value, chroma) {
+        return (rowsByHue.get(hue) || []).find((row) => Number(row.V) === Number(value) && Number(row.C) === Number(chroma));
+      }
+
+      function paintHighlights(swatch) {
+        const kinds = [...new Set(`${swatch.dataset.baseHighlights || ""},${swatch.dataset.hoverHighlights || ""}`.split(",").filter(Boolean))];
+        swatch.style.boxShadow = kinds.map((kind, index) => `0 0 0 ${2 + index * 3}px ${HIGHLIGHT_COLORS[kind]}`).join(", ") || "inset 0 0 0 1px rgb(0 0 0 / 0.08)";
+        swatch.style.zIndex = kinds.length ? "4" : "1";
+      }
+
+      function addHighlight(row, kind) {
+        if (!row) return false;
+        const swatch = swatchesByCoordinate.get(`${row.H}:${Number(row.V)}:${Number(row.C)}`);
+        if (!swatch) return false;
+        const kinds = new Set((swatch.dataset.baseHighlights || "").split(",").filter(Boolean));
+        kinds.add(kind);
+        swatch.dataset.baseHighlights = [...kinds].join(",");
+        paintHighlights(swatch);
+        return true;
+      }
+
+      function addHoverHighlight(row, kind) {
+        if (!row) return;
+        const swatch = swatchesByCoordinate.get(`${row.H}:${Number(row.V)}:${Number(row.C)}`);
+        if (!swatch) return;
+        swatch.dataset.hoverHighlights = kind;
+        hoverHighlighted.push(swatch);
+        paintHighlights(swatch);
+      }
+
+      function clearHoverHighlights() {
+        hoverHighlighted.forEach((swatch) => { swatch.dataset.hoverHighlights = ""; paintHighlights(swatch); });
+        hoverHighlighted = [];
+        renderDiagnostics();
+      }
+
+      function renderDiagnostics(hoverErrors = []) {
+        const errors = [...baseDiagnosticErrors, ...hoverErrors];
+        if (errors.length) {
+          const list = document.createElement("ul");
+          errors.forEach((error) => { const item = document.createElement("li"); item.textContent = error; list.append(item); });
+          diagnosticContent.replaceChildren(list);
+        } else {
+          const clear = document.createElement("p"); clear.className = "all-clear"; clear.textContent = "No undefined highlights.";
+          diagnosticContent.replaceChildren(clear);
+        }
+      }
+
+      function showOppositeHighlights(row) {
+        clearHoverHighlights();
+        if (row.H === "N" || Number(row.C) === 0) return;
+        const otherHue = row.H === hueSelect.value ? selectedRelatedHue() : row.H === selectedRelatedHue() ? hueSelect.value : null;
+        if (!otherHue) return;
+        const value = Number(row.V);
+        const chroma = Number(row.C);
+        const opposite = rowAt(otherHue, value, chroma);
+        if (opposite) { addHoverHighlight(opposite, "opposite"); return; }
+        let clipped;
+        let sharedSelf;
+        for (let candidate = chroma - 2; candidate > 0; candidate -= 2) {
+          if (!clipped) clipped = rowAt(otherHue, value, candidate);
+          if (!sharedSelf && rowAt(row.H, value, candidate) && rowAt(otherHue, value, candidate)) sharedSelf = candidate;
+        }
+        addHoverHighlight(clipped, "clipped");
+        if (sharedSelf) {
+          addHoverHighlight(rowAt(row.H, value, sharedSelf), "selfClipped");
+          addHoverHighlight(rowAt(otherHue, value, sharedSelf), "selfClipped");
+        }
+        const hoverErrors = [];
+        if (!clipped) hoverErrors.push(`Chroma-Clipped Opposite is undefined for ${row.MUNSELL_NAME} → ${otherHue}.`);
+        if (!sharedSelf) hoverErrors.push(`Self-Chroma-Clipped Opposites are undefined for ${row.MUNSELL_NAME} → ${otherHue}.`);
+        renderDiagnostics(hoverErrors);
+      }
+
+      function applyTonalHighlights(primaryHue, relatedHue) {
+        const errors = [];
+        const pairHues = [primaryHue, relatedHue];
+        pairHues.forEach((hue) => {
+          const rows = rowsByHue.get(hue) || [];
+          const brightest = [...rows].sort((a, b) => Number(b.C) - Number(a.C) || Number(b.V) - Number(a.V))[0];
+          if (!addHighlight(brightest, "brightest")) errors.push(`Brightest is undefined for ${hue}.`);
+          [2, 4].forEach((chroma) => {
+            const atChroma = rows.filter((row) => Number(row.C) === chroma);
+            const offWhite = [...atChroma].sort((a, b) => Number(b.V) - Number(a.V))[0];
+            const offBlack = [...atChroma].sort((a, b) => Number(a.V) - Number(b.V))[0];
+            const offGray = atChroma.find((row) => Number(row.V) === 6);
+            if (!addHighlight(offWhite, `offWhite${chroma}`)) errors.push(`Off-White ${chroma} is undefined for ${hue}.`);
+            if (!addHighlight(offBlack, `offBlack${chroma}`)) errors.push(`Off-Black ${chroma} is undefined for ${hue}.`);
+            if (!addHighlight(offGray, `offGray${chroma}`)) errors.push(`Off-Gray ${chroma} is undefined for ${hue}.`);
+          });
+        });
+
+        const shared = [];
+        values.forEach((value) => {
+          CHROMAS.forEach((chroma) => {
+            const first = rowAt(primaryHue, value, chroma);
+            const second = rowAt(relatedHue, value, chroma);
+            if (first && second) shared.push([first, second]);
+          });
+        });
+        const greatestSharedChroma = shared.length ? Math.max(...shared.map(([row]) => Number(row.C))) : null;
+        const brightestPairs = shared
+          .filter(([row]) => Number(row.C) === greatestSharedChroma)
+          .sort(([first], [second]) => Number(second.V) - Number(first.V));
+        const brightestPair = brightestPairs[0];
+        if (!brightestPair) errors.push(`Equal-Lightness Brightest is undefined for ${primaryHue} and ${relatedHue}.`);
+        if (brightestPair) {
+          addHighlight(brightestPair[0], "equal");
+          addHighlight(brightestPair[1], "equal");
+        }
+
+        baseDiagnosticErrors = errors;
+        renderDiagnostics();
       }
 
       function makeLookup(hue) {
@@ -419,6 +572,8 @@
 
       function renderPage() {
         resetInspector();
+        clearHoverHighlights();
+        swatchesByCoordinate = new Map();
         const primaryHue = hueSelect.value;
         const relatedHue = selectedRelatedHue();
         const primaryLookup = makeLookup(primaryHue);
@@ -434,6 +589,7 @@
 
         bookGrid.style.setProperty("--value-count", values.length);
         bookGrid.replaceChildren(fragment);
+        applyTonalHighlights(primaryHue, relatedHue);
         const harmony = HARMONIES[harmonySelect.value].name;
         const member = memberSelect.options[memberSelect.selectedIndex].text;
         pageTitle.textContent = `${primaryHue} + ${relatedHue} — ${harmony} ${member}`;
