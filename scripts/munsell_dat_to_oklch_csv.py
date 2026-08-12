@@ -2,8 +2,9 @@
 """Convert Munsell renotation ``all.dat`` data to CSV with OKLCH values.
 
 The script has no third-party dependencies. By default it reads ``input/all.dat``
-and writes ``input/all.csv`` relative to the repository root. Different paths can
-be supplied as the first and second positional arguments.
+and writes ``input/all.csv`` relative to the repository root. Its default output
+keeps only in-sRGB rows and adds one synthetic OKLCH midpoint between eligible
+adjacent Munsell Value rows. Different paths can be supplied as positional args.
 """
 
 from __future__ import annotations
@@ -120,30 +121,49 @@ def xyz_d65_to_srgb(
     return tuple(encode(channel) for channel in linear), in_gamut  # type: ignore[return-value]
 
 
-def convert(input_path: Path, output_path: Path, correct_published_y: bool) -> int:
-    row_count = 0
-    with input_path.open(encoding="utf-8") as source, output_path.open(
-        "w", encoding="utf-8", newline=""
-    ) as destination:
-        writer = csv.writer(destination)
-        writer.writerow(
-            (
-                "H",
-                "V",
-                "C",
-                "x",
-                "y",
-                "Y",
-                "OKLCH_L",
-                "OKLCH_C",
-                "OKLCH_h",
-                "sRGB_R",
-                "sRGB_G",
-                "sRGB_B",
-                "IN_SRGB_GAMUT",
-            )
+def oklch_to_srgb(
+    lightness: float, chroma: float, hue: float
+) -> tuple[tuple[float, float, float], bool]:
+    """Convert OKLCH to unclamped encoded sRGB and report gamut membership."""
+    angle = math.radians(hue)
+    a = chroma * math.cos(angle)
+    b = chroma * math.sin(angle)
+    l_root = lightness + 0.3963377774 * a + 0.2158037573 * b
+    m_root = lightness - 0.1055613458 * a - 0.0638541728 * b
+    s_root = lightness - 0.0894841775 * a - 1.2914855480 * b
+    l, m, s = l_root**3, m_root**3, s_root**3
+    linear = (
+        4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+        -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+        -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s,
+    )
+    in_gamut = all(-1e-7 <= channel <= 1.0 + 1e-7 for channel in linear)
+
+    def encode(channel: float) -> float:
+        return (
+            12.92 * channel
+            if channel <= 0.0031308
+            else 1.055 * channel ** (1.0 / 2.4) - 0.055
         )
 
+    return tuple(encode(channel) for channel in linear), in_gamut  # type: ignore[return-value]
+
+
+def interpolate_hue(first: float, second: float) -> float:
+    """Return the midpoint along the shorter path between two hue angles."""
+    difference = (second - first + 180.0) % 360.0 - 180.0
+    return (first + difference / 2.0) % 360.0
+
+
+def convert(
+    input_path: Path,
+    output_path: Path,
+    correct_published_y: bool,
+    in_srgb_only: bool = True,
+    interpolate_fake_munsell: bool = True,
+) -> int:
+    rows: list[dict[str, object]] = []
+    with input_path.open(encoding="utf-8") as source:
         for line_number, line in enumerate(source, start=1):
             fields = line.split()
             if not fields or fields[0] == "H":
@@ -162,8 +182,7 @@ def convert(input_path: Path, output_path: Path, correct_published_y: bool) -> i
 
             # One extrapolated "unreal" row in all.dat has y=0. xyY cannot be
             # converted to XYZ in that case because the defining equations
-            # divide by y. Preserve the source row and leave all derived fields
-            # blank rather than dropping it or fabricating finite coordinates.
+            # divide by y. Its derived fields remain undefined.
             if y == 0:
                 oklch_l = oklch_c = oklch_h = None
                 srgb = (None, None, None)
@@ -174,26 +193,107 @@ def convert(input_path: Path, output_path: Path, correct_published_y: bool) -> i
                 oklch_l, oklch_c, oklch_h = xyz_d65_to_oklch(xyz_d65)
                 srgb, in_srgb_gamut = xyz_d65_to_srgb(xyz_d65)
 
-            # Original strings are emitted unchanged so the source columns do
-            # not acquire formatting noise. Derived values get useful precision.
+            rows.append(
+                {
+                    "H": hue_name,
+                    "V": value_text,
+                    "C": chroma_text,
+                    "MUNSELL_NAME": f"{hue_name} {value_text}/{chroma_text}",
+                    "x": x_text,
+                    "y": y_text,
+                    "Y": luminance_text,
+                    "OKLCH_L": oklch_l,
+                    "OKLCH_C": oklch_c,
+                    "OKLCH_h": oklch_h,
+                    "sRGB": srgb,
+                    "IN_SRGB_GAMUT": in_srgb_gamut,
+                    "FAKE_MUNSEL": False,
+                }
+            )
+
+    if interpolate_fake_munsell:
+        groups: dict[tuple[str, str], list[dict[str, object]]] = {}
+        for row in rows:
+            groups.setdefault((str(row["H"]), str(row["C"])), []).append(row)
+
+        fake_rows: list[dict[str, object]] = []
+        for group in groups.values():
+            group.sort(key=lambda row: float(str(row["V"])))
+            for first, second in zip(group, group[1:]):
+                # Synthetic points are made only from adjacent original rows.
+                # Requiring one displayable endpoint avoids filling remote parts
+                # of the extrapolated Munsell solid that have no relevance here.
+                if not (first["IN_SRGB_GAMUT"] or second["IN_SRGB_GAMUT"]):
+                    continue
+                required = ("OKLCH_L", "OKLCH_C", "OKLCH_h")
+                if any(first[key] is None or second[key] is None for key in required):
+                    continue
+
+                value = (float(str(first["V"])) + float(str(second["V"]))) / 2.0
+                lightness = (float(first["OKLCH_L"]) + float(second["OKLCH_L"])) / 2.0
+                chroma = (float(first["OKLCH_C"]) + float(second["OKLCH_C"])) / 2.0
+                hue = interpolate_hue(float(first["OKLCH_h"]), float(second["OKLCH_h"]))
+                srgb, in_gamut = oklch_to_srgb(lightness, chroma, hue)
+                value_text = f"{value:.10g}"
+                hue_name = str(first["H"])
+                chroma_text = str(first["C"])
+                fake_rows.append(
+                    {
+                        "H": hue_name,
+                        "V": value_text,
+                        "C": chroma_text,
+                        "MUNSELL_NAME": f"{hue_name} {value_text}/{chroma_text}x",
+                        "x": "",
+                        "y": "",
+                        "Y": "",
+                        "OKLCH_L": lightness,
+                        "OKLCH_C": chroma,
+                        "OKLCH_h": hue,
+                        "sRGB": srgb,
+                        "IN_SRGB_GAMUT": in_gamut,
+                        "FAKE_MUNSEL": True,
+                    }
+                )
+        rows.extend(fake_rows)
+
+    if in_srgb_only:
+        rows = [row for row in rows if row["IN_SRGB_GAMUT"] is True]
+
+    with output_path.open("w", encoding="utf-8", newline="") as destination:
+        writer = csv.writer(destination)
+        writer.writerow(
+            (
+                "H",
+                "V",
+                "C",
+                "MUNSELL_NAME",
+                "x",
+                "y",
+                "Y",
+                "OKLCH_L",
+                "OKLCH_C",
+                "OKLCH_h",
+                "sRGB_R",
+                "sRGB_G",
+                "sRGB_B",
+                "IN_SRGB_GAMUT",
+                "FAKE_MUNSEL",
+            )
+        )
+        for row in rows:
+            srgb = row["sRGB"]
             writer.writerow(
                 (
-                    hue_name,
-                    value_text,
-                    chroma_text,
-                    x_text,
-                    y_text,
-                    luminance_text,
-                    "" if oklch_l is None else f"{oklch_l:.10g}",
-                    "" if oklch_c is None else f"{oklch_c:.10g}",
-                    "" if oklch_h is None else f"{oklch_h:.10g}",
+                    row["H"], row["V"], row["C"], row["MUNSELL_NAME"],
+                    row["x"], row["y"], row["Y"],
+                    *("" if row[key] is None else f"{float(row[key]):.10g}"
+                      for key in ("OKLCH_L", "OKLCH_C", "OKLCH_h")),
                     *("" if channel is None else f"{channel:.10g}" for channel in srgb),
-                    "" if in_srgb_gamut is None else str(in_srgb_gamut).upper(),
+                    "" if row["IN_SRGB_GAMUT"] is None else str(row["IN_SRGB_GAMUT"]).upper(),
+                    str(row["FAKE_MUNSEL"]).upper(),
                 )
             )
-            row_count += 1
-
-    return row_count
+    return len(rows)
 
 
 def parse_args() -> argparse.Namespace:
@@ -205,12 +305,28 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Do not apply RIT's suggested 0.975 correction when deriving OKLCH.",
     )
+    parser.add_argument(
+        "--include-out-of-srgb",
+        action="store_true",
+        help="Include rows outside sRGB; by default only in-gamut rows are written.",
+    )
+    parser.add_argument(
+        "--no-interpolate-fake-munsell",
+        action="store_true",
+        help="Do not generate synthetic OKLCH midpoints between adjacent Value rows.",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    count = convert(args.input, args.output, not args.preserve_published_y_scale)
+    count = convert(
+        args.input,
+        args.output,
+        not args.preserve_published_y_scale,
+        in_srgb_only=not args.include_out_of_srgb,
+        interpolate_fake_munsell=not args.no_interpolate_fake_munsell,
+    )
     print(f"Wrote {count} rows to {args.output}")
 
 

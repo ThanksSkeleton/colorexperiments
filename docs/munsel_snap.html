@@ -32,10 +32,25 @@
 
     .intro {
       max-width: 760px;
-      margin: 0 0 28px;
+      margin: 0 0 10px;
       color: #b9bec8;
       line-height: 1.5;
     }
+
+    .intro:last-of-type { margin-bottom: 28px; }
+
+    button {
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border: 1px solid #555c68;
+      border-radius: 7px;
+      background: #252932;
+      color: #f2f3f5;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover { background: #303641; }
 
     .toys {
       display: grid;
@@ -96,6 +111,28 @@
       font-size: 12px;
     }
 
+    .diagnostic {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #343943;
+    }
+
+    .diagnostic-title {
+      margin-bottom: 8px;
+      color: #d7dae0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .error-legend {
+      height: 10px;
+      margin-top: 9px;
+      border: 1px solid #555c68;
+      background: linear-gradient(to right, white, red);
+    }
+
     .readout {
       display: flex;
       gap: 16px;
@@ -107,10 +144,24 @@
       background: #191c22;
     }
 
+    .swatch-pair {
+      display: flex;
+      gap: 12px;
+    }
+
+    .swatch-block {
+      color: #969da9;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
     .swatch {
       flex: 0 0 64px;
       width: 64px;
       height: 64px;
+      margin-bottom: 4px;
       border: 1px solid #666d79;
       border-radius: 8px;
       background: transparent;
@@ -137,6 +188,13 @@
       choose hue by angle and chroma by radius; move across the fixed-hue slice to choose chroma and
       lightness. Checkered regions fall outside the sRGB gamut.
     </p>
+    <p class="intro">
+      The geometry and cursor coordinates remain continuous OKLCH, but every displayed map
+      pixel is posterized to the nearest in-gamut Munsell renotation or synthetic Value
+      midpoint using Euclidean OKLab distance. Synthetic names end in “x” because their
+      OKLCH interpolation is useful here but is not a proper Munsell interpolation. This
+      initial implementation performs poorly; known rendering optimizations can be added later.
+    </p>
 
     <div class="toys">
       <figure>
@@ -146,6 +204,16 @@
         </div>
         <div class="axis-row"><span>Center: C 0</span><span>Radius: chroma</span><span>Edge: C 0.40</span></div>
         <div class="axis-y">Hue is angular: 0° right · 90° up · 180° left · 270° down</div>
+
+        <button id="toggleComplementError" type="button">Disable complement lightness error</button>
+        <div id="complementErrorWidget" class="diagnostic">
+          <div class="diagnostic-title">Complement lightness snapping error · |M1 OKLCH L − M2 OKLCH L|</div>
+          <div class="canvas-frame">
+            <canvas id="lightnessErrorSlice" width="480" height="480" aria-label="Absolute lightness difference between Munsell-snapped OKLCH complements"></canvas>
+          </div>
+          <div class="error-legend"></div>
+          <div class="axis-row"><span>White: ΔL 0</span><span>Snapped complement mismatch</span><span>Red: ΔL ≥ 0.10</span></div>
+        </div>
       </figure>
 
       <figure>
@@ -159,9 +227,13 @@
     </div>
 
     <section class="readout" aria-live="polite">
-      <div id="swatch" class="swatch"></div>
+      <div class="swatch-pair">
+        <div class="swatch-block"><div id="oklchSwatch" class="swatch"></div>OKLCH</div>
+        <div class="swatch-block"><div id="munsellSwatch" class="swatch"></div>Munsell</div>
+      </div>
       <div class="values">
         <div id="oklchValue"></div>
+        <div id="munsellValue"></div>
         <div id="hexValue"></div>
         <div id="gamutStatus" class="status"></div>
       </div>
@@ -179,18 +251,109 @@
     } from "./assets/colors.js";
 
     const MAX_CHROMA = 0.4;
+    const MAX_LIGHTNESS_ERROR = 0.1;
     let savedColor = { L: 0.7, C: 0.14, h: 30 };
     let proposedColor = null;
+    let munsellTree = null;
+    let complementErrorEnabled = true;
     const lightnessCanvas = document.querySelector("#lightnessSlice");
+    const lightnessErrorCanvas = document.querySelector("#lightnessErrorSlice");
     const hueCanvas = document.querySelector("#hueSlice");
     const lightnessContext = lightnessCanvas.getContext("2d");
+    const lightnessErrorContext = lightnessErrorCanvas.getContext("2d");
     const hueContext = hueCanvas.getContext("2d");
     let frameRequested = false;
 
-    function colorAt(L, C, h) {
-      const linear = oklabToLinearSrgb(oklchToOklab({ L, C, h }));
+    function sampleAt(L, C, h) {
+      const lab = oklchToOklab({ L, C, h });
+      const linear = oklabToLinearSrgb(lab);
       if (!isLinearSrgbInGamut(linear)) return null;
-      return linearToSrgb(linear);
+      return { lab, srgb: linearToSrgb(linear) };
+    }
+
+    function colorAt(L, C, h) {
+      return sampleAt(L, C, h)?.srgb ?? null;
+    }
+
+    function buildKdTree(points, depth = 0) {
+      if (!points.length) return null;
+      const axes = ["L", "a", "b"];
+      const axis = axes[depth % axes.length];
+      points.sort((left, right) => left.lab[axis] - right.lab[axis]);
+      const middle = Math.floor(points.length / 2);
+      return {
+        point: points[middle],
+        axis,
+        left: buildKdTree(points.slice(0, middle), depth + 1),
+        right: buildKdTree(points.slice(middle + 1), depth + 1),
+      };
+    }
+
+    function nearestMunsell(lab) {
+      let best = null;
+      let bestDistanceSquared = Infinity;
+
+      function visit(node) {
+        if (!node) return;
+        const dL = lab.L - node.point.lab.L;
+        const da = lab.a - node.point.lab.a;
+        const db = lab.b - node.point.lab.b;
+        const distanceSquared = dL * dL + da * da + db * db;
+        if (distanceSquared < bestDistanceSquared) {
+          best = node.point;
+          bestDistanceSquared = distanceSquared;
+        }
+
+        const difference = lab[node.axis] - node.point.lab[node.axis];
+        const nearBranch = difference < 0 ? node.left : node.right;
+        const farBranch = difference < 0 ? node.right : node.left;
+        visit(nearBranch);
+        if (difference * difference < bestDistanceSquared) visit(farBranch);
+      }
+
+      visit(munsellTree);
+      return best;
+    }
+
+    function snappedMunsellAt(L, C, h) {
+      const sample = sampleAt(L, C, h);
+      return sample && munsellTree ? nearestMunsell(sample.lab) : null;
+    }
+
+    function posterizedColorAt(L, C, h) {
+      return snappedMunsellAt(L, C, h)?.srgb ?? null;
+    }
+
+    async function loadMunsellData() {
+      const response = await fetch("./assets/munsell_renotation_oklch.csv");
+      if (!response.ok) throw new Error(`Could not load Munsell data: ${response.status}`);
+      const lines = (await response.text()).trim().split(/\r?\n/);
+      const headers = lines.shift().split(",");
+      const column = Object.fromEntries(headers.map((header, index) => [header, index]));
+      const candidates = [];
+
+      for (const line of lines) {
+        const fields = line.split(",");
+        if (fields[column.IN_SRGB_GAMUT] !== "TRUE") continue;
+        const L = Number(fields[column.OKLCH_L]);
+        const C = Number(fields[column.OKLCH_C]);
+        const h = Number(fields[column.OKLCH_h]);
+        candidates.push({
+          notation: fields[column.MUNSELL_NAME],
+          fakeMunsell: fields[column.FAKE_MUNSEL] === "TRUE",
+          L,
+          C,
+          h,
+          lab: oklchToOklab({ L, C, h }),
+          srgb: {
+            r: Number(fields[column.sRGB_R]),
+            g: Number(fields[column.sRGB_G]),
+            b: Number(fields[column.sRGB_B]),
+          },
+        });
+      }
+
+      munsellTree = buildKdTree(candidates);
     }
 
     function byte(channel) {
@@ -214,6 +377,69 @@
         }
       }
       context.putImageData(image, 0, 0);
+    }
+
+    function renderLightnessMaps(fixedLightness) {
+      const colorImage = lightnessContext.createImageData(
+        lightnessCanvas.width,
+        lightnessCanvas.height,
+      );
+      // Do not even allocate the diagnostic buffer while the widget is off.
+      // More importantly, the per-pixel complement lookup below is also skipped.
+      const errorImage = complementErrorEnabled
+        ? lightnessErrorContext.createImageData(
+            lightnessErrorCanvas.width,
+            lightnessErrorCanvas.height,
+          )
+        : null;
+      const centerX = lightnessCanvas.width / 2;
+      const centerY = lightnessCanvas.height / 2;
+      const radius = Math.min(lightnessCanvas.width, lightnessCanvas.height) / 2;
+
+      for (let y = 0; y < lightnessCanvas.height; y += 1) {
+        for (let x = 0; x < lightnessCanvas.width; x += 1) {
+          const dx = x + 0.5 - centerX;
+          const dy = centerY - (y + 0.5);
+          const distance = Math.hypot(dx, dy);
+          if (distance > radius) continue;
+
+          const C = distance / radius * MAX_CHROMA;
+          const h = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360;
+          const snapped = snappedMunsellAt(fixedLightness, C, h);
+          if (!snapped) continue;
+
+          const offset = (y * lightnessCanvas.width + x) * 4;
+          colorImage.data[offset] = byte(snapped.srgb.r);
+          colorImage.data[offset + 1] = byte(snapped.srgb.g);
+          colorImage.data[offset + 2] = byte(snapped.srgb.b);
+          colorImage.data[offset + 3] = 255;
+
+          if (!errorImage) continue;
+
+          // Compare the OKLCH lightnesses of the independently snapped color
+          // and its underlying OKLCH hue complement. If the complement itself
+          // is outside sRGB, leave this diagnostic pixel masked because the toy
+          // does not define snapping for that underlying coordinate.
+          const snappedComplement = snappedMunsellAt(
+            fixedLightness,
+            C,
+            (h + 180) % 360,
+          );
+          if (!snappedComplement) continue;
+
+          // Fixed scaling keeps the diagnostic comparable as the selected
+          // lightness changes. Errors at or above 0.10 share saturated red.
+          const error = Math.abs(snapped.L - snappedComplement.L);
+          const amount = clamp(error / MAX_LIGHTNESS_ERROR);
+          errorImage.data[offset] = 255;
+          errorImage.data[offset + 1] = Math.round(255 * (1 - amount));
+          errorImage.data[offset + 2] = Math.round(255 * (1 - amount));
+          errorImage.data[offset + 3] = 255;
+        }
+      }
+
+      lightnessContext.putImageData(colorImage, 0, 0);
+      if (errorImage) lightnessErrorContext.putImageData(errorImage, 0, 0);
     }
 
     function drawSelection(context, canvas, x, y, lineDirection, alpha) {
@@ -321,21 +547,11 @@
 
     function render() {
       frameRequested = false;
+      if (!munsellTree) return;
       const displayedColor = proposedColor ?? savedColor;
 
-      const centerX = lightnessCanvas.width / 2;
-      const centerY = lightnessCanvas.height / 2;
-      const radius = Math.min(lightnessCanvas.width, lightnessCanvas.height) / 2;
-      renderPixels(lightnessCanvas, (x, y) => {
-        const dx = x + 0.5 - centerX;
-        const dy = centerY - (y + 0.5);
-        const distance = Math.hypot(dx, dy);
-        if (distance > radius) return null;
-        const C = distance / radius * MAX_CHROMA;
-        const h = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360;
-        return colorAt(displayedColor.L, C, h);
-      });
-      renderPixels(hueCanvas, (x, y) => colorAt(
+      renderLightnessMaps(displayedColor.L);
+      renderPixels(hueCanvas, (x, y) => posterizedColorAt(
         1 - y / (hueCanvas.height - 1),
         x / (hueCanvas.width - 1) * MAX_CHROMA,
         displayedColor.h,
@@ -367,17 +583,25 @@
       }
 
       const selected = colorAt(displayedColor.L, displayedColor.C, displayedColor.h);
+      const snapped = displayedColor.munsell
+        ?? snappedMunsellAt(displayedColor.L, displayedColor.C, displayedColor.h);
       const label = proposedColor ? "PROPOSED" : "SAVED";
       document.querySelector("#oklchValue").textContent =
         `${label}  OKLCH L ${displayedColor.L.toFixed(3)}  C ${displayedColor.C.toFixed(3)}  H ${displayedColor.h.toFixed(1)}°`;
+      document.querySelector("#munsellValue").textContent = snapped
+        ? `MUNSELL ${snapped.notation}`
+        : "MUNSELL —";
       document.querySelector("#hexValue").textContent = selected
-        ? `sRGB   ${srgbToHex(selected).toUpperCase()}`
+        ? `OKLCH sRGB ${srgbToHex(selected).toUpperCase()} · Munsell sRGB ${srgbToHex(snapped.srgb).toUpperCase()}`
         : "sRGB   —";
       document.querySelector("#gamutStatus").textContent = proposedColor
         ? "Click to save this color"
         : "Move over an in-gamut color to propose it";
-      document.querySelector("#swatch").style.background = selected
+      document.querySelector("#oklchSwatch").style.background = selected
         ? srgbToHex(selected)
+        : "transparent";
+      document.querySelector("#munsellSwatch").style.background = snapped
+        ? srgbToHex(snapped.srgb)
         : "transparent";
     }
 
@@ -399,8 +623,9 @@
     function trackPointer(canvas, propose) {
       canvas.addEventListener("pointermove", (event) => {
         const candidate = propose(canvasPosition(event, canvas));
-        proposedColor = candidate && colorAt(candidate.L, candidate.C, candidate.h)
-          ? candidate
+        const sample = candidate && sampleAt(candidate.L, candidate.C, candidate.h);
+        proposedColor = sample && munsellTree
+          ? { ...candidate, munsell: nearestMunsell(sample.lab) }
           : null;
         scheduleRender();
       });
@@ -435,7 +660,33 @@
       };
     });
 
-    render();
+    document.querySelector("#toggleComplementError").addEventListener("click", (event) => {
+      complementErrorEnabled = !complementErrorEnabled;
+      document.querySelector("#complementErrorWidget").hidden = !complementErrorEnabled;
+      event.currentTarget.textContent = complementErrorEnabled
+        ? "Disable complement lightness error"
+        : "Enable complement lightness error";
+      // Enabling needs a fresh diagnostic image. Disabling does not redraw: the
+      // hidden widget disappears immediately and future map renders skip its work.
+      if (complementErrorEnabled) scheduleRender();
+    });
+
+    async function initialize() {
+      document.querySelector("#gamutStatus").textContent = "Loading Munsell renotations…";
+      try {
+        await loadMunsellData();
+        savedColor = {
+          ...savedColor,
+          munsell: snappedMunsellAt(savedColor.L, savedColor.C, savedColor.h),
+        };
+        render();
+      } catch (error) {
+        document.querySelector("#gamutStatus").textContent = error.message;
+        console.error(error);
+      }
+    }
+
+    initialize();
   </script>
 </body>
 </html>
