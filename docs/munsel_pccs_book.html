@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MUNSEL PCCS BOOK</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #101216;
+      color: #f2f3f5;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+
+    main {
+      width: min(1800px, calc(100% - 32px));
+      margin: 36px auto;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(310px, 400px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .sidebar,
+    .grid-panel {
+      overflow: hidden;
+      border: 1px solid #343943;
+      border-radius: 12px;
+      background: #191c22;
+    }
+
+    .sidebar-content { padding: 22px; }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 5vw, 42px);
+      letter-spacing: 0.08em;
+    }
+
+    .intro {
+      margin: 0;
+      color: #b9bec8;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .control-group,
+    .select-label {
+      display: grid;
+      gap: 7px;
+    }
+
+    .control-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .select-label {
+      color: #b9bec8;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    select,
+    button {
+      min-height: 40px;
+      border: 1px solid #555c68;
+      border-radius: 7px;
+      background: #252932;
+      color: #f2f3f5;
+      font: inherit;
+    }
+
+    select { width: 100%; min-width: 0; padding: 8px 36px 8px 11px; }
+    button { padding: 7px 13px; cursor: pointer; }
+    button:hover { background: #303641; }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px 10px;
+      margin-top: 22px;
+    }
+
+    .legend-item {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      min-width: 0;
+      color: #c8ccd4;
+      font: 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .legend-mark {
+      width: 13px;
+      height: 13px;
+      flex: 0 0 auto;
+      border: 3px solid var(--category-color);
+      border-radius: 4px;
+    }
+
+    .page-heading {
+      display: grid;
+      gap: 7px;
+      padding: 15px 18px;
+      border-top: 1px solid #343943;
+      border-bottom: 1px solid #343943;
+    }
+
+    h2 { margin: 0; font-size: 20px; }
+    .page-note { color: #969da9; font-size: 13px; line-height: 1.4; }
+
+    .inspector {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 12px;
+      min-height: 92px;
+      padding: 13px 18px;
+      background: #15181e;
+    }
+
+    .inspection-swatch {
+      width: 68px;
+      height: 68px;
+      align-self: center;
+      border: 1px solid #555c68;
+      border-radius: 7px;
+      background-color: #15181e;
+      background-image:
+        linear-gradient(45deg, #242832 25%, transparent 25%),
+        linear-gradient(-45deg, #242832 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #242832 75%),
+        linear-gradient(-45deg, transparent 75%, #242832 75%);
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+      background-size: 16px 16px;
+    }
+
+    .inspection-fields {
+      display: grid;
+      gap: 7px;
+      align-content: center;
+      min-width: 0;
+    }
+
+    .inspection-field { display: grid; gap: 2px; }
+    .inspection-label {
+      color: #858c98;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .inspection-value {
+      overflow-wrap: anywhere;
+      font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .inspection-name { font-size: 18px; font-weight: 750; }
+    .status { margin: 16px 20px; color: #b9bec8; font-size: 13px; }
+
+    .book-scroll {
+      max-height: calc(100vh - 72px);
+      overflow: auto;
+      padding: 18px;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: 80px repeat(var(--value-count), 38px);
+      gap: 2px;
+      width: max-content;
+      align-items: stretch;
+    }
+
+    .corner,
+    .value-heading,
+    .chroma-label {
+      position: sticky;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      min-height: 38px;
+      color: #aeb4bf;
+      background: #191c22;
+      font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .corner,
+    .value-heading { top: 0; }
+    .corner,
+    .chroma-label { left: 0; }
+    .corner { z-index: 6; text-align: center; line-height: 1.25; white-space: pre-line; }
+    .chroma-label { grid-auto-flow: column; gap: 5px; padding: 0 5px; justify-content: space-between; }
+    .chroma-label.primary { color: #e4c38a; }
+    .chroma-label.neutral { color: #f2f3f5; border-block: 1px solid #555c68; }
+    .chroma-label.related { color: #94c7df; }
+
+    .swatch,
+    .empty {
+      width: 38px;
+      height: 38px;
+      border-radius: 4px;
+    }
+
+    .empty {
+      border: 1px dashed #2d313a;
+      background: #16191e;
+    }
+
+    .swatch {
+      --edge-top: inset 0 0 transparent;
+      --edge-right: inset 0 0 transparent;
+      --edge-bottom: inset 0 0 transparent;
+      --edge-left: inset 0 0 transparent;
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: 3px;
+      border: 1px solid rgb(255 255 255 / 0.14);
+      color: var(--label-color);
+      box-shadow:
+        var(--edge-top),
+        var(--edge-right),
+        var(--edge-bottom),
+        var(--edge-left),
+        inset 0 0 0 1px rgb(0 0 0 / 0.08);
+      font: 650 7px/1.05 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-align: center;
+      text-shadow: var(--label-shadow);
+    }
+
+    .edge-top { --edge-top: inset 0 3px var(--category-color); }
+    .edge-right { --edge-right: inset -3px 0 var(--category-color); }
+    .edge-bottom { --edge-bottom: inset 0 -3px var(--category-color); }
+    .edge-left { --edge-left: inset 3px 0 var(--category-color); }
+
+    .component-label {
+      position: absolute;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      min-width: 22px;
+      min-height: 18px;
+      padding: 2px 4px;
+      border: 2px solid var(--category-color);
+      border-radius: 999px;
+      background: rgb(12 14 18 / 0.88);
+      color: #fff;
+      font: 800 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-shadow: none;
+      pointer-events: none;
+    }
+
+    @media (max-width: 700px) {
+      main { width: min(100% - 20px, 1800px); margin: 22px auto; }
+      .workspace { grid-template-columns: 1fr; }
+      .book-scroll { max-height: 70vh; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="workspace">
+    <section class="sidebar" aria-live="polite">
+      <div class="sidebar-content">
+        <h1>MUNSEL PCCS BOOK</h1>
+        <p class="intro">
+          PCCS tone categories mapped onto two Munsell hue pages. Colored outlines surround
+          each contiguous category region; repeated labels reveal disconnected regions.
+        </p>
+
+        <div class="controls">
+          <div class="control-group">
+            <label class="select-label" for="variantSelect">Classification variant
+              <select id="variantSelect">
+                <option value="PCCS_CATEGORY_OLD_DISTANCE_OLD_ROUNDING">Old distance · Half-step</option>
+                <option value="PCCS_CATEGORY_OLD_DISTANCE_NEW_ROUNDING">Old distance · Continuous</option>
+                <option value="PCCS_CATEGORY_NEW_DISTANCE_OLD_ROUNDING">Corrected distance · Half-step</option>
+                <option value="PCCS_CATEGORY_NEW_DISTANCE_NEW_ROUNDING" selected>Corrected distance · Continuous</option>
+                <option value="PCCS_CATEGORY_PAPER_2001">Paper 2001 transcription</option>
+              </select>
+            </label>
+          </div>
+          <div class="control-group">
+            <label class="select-label" for="hueSelect">Primary hue
+              <select id="hueSelect"></select>
+            </label>
+            <div class="control-buttons">
+              <button id="previousHue" type="button" aria-label="Previous primary hue">← Previous</button>
+              <button id="nextHue" type="button" aria-label="Next primary hue">Next →</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="select-label" for="harmonySelect">Harmony
+              <select id="harmonySelect"></select>
+            </label>
+          </div>
+          <div class="control-group">
+            <label class="select-label" for="memberSelect">Harmony member
+              <select id="memberSelect"></select>
+            </label>
+          </div>
+        </div>
+
+        <div id="legend" class="legend" aria-label="PCCS category outline colors"></div>
+      </div>
+
+      <div class="page-heading">
+        <h2 id="pageTitle">Loading…</h2>
+        <span class="page-note">Chroma: primary + → neutral 0 → related − · Value: lightest → darkest</span>
+      </div>
+
+      <div class="inspector" aria-live="polite">
+        <div id="inspectSwatch" class="inspection-swatch" aria-hidden="true"></div>
+        <div class="inspection-fields">
+          <div class="inspection-field">
+            <span class="inspection-label">Munsell name</span>
+            <strong id="inspectName" class="inspection-value inspection-name">No Color</strong>
+          </div>
+          <div class="inspection-field">
+            <span class="inspection-label">PCCS category</span>
+            <span id="inspectCategory" class="inspection-value">—</span>
+          </div>
+          <div class="inspection-field">
+            <span class="inspection-label">Display color</span>
+            <span id="inspectColor" class="inspection-value">—</span>
+          </div>
+        </div>
+      </div>
+      <p id="status" class="status">Loading PCCS classifications…</p>
+    </section>
+
+    <section class="grid-panel" aria-label="PCCS categories on a signed-Chroma Munsell grid">
+      <div id="bookScroll" class="book-scroll">
+        <div id="bookGrid" class="book-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const HUE_FAMILIES = ["R", "YR", "Y", "GY", "G", "BG", "B", "PB", "P", "RP"];
+      const HUE_STEPS = [2.5, 5, 7.5, 10];
+      const CHROMAS = Array.from({ length: 13 }, (_, index) => (index + 1) * 2);
+      const HARMONIES = {
+        analogous: { name: "Analogous", members: [[3, "+3"], [-3, "−3"]] },
+        complement: { name: "Complement", members: [[20, "+20"]] },
+        splitComplement: { name: "Split complement", members: [[17, "+17"], [23, "+23"]] },
+        triad: { name: "Triad", members: [[13, "+13"], [27, "+27"]] },
+        square: { name: "Square", members: [[10, "+10"], [20, "+20"], [30, "+30"]] },
+      };
+      const CATEGORY_COLORS = {
+        p: "#ff8fc7", "p+": "#ff62ad", ltg: "#c8a8ff", g: "#9278b8", dkg: "#625374",
+        lt: "#74d9ff", "lt+": "#42bfe9", sf: "#57c9a8", d: "#33a57f", dk: "#21725c",
+        b: "#ffe36e", s: "#ffad42", dp: "#f06b49", v: "#ff3f6c",
+        W: "#ffffff", Gy: "#aeb4bf", Bk: "#6d7480",
+      };
+
+      const variantSelect = document.querySelector("#variantSelect");
+      const hueSelect = document.querySelector("#hueSelect");
+      const harmonySelect = document.querySelector("#harmonySelect");
+      const memberSelect = document.querySelector("#memberSelect");
+      const bookGrid = document.querySelector("#bookGrid");
+      const pageTitle = document.querySelector("#pageTitle");
+      const status = document.querySelector("#status");
+      const bookScroll = document.querySelector("#bookScroll");
+      const inspector = {
+        swatch: document.querySelector("#inspectSwatch"),
+        name: document.querySelector("#inspectName"),
+        category: document.querySelector("#inspectCategory"),
+        color: document.querySelector("#inspectColor"),
+      };
+      let rowsByHue = new Map();
+      let hues = [];
+      let values = [];
+
+      function parseCsv(text) {
+        const [headerLine, ...lines] = text.trim().split(/\r?\n/);
+        const headers = headerLine.split(",");
+        return lines.map((line) => {
+          const fields = line.split(",");
+          return Object.fromEntries(headers.map((header, index) => [header, fields[index]]));
+        });
+      }
+
+      function hueRank(hue) {
+        const match = hue.match(/^([\d.]+)([A-Z]+)$/);
+        if (!match) return Number.MAX_SAFE_INTEGER;
+        return HUE_FAMILIES.indexOf(match[2]) * HUE_STEPS.length + HUE_STEPS.indexOf(Number(match[1]));
+      }
+
+      function makeCell(className, text = "") {
+        const cell = document.createElement("div");
+        cell.className = className;
+        cell.textContent = text;
+        return cell;
+      }
+
+      function toHex(red, green, blue) {
+        return `#${[red, green, blue].map((channel) => channel.toString(16).padStart(2, "0")).join("")}`.toUpperCase();
+      }
+
+      function inspect(row, category, red, green, blue) {
+        inspector.swatch.style.background = `rgb(${red} ${green} ${blue})`;
+        inspector.name.textContent = row.MUNSELL_NAME;
+        inspector.category.textContent = category;
+        inspector.color.textContent = `${toHex(red, green, blue)} · rgb(${red}, ${green}, ${blue})`;
+      }
+
+      function resetInspector() {
+        inspector.swatch.style.removeProperty("background");
+        inspector.name.textContent = "No Color";
+        inspector.category.textContent = "—";
+        inspector.color.textContent = "—";
+      }
+
+      function makeSwatch(row, category) {
+        if (!row) return makeCell("empty");
+        const swatch = makeCell("swatch", row.MUNSELL_NAME);
+        const red = Math.round(Number(row.sRGB_R) * 255);
+        const green = Math.round(Number(row.sRGB_G) * 255);
+        const blue = Math.round(Number(row.sRGB_B) * 255);
+        const relativeBrightness = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+        swatch.style.background = `rgb(${red} ${green} ${blue})`;
+        swatch.style.setProperty("--label-color", relativeBrightness > 145 ? "#111318" : "#fff");
+        swatch.style.setProperty("--label-shadow", relativeBrightness > 145 ? "0 1px 1px rgb(255 255 255 / .25)" : "0 1px 2px rgb(0 0 0 / .8)");
+        swatch.style.setProperty("--category-color", CATEGORY_COLORS[category]);
+        swatch.dataset.category = category;
+        swatch.addEventListener("pointerenter", () => inspect(row, category, red, green, blue));
+        swatch.addEventListener("pointerleave", resetInspector);
+        swatch.addEventListener("focus", () => inspect(row, category, red, green, blue));
+        swatch.addEventListener("blur", resetInspector);
+        swatch.tabIndex = 0;
+        return swatch;
+      }
+
+      function makeLookup(hue) {
+        return new Map((rowsByHue.get(hue) || []).map((row) => [`${Number(row.V)}:${Number(row.C)}`, row]));
+      }
+
+      function selectedRelatedHue() {
+        const primaryIndex = hues.indexOf(hueSelect.value);
+        const offset = Number(memberSelect.value);
+        return hues[(primaryIndex + offset + hues.length) % hues.length];
+      }
+
+      function addComponentOutlines(matrix) {
+        const visited = new Set();
+        let componentCount = 0;
+        let disconnectedCategoryCount = 0;
+        const categoryComponents = new Map();
+        const directions = [[-1, 0, "edge-top"], [0, 1, "edge-right"], [1, 0, "edge-bottom"], [0, -1, "edge-left"]];
+
+        matrix.forEach((row, rowIndex) => row.forEach((cell, columnIndex) => {
+          if (!cell || visited.has(`${rowIndex}:${columnIndex}`)) return;
+          const category = cell.category;
+          const stack = [[rowIndex, columnIndex]];
+          const component = [];
+          visited.add(`${rowIndex}:${columnIndex}`);
+
+          while (stack.length) {
+            const [currentRow, currentColumn] = stack.pop();
+            component.push([currentRow, currentColumn]);
+            directions.forEach(([rowOffset, columnOffset]) => {
+              const nextRow = currentRow + rowOffset;
+              const nextColumn = currentColumn + columnOffset;
+              const neighbor = matrix[nextRow]?.[nextColumn];
+              const key = `${nextRow}:${nextColumn}`;
+              if (neighbor?.category === category && !visited.has(key)) {
+                visited.add(key);
+                stack.push([nextRow, nextColumn]);
+              }
+            });
+          }
+
+          component.forEach(([componentRow, componentColumn]) => {
+            const componentCell = matrix[componentRow][componentColumn];
+            directions.forEach(([rowOffset, columnOffset, edgeClass]) => {
+              const neighbor = matrix[componentRow + rowOffset]?.[componentColumn + columnOffset];
+              if (neighbor?.category !== category) componentCell.element.classList.add(edgeClass);
+            });
+          });
+
+          const centerRow = component.reduce((sum, [row]) => sum + row, 0) / component.length;
+          const centerColumn = component.reduce((sum, [, column]) => sum + column, 0) / component.length;
+          const [labelRow, labelColumn] = component.reduce((best, candidate) => {
+            const distance = ([row, column]) => (row - centerRow) ** 2 + (column - centerColumn) ** 2;
+            return distance(candidate) < distance(best) ? candidate : best;
+          });
+          const label = makeCell("component-label", category);
+          matrix[labelRow][labelColumn].element.append(label);
+          componentCount += 1;
+          categoryComponents.set(category, (categoryComponents.get(category) || 0) + 1);
+        }));
+
+        categoryComponents.forEach((count) => { if (count > 1) disconnectedCategoryCount += 1; });
+        return { componentCount, disconnectedCategoryCount };
+      }
+
+      function appendGridRow(fragment, matrix, label, labelClass, lookup, chroma) {
+        const labelCell = makeCell(`chroma-label ${labelClass}`, label);
+        const hueName = document.createElement("span");
+        hueName.textContent = labelClass === "primary" ? hueSelect.value : labelClass === "related" ? selectedRelatedHue() : "N";
+        labelCell.append(hueName);
+        fragment.append(labelCell);
+
+        const matrixRow = [];
+        values.forEach((value) => {
+          const row = lookup.get(`${value}:${chroma}`);
+          const category = row?.[variantSelect.value];
+          const element = makeSwatch(row, category);
+          fragment.append(element);
+          matrixRow.push(row ? { row, category, element } : null);
+        });
+        matrix.push(matrixRow);
+      }
+
+      function renderPage() {
+        resetInspector();
+        const primaryHue = hueSelect.value;
+        const relatedHue = selectedRelatedHue();
+        const primaryLookup = makeLookup(primaryHue);
+        const relatedLookup = makeLookup(relatedHue);
+        const neutralLookup = makeLookup("N");
+        const fragment = document.createDocumentFragment();
+        const matrix = [];
+
+        fragment.append(makeCell("corner", "C ↑↓\nV →"));
+        values.forEach((value) => fragment.append(makeCell("value-heading", value)));
+        [...CHROMAS].reverse().forEach((chroma) => appendGridRow(fragment, matrix, `+${chroma}`, "primary", primaryLookup, chroma));
+        appendGridRow(fragment, matrix, "0", "neutral", neutralLookup, 0);
+        CHROMAS.forEach((chroma) => appendGridRow(fragment, matrix, `−${chroma}`, "related", relatedLookup, chroma));
+
+        const componentSummary = addComponentOutlines(matrix);
+        bookGrid.style.setProperty("--value-count", values.length);
+        bookGrid.replaceChildren(fragment);
+
+        const harmony = HARMONIES[harmonySelect.value].name;
+        const member = memberSelect.options[memberSelect.selectedIndex].text;
+        pageTitle.textContent = `${primaryHue} + ${relatedHue} — ${harmony} ${member}`;
+        status.textContent = `${componentSummary.componentCount} contiguous regions; ${componentSummary.disconnectedCategoryCount} categories appear in multiple regions on this combined page.`;
+        history.replaceState(null, "", `#${primaryHue}`);
+        bookScroll.scrollTo({ top: 0, left: 0 });
+      }
+
+      function populateMembers() {
+        const previous = memberSelect.value;
+        memberSelect.replaceChildren();
+        HARMONIES[harmonySelect.value].members.forEach(([offset, label]) => memberSelect.add(new Option(label, offset)));
+        if ([...memberSelect.options].some((option) => option.value === previous)) memberSelect.value = previous;
+      }
+
+      function moveHue(offset) {
+        hueSelect.selectedIndex = (hueSelect.selectedIndex + offset + hues.length) % hues.length;
+        renderPage();
+      }
+
+      function populateLegend() {
+        const legend = document.querySelector("#legend");
+        Object.entries(CATEGORY_COLORS).forEach(([category, color]) => {
+          const item = makeCell("legend-item");
+          const mark = makeCell("legend-mark");
+          mark.style.setProperty("--category-color", color);
+          item.append(mark, document.createTextNode(category));
+          legend.append(item);
+        });
+      }
+
+      async function initialize() {
+        try {
+          const response = await fetch("./assets/munsell_renotation_pccs_categories.csv");
+          if (!response.ok) throw new Error(`Could not load CSV (${response.status}).`);
+          const rows = parseCsv(await response.text());
+          rows.forEach((row) => {
+            if (!rowsByHue.has(row.H)) rowsByHue.set(row.H, []);
+            rowsByHue.get(row.H).push(row);
+          });
+
+          hues = [...rowsByHue.keys()].filter((hue) => hue !== "N").sort((a, b) => hueRank(a) - hueRank(b));
+          values = [...new Set(rows.map((row) => Number(row.V)))].sort((a, b) => b - a);
+          hues.forEach((hue) => hueSelect.add(new Option(hue, hue)));
+          Object.entries(HARMONIES).forEach(([key, harmony]) => harmonySelect.add(new Option(harmony.name, key)));
+          harmonySelect.value = "analogous";
+          populateMembers();
+          const hashHue = decodeURIComponent(location.hash.slice(1));
+          hueSelect.value = hues.includes(hashHue) ? hashHue : "5R";
+          renderPage();
+        } catch (error) {
+          pageTitle.textContent = "PCCS data unavailable";
+          status.textContent = error.message;
+          console.error(error);
+        }
+      }
+
+      variantSelect.addEventListener("change", renderPage);
+      hueSelect.addEventListener("change", renderPage);
+      harmonySelect.addEventListener("change", () => { populateMembers(); renderPage(); });
+      memberSelect.addEventListener("change", renderPage);
+      document.querySelector("#previousHue").addEventListener("click", () => moveHue(-1));
+      document.querySelector("#nextHue").addEventListener("click", () => moveHue(1));
+      window.addEventListener("keydown", (event) => {
+        if ([variantSelect, hueSelect, harmonySelect, memberSelect].includes(event.target)) return;
+        if (event.key === "ArrowLeft") moveHue(-1);
+        if (event.key === "ArrowRight") moveHue(1);
+      });
+
+      populateLegend();
+      initialize();
+    })();
+  </script>
+</body>
+</html>

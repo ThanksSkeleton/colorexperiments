@@ -1,2 +1,4 @@
 /input
+/INPUT
 node_modules/
+__pycache__/
