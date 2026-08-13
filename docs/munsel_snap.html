@@ -335,6 +335,7 @@
       for (const line of lines) {
         const fields = line.split(",");
         if (fields[column.IN_SRGB_GAMUT] !== "TRUE") continue;
+        if (Number(fields[column.V]) < 1) continue;
         const L = Number(fields[column.OKLCH_L]);
         const C = Number(fields[column.OKLCH_C]);
         const h = Number(fields[column.OKLCH_h]);

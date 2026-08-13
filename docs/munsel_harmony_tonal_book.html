@@ -313,8 +313,6 @@
       const HUE_STEPS = [2.5, 5, 7.5, 10];
       const CHROMAS = Array.from({ length: 13 }, (_, index) => (index + 1) * 2);
       const VALUE_STEP = 0.5;
-      const DARK_REGION_MIN = 0.2;
-      const DARK_REGION_MAX = 0.9;
       const MAX_EXTENDED_COLORS = 70;
       const RESERVED_OFF_COLOR_SLOTS = 12;
       const PALETTE_DISPLAY_CAPACITY = 84;
@@ -452,7 +450,6 @@
         chromaLines.forEach((chroma) => {
           valueOffsets.forEach((offset) => {
             const value = Number((Number(anchor.V) + offset * VALUE_STEP).toFixed(10));
-            if (value >= DARK_REGION_MIN && value <= DARK_REGION_MAX) return;
             const color = rowAt(anchor.H, value, chroma);
             if (color && !colors.includes(color)) colors.push(color);
           });
@@ -465,7 +462,6 @@
         if (kind === "White") return [...candidates].sort((a, b) => Number(b.V) - Number(a.V))[0];
         if (kind === "Black") {
           return candidates
-            .filter((row) => Number(row.V) >= 0.7 && Number(row.V) <= 0.9)
             .sort((a, b) => Number(a.V) - Number(b.V))[0];
         }
         return candidates.find((row) => Number(row.V) === 6);
@@ -627,7 +623,7 @@
         try {
           const response = await fetch("./assets/munsell_renotation_oklch.csv");
           if (!response.ok) throw new Error(`Could not load CSV (${response.status}).`);
-          const rows = parseCsv(await response.text());
+          const rows = parseCsv(await response.text()).filter((row) => Number(row.V) >= 1);
           rows.forEach((row) => {
             if (!rowsByHue.has(row.H)) rowsByHue.set(row.H, []);
             rowsByHue.get(row.H).push(row);

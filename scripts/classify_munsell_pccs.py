@@ -280,6 +280,7 @@ def classify_tone(
     lightness: float,
     saturation: float,
     distance_formula: str,
+    excluded_tones: frozenset[str] = frozenset(),
 ) -> tuple[str, float]:
     """Return the nearest PCCS tone and its distance.
 
@@ -292,7 +293,7 @@ def classify_tone(
     tone_value = tone_lightness(hue, lightness, saturation)
     distance = DISTANCE_FORMULAS[distance_formula]
     tone = min(
-        PCCS_TONE_COORDS,
+        (name for name in PCCS_TONE_COORDS if name not in excluded_tones),
         key=lambda name: distance(
             saturation, tone_value, *PCCS_TONE_COORDS[name]
         ),
@@ -316,6 +317,7 @@ def category_for(
     saturation: float,
     distance_formula: str,
     rounding: str,
+    excluded_tones: frozenset[str] = frozenset(),
 ) -> str:
     """Classify one PCCS coordinate using the requested 2x2 variant."""
 
@@ -329,14 +331,60 @@ def category_for(
     if hue == 0.0 and saturation == 0.0:
         return neutral_category(lightness)
 
-    tone, _ = classify_tone(hue, lightness, saturation, distance_formula)
+    tone, _ = classify_tone(
+        hue, lightness, saturation, distance_formula, excluded_tones
+    )
     return tone
+
+
+def tone_center_munsell(
+    tone: str, hue: float
+) -> tuple[float, float]:
+    """Approximate a PCCS tone center as Munsell (Value, Chroma)."""
+
+    saturation, tone_value = PCCS_TONE_COORDS[tone]
+    value = tone_value + (
+        0.25
+        - 0.34 * math.sqrt(1.0 - math.sin((hue - 2.0) / 12.0 * math.pi))
+    ) * saturation
+    chroma = (
+        0.004 * saturation**2 + 0.077 * saturation
+    ) * paper_2001_chroma_limit(hue) * (
+        1.0 - math.exp(-pccs_lightness_coefficient(hue) * value)
+    )
+    return value, chroma
+
+
+def modified_pccs_exclusions(
+    hue: float, value: float, chroma: float
+) -> frozenset[str]:
+    """Return tones forbidden by the project's modified-PCCS region rules."""
+
+    centers = {
+        tone: tone_center_munsell(tone, hue) for tone in ("dkg", "dk", "dp")
+    }
+    allowed = set(PCCS_TONE_COORDS)
+    dp_value, dp_chroma = centers["dp"]
+    dk_value, dk_chroma = centers["dk"]
+    dkg_value, dkg_chroma = centers["dkg"]
+
+    if value < dp_value and chroma > dp_chroma:
+        allowed = {"dp"}
+    if value < dp_value and chroma < dp_chroma:
+        allowed = {"dp", "d", "g", "dk", "dkg"}
+    if value < dk_value and chroma < dk_chroma:
+        allowed = {"dk", "g", "dkg"}
+    if value < dkg_value and chroma < dkg_chroma:
+        allowed = {"dkg"}
+
+    return frozenset(PCCS_TONE_COORDS.keys() - allowed)
 
 
 def classify_row(
     row: dict[str, str],
     distance_formulas: Iterable[str],
     rounding_modes: Iterable[str],
+    include_modified_pccs: bool,
 ) -> dict[str, str]:
     """Append only the selected PCCS category answers to one CSV row."""
 
@@ -364,6 +412,17 @@ def classify_row(
     categories[PAPER_2001_CATEGORY_FIELD] = category_for(
         paper_hue, paper_lightness, paper_saturation, "new", "new"
     )
+    if include_modified_pccs:
+        categories[MODIFIED_PCCS_CATEGORY_FIELD] = category_for(
+            paper_hue,
+            paper_lightness,
+            paper_saturation,
+            "new",
+            "new",
+            modified_pccs_exclusions(
+                paper_hue, float(row["V"]), float(row["C"])
+            ),
+        )
     return {**row, **categories}
 
 
@@ -374,6 +433,8 @@ def category_field(distance_formula: str, rounding: str) -> str:
 
 
 PAPER_2001_CATEGORY_FIELD = "PCCS_CATEGORY_PAPER_2001"
+MODIFIED_PCCS_CATEGORY_FIELD = "PCCS_CATEGORY_MODIFIED_PCCS"
+MIN_MUNSELL_VALUE = 1.0
 
 
 def classify_csv(
@@ -381,6 +442,7 @@ def classify_csv(
     destination: TextIO,
     distance_formulas: Iterable[str],
     rounding_modes: Iterable[str],
+    include_modified_pccs: bool = False,
 ) -> None:
     """Read a Munsell CSV and write it with appended PCCS fields."""
 
@@ -397,14 +459,21 @@ def classify_csv(
         for distance_formula in distance_formulas
         for rounding in rounding_modes
     ]
+    paper_fields = [PAPER_2001_CATEGORY_FIELD]
+    if include_modified_pccs:
+        paper_fields.append(MODIFIED_PCCS_CATEGORY_FIELD)
     writer = csv.DictWriter(
         destination,
-        fieldnames=[*reader.fieldnames, *category_fields, PAPER_2001_CATEGORY_FIELD],
+        fieldnames=[*reader.fieldnames, *category_fields, *paper_fields],
         lineterminator="\n",
     )
     writer.writeheader()
     for row in reader:
-        writer.writerow(classify_row(row, distance_formulas, rounding_modes))
+        if float(row["V"]) < MIN_MUNSELL_VALUE:
+            continue
+        writer.writerow(classify_row(
+            row, distance_formulas, rounding_modes, include_modified_pccs
+        ))
 
 
 def parse_args(arguments: Iterable[str] | None = None) -> argparse.Namespace:
@@ -428,6 +497,11 @@ def parse_args(arguments: Iterable[str] | None = None) -> argparse.Namespace:
         default="both",
         help="old half-step or new continuous coordinates (default: both)",
     )
+    parser.add_argument(
+        "--modified-pccs",
+        action="store_true",
+        help="append the modified-PCCS category using special Vivid/Deep rules",
+    )
     return parser.parse_args(arguments)
 
 
@@ -444,12 +518,16 @@ def main(arguments: Iterable[str] | None = None) -> int:
 
     with args.input.open("r", encoding="utf-8", newline="") as source:
         if args.output is None:
-            classify_csv(source, sys.stdout, distance_formulas, rounding_modes)
+            classify_csv(
+                source, sys.stdout, distance_formulas, rounding_modes,
+                args.modified_pccs,
+            )
         else:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             with args.output.open("w", encoding="utf-8", newline="") as destination:
                 classify_csv(
-                    source, destination, distance_formulas, rounding_modes
+                    source, destination, distance_formulas, rounding_modes,
+                    args.modified_pccs,
                 )
 
     return 0

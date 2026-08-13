@@ -35,8 +35,7 @@ VALUE_STEP = 0.5
 CHROMA_STEP = 2
 EXTENDED_CHROMA_STEPS = -2
 VALUE_STEP_OFFSETS = (0, 3, 6, 9, -3, -6, -9)
-DARK_REGION_MIN = 0.2
-DARK_REGION_MAX = 0.9
+MIN_MUNSELL_VALUE = 1.0
 
 
 @dataclass(frozen=True)
@@ -65,7 +64,7 @@ def load_colors(path: Path) -> tuple[dict[tuple[str, float, int], Color], dict[s
     with path.open(encoding="utf-8", newline="") as source:
         for row in csv.DictReader(source):
             hue = row["H"]
-            if hue == "N" or hue not in by_hue_lists:
+            if hue == "N" or hue not in by_hue_lists or float(row["V"]) < MIN_MUNSELL_VALUE:
                 continue
             color = Color(hue, number_key(float(row["V"])), int(float(row["C"])), row["MUNSELL_NAME"])
             lookup[(color.hue, color.value, color.chroma)] = color
@@ -81,7 +80,7 @@ def malformed_off_black(by_hue: dict[str, tuple[Color, ...]], hue: str, chroma: 
     if not candidates:
         return True, "undefined"
     off_black = min(candidates, key=lambda color: color.value)
-    malformed = not DARK_REGION_MIN <= off_black.value <= DARK_REGION_MAX
+    malformed = off_black.value < MIN_MUNSELL_VALUE
     return malformed, off_black.name
 
 
@@ -158,8 +157,6 @@ def build_validator(lookup: dict[tuple[str, float, int], Color], by_hue: dict[st
         colors: list[Color] = []
         for offset in VALUE_STEP_OFFSETS:
             value = number_key(anchor.value + offset * VALUE_STEP)
-            if DARK_REGION_MIN <= value <= DARK_REGION_MAX:
-                continue
             color = lookup.get((anchor.hue, value, target_chroma))
             if color and color not in colors:
                 colors.append(color)

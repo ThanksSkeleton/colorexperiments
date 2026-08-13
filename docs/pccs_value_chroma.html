@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PCCS VALUE CHROMA</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #101216; color: #f2f3f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { width: min(1500px, calc(100% - 32px)); margin: 36px auto; }
+    h1 { margin: 0 0 8px; font-size: clamp(26px, 5vw, 44px); letter-spacing: .08em; }
+    .intro { max-width: 850px; margin: 0; color: #b9bec8; line-height: 1.5; }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin: 28px 0 18px; }
+    .select-label { display: grid; gap: 5px; color: #b9bec8; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    select, button { min-height: 40px; border: 1px solid #555c68; border-radius: 7px; background: #252932; color: #f2f3f5; font: inherit; }
+    select { min-width: 130px; padding: 8px 36px 8px 11px; }
+    button { padding: 7px 13px; cursor: pointer; }
+    button:hover { background: #303641; }
+    .workspace { display: grid; grid-template-columns: minmax(270px, 340px) minmax(0, 1fr); gap: 18px; align-items: stretch; }
+    .inspector, .plot-panel { overflow: hidden; border: 1px solid #343943; border-radius: 12px; background: #191c22; }
+    .inspection-swatch { min-height: 220px; border-bottom: 1px solid #343943; background: #20242c; }
+    .inspection-fields { display: grid; gap: 13px; padding: 20px; }
+    .inspection-field { display: grid; gap: 3px; min-width: 0; }
+    .inspection-label { color: #858c98; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .inspection-value { overflow-wrap: anywhere; font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .inspection-name { font-family: inherit; font-size: 21px; font-weight: 750; }
+    .plot-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: baseline; padding: 15px 18px; border-bottom: 1px solid #343943; }
+    h2 { margin: 0; font-size: 20px; }
+    .plot-note { color: #969da9; font-size: 13px; }
+    .plot-scroll { overflow: auto; padding: 12px; }
+    svg { display: block; width: 100%; min-width: 720px; height: auto; }
+    .plot-background { fill: #15181e; }
+    .grid-line { stroke: #343943; stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .axis-line { stroke: #858c98; stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+    .tick, .axis-label, .curve-label { fill: #aeb4bf; font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .axis-label { font-size: 14px; font-weight: 700; }
+    .munsell-curve { fill: none; stroke: rgb(255 255 255 / .48); stroke-width: 1.25; vector-effect: non-scaling-stroke; pointer-events: none; }
+    .value-curve { stroke-dasharray: 5 4; }
+    .curve-label { fill: #fff; font-size: 10px; paint-order: stroke; stroke: #15181e; stroke-width: 4px; stroke-linejoin: round; }
+    .point { stroke: rgb(255 255 255 / .75); stroke-width: 1; vector-effect: non-scaling-stroke; cursor: crosshair; }
+    .point:hover, .point:focus { stroke: #fff; stroke-width: 3; outline: none; }
+    .status { margin: 20px; color: #b9bec8; }
+    .key { display: flex; flex-wrap: wrap; gap: 16px; padding: 0 18px 15px; color: #b9bec8; font-size: 12px; }
+    .key span::before { content: ""; display: inline-block; width: 26px; margin-right: 7px; border-top: 2px solid rgb(255 255 255 / .65); vertical-align: middle; }
+    .key .value-key::before { border-top-style: dashed; }
+    @media (max-width: 760px) { main { width: min(100% - 20px, 1500px); margin: 22px auto; } .workspace { grid-template-columns: 1fr; } .inspector { display: grid; grid-template-columns: 40% 1fr; } .inspection-swatch { min-height: 180px; border: 0; border-right: 1px solid #343943; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>PCCS VALUE CHROMA</h1>
+    <p class="intro">A fixed-hue map of Munsell renotation samples in OKLCH. Solid curves connect equal Munsell Chroma; dashed curves connect equal Munsell Value. Curves are visual interpolations through the available points, not fitted color-system boundaries.</p>
+    <div class="controls">
+      <button id="previousHue" type="button" aria-label="Previous hue">← Previous</button>
+      <label class="select-label" for="hueSelect">Munsell hue <select id="hueSelect"></select></label>
+      <button id="nextHue" type="button" aria-label="Next hue">Next →</button>
+    </div>
+    <div class="workspace">
+      <aside class="inspector" aria-live="polite">
+        <div id="inspectSwatch" class="inspection-swatch" aria-hidden="true"></div>
+        <div class="inspection-fields">
+          <div class="inspection-field"><span class="inspection-label">Munsell color</span><strong id="inspectName" class="inspection-value inspection-name">Mouse over a point</strong></div>
+          <div class="inspection-field"><span class="inspection-label">Munsell coordinates</span><span id="inspectMunsell" class="inspection-value">—</span></div>
+          <div class="inspection-field"><span class="inspection-label">OKLCH</span><span id="inspectOklch" class="inspection-value">—</span></div>
+          <div class="inspection-field"><span class="inspection-label">OKLCH Chroma</span><span id="inspectChroma" class="inspection-value">—</span></div>
+          <div class="inspection-field"><span class="inspection-label">Source</span><span id="inspectSource" class="inspection-value">—</span></div>
+        </div>
+      </aside>
+      <section class="plot-panel">
+        <div class="plot-heading"><h2 id="plotTitle">Loading…</h2><span class="plot-note">Each circle is one available Munsell sample</span></div>
+        <div class="key"><span>Fixed Munsell Chroma</span><span class="value-key">Fixed Munsell Value</span></div>
+        <div class="plot-scroll"><svg id="plot" viewBox="0 0 1000 720" role="img" aria-labelledby="plotTitle"></svg></div>
+        <p id="status" class="status">Loading Munsell renotations…</p>
+      </section>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const SVG_NS = "http://www.w3.org/2000/svg";
+      const HUE_FAMILIES = ["R", "YR", "Y", "GY", "G", "BG", "B", "PB", "P", "RP"];
+      const HUE_STEPS = [2.5, 5, 7.5, 10];
+      const WIDTH = 1000, HEIGHT = 720;
+      const MARGIN = { top: 24, right: 35, bottom: 66, left: 82 };
+      const C_MAX = .42;
+      const hueSelect = document.querySelector("#hueSelect");
+      const plot = document.querySelector("#plot");
+      const plotTitle = document.querySelector("#plotTitle");
+      const status = document.querySelector("#status");
+      const inspector = {
+        swatch: document.querySelector("#inspectSwatch"), name: document.querySelector("#inspectName"),
+        munsell: document.querySelector("#inspectMunsell"), oklch: document.querySelector("#inspectOklch"),
+        chroma: document.querySelector("#inspectChroma"), source: document.querySelector("#inspectSource")
+      };
+      let rowsByHue = new Map(), neutralRows = [], hues = [];
+
+      function svgElement(name, attributes = {}, text = "") {
+        const element = document.createElementNS(SVG_NS, name);
+        Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+        element.textContent = text;
+        return element;
+      }
+
+      function parseCsv(text) {
+        const [headerLine, ...lines] = text.trim().split(/\r?\n/);
+        const headers = headerLine.split(",");
+        return lines.map((line) => { const values = line.split(","); return Object.fromEntries(headers.map((header, index) => [header, values[index]])); });
+      }
+
+      function hueRank(hue) {
+        const match = hue.match(/^([\d.]+)([A-Z]+)$/);
+        return match ? HUE_FAMILIES.indexOf(match[2]) * HUE_STEPS.length + HUE_STEPS.indexOf(Number(match[1])) : Number.MAX_SAFE_INTEGER;
+      }
+
+      const x = (chroma) => MARGIN.left + Number(chroma) / C_MAX * (WIDTH - MARGIN.left - MARGIN.right);
+      const y = (lightness) => MARGIN.top + (1 - Number(lightness)) * (HEIGHT - MARGIN.top - MARGIN.bottom);
+
+      function smoothPath(points) {
+        if (!points.length) return "";
+        if (points.length === 1) return `M ${points[0][0]} ${points[0][1]}`;
+        let path = `M ${points[0][0]} ${points[0][1]}`;
+        for (let index = 0; index < points.length - 1; index += 1) {
+          const p0 = points[Math.max(0, index - 1)], p1 = points[index];
+          const p2 = points[index + 1], p3 = points[Math.min(points.length - 1, index + 2)];
+          const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+          const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+          path += ` C ${c1[0]} ${c1[1]}, ${c2[0]} ${c2[1]}, ${p2[0]} ${p2[1]}`;
+        }
+        return path;
+      }
+
+      function inspect(row) {
+        const channels = [row.sRGB_R, row.sRGB_G, row.sRGB_B].map((channel) => Math.round(Number(channel) * 255));
+        inspector.swatch.style.background = `rgb(${channels.join(" ")})`;
+        inspector.name.textContent = row.MUNSELL_NAME;
+        inspector.munsell.textContent = `H ${row.H} · V ${Number(row.V)} · C ${Number(row.C)}`;
+        inspector.oklch.textContent = `oklch(${Number(row.OKLCH_L).toFixed(6)} ${Number(row.OKLCH_C).toFixed(6)} ${Number(row.OKLCH_h).toFixed(2)}°)`;
+        inspector.chroma.textContent = Number(row.OKLCH_C).toFixed(8);
+        inspector.source.textContent = row.FAKE_MUNSEL === "TRUE" ? "Synthetic" : "Real";
+      }
+
+      function drawGrid(fragment) {
+        fragment.append(svgElement("rect", { class: "plot-background", x: MARGIN.left, y: MARGIN.top, width: WIDTH - MARGIN.left - MARGIN.right, height: HEIGHT - MARGIN.top - MARGIN.bottom }));
+        for (let lightness = 0; lightness <= 1.0001; lightness += .1) {
+          const py = y(lightness);
+          fragment.append(svgElement("line", { class: "grid-line", x1: MARGIN.left, x2: WIDTH - MARGIN.right, y1: py, y2: py }));
+          fragment.append(svgElement("text", { class: "tick", x: MARGIN.left - 12, y: py + 4, "text-anchor": "end" }, lightness.toFixed(1)));
+        }
+        for (let chroma = 0; chroma <= C_MAX + .0001; chroma += .05) {
+          const px = x(chroma);
+          fragment.append(svgElement("line", { class: "grid-line", x1: px, x2: px, y1: MARGIN.top, y2: HEIGHT - MARGIN.bottom }));
+          fragment.append(svgElement("text", { class: "tick", x: px, y: HEIGHT - MARGIN.bottom + 23, "text-anchor": "middle" }, chroma.toFixed(2)));
+        }
+        fragment.append(svgElement("line", { class: "axis-line", x1: MARGIN.left, x2: WIDTH - MARGIN.right, y1: HEIGHT - MARGIN.bottom, y2: HEIGHT - MARGIN.bottom }));
+        fragment.append(svgElement("line", { class: "axis-line", x1: MARGIN.left, x2: MARGIN.left, y1: MARGIN.top, y2: HEIGHT - MARGIN.bottom }));
+        fragment.append(svgElement("text", { class: "axis-label", x: (MARGIN.left + WIDTH - MARGIN.right) / 2, y: HEIGHT - 17, "text-anchor": "middle" }, "OKLCH Chroma"));
+        fragment.append(svgElement("text", { class: "axis-label", x: 22, y: HEIGHT / 2, transform: `rotate(-90 22 ${HEIGHT / 2})`, "text-anchor": "middle" }, "OKLCH Lightness"));
+      }
+
+      function grouped(rows, field) {
+        const groups = new Map();
+        rows.forEach((row) => { const key = Number(row[field]); if (!groups.has(key)) groups.set(key, []); groups.get(key).push(row); });
+        return [...groups.entries()].sort((a, b) => a[0] - b[0]);
+      }
+
+      function render(hue) {
+        const rows = [...neutralRows, ...(rowsByHue.get(hue) || [])];
+        const fragment = document.createDocumentFragment();
+        drawGrid(fragment);
+
+        grouped(rows, "C").forEach(([chroma, group]) => {
+          const ordered = group.sort((a, b) => Number(a.V) - Number(b.V));
+          if (ordered.length < 2) return;
+          fragment.append(svgElement("path", { class: "munsell-curve chroma-curve", d: smoothPath(ordered.map((row) => [x(row.OKLCH_C), y(row.OKLCH_L)])) }));
+          const labelPoint = ordered[ordered.length - 1];
+          fragment.append(svgElement("text", { class: "curve-label", x: x(labelPoint.OKLCH_C) + 5, y: y(labelPoint.OKLCH_L) - 5 }, `C${chroma}`));
+        });
+
+        grouped(rows, "V").forEach(([value, group]) => {
+          const ordered = group.sort((a, b) => Number(a.C) - Number(b.C));
+          if (ordered.length < 2) return;
+          fragment.append(svgElement("path", { class: "munsell-curve value-curve", d: smoothPath(ordered.map((row) => [x(row.OKLCH_C), y(row.OKLCH_L)])) }));
+          const labelPoint = ordered[ordered.length - 1];
+          fragment.append(svgElement("text", { class: "curve-label", x: x(labelPoint.OKLCH_C) + 5, y: y(labelPoint.OKLCH_L) + 13 }, `V${value}`));
+        });
+
+        rows.forEach((row) => {
+          const [red, green, blue] = [row.sRGB_R, row.sRGB_G, row.sRGB_B].map((channel) => Math.round(Number(channel) * 255));
+          const point = svgElement("circle", { class: "point", cx: x(row.OKLCH_C), cy: y(row.OKLCH_L), r: 5, fill: `rgb(${red} ${green} ${blue})`, tabindex: 0, "aria-label": row.MUNSELL_NAME });
+          point.addEventListener("pointerenter", () => inspect(row));
+          point.addEventListener("focus", () => inspect(row));
+          fragment.append(point);
+        });
+
+        plot.replaceChildren(fragment);
+        plotTitle.textContent = `${hue} in OKLCH — ${rows.length} samples`;
+        status.hidden = true;
+        history.replaceState(null, "", `#${hue}`);
+      }
+
+      function move(offset) {
+        const index = (hueSelect.selectedIndex + offset + hues.length) % hues.length;
+        hueSelect.selectedIndex = index;
+        render(hues[index]);
+      }
+
+      async function initialize() {
+        try {
+          const response = await fetch("./assets/munsell_renotation_oklch.csv");
+          if (!response.ok) throw new Error(`Could not load CSV (${response.status}).`);
+          const allRows = parseCsv(await response.text()).filter((row) => Number(row.V) >= 1);
+          neutralRows = allRows.filter((row) => row.H === "N");
+          allRows.filter((row) => row.H !== "N").forEach((row) => {
+            if (!rowsByHue.has(row.H)) rowsByHue.set(row.H, []);
+            rowsByHue.get(row.H).push(row);
+          });
+          hues = [...rowsByHue.keys()].sort((a, b) => hueRank(a) - hueRank(b));
+          hues.forEach((hue) => hueSelect.add(new Option(hue, hue)));
+          const hashHue = decodeURIComponent(location.hash.slice(1));
+          hueSelect.value = rowsByHue.has(hashHue) ? hashHue : "5R";
+          render(hueSelect.value);
+        } catch (error) { plotTitle.textContent = "Munsell data unavailable"; status.textContent = error.message; console.error(error); }
+      }
+
+      hueSelect.addEventListener("change", () => render(hueSelect.value));
+      document.querySelector("#previousHue").addEventListener("click", () => move(-1));
+      document.querySelector("#nextHue").addEventListener("click", () => move(1));
+      initialize();
+    })();
+  </script>
+</body>
+</html>

@@ -46,18 +46,14 @@ Given a specific color, a specific harmony, and a specific harmony member, first
 For a given hue, each Off color has exactly Chroma 2:
 
 - **Off-White 2:** the color at Chroma 2 with the greatest Value.
-- **Off-Black 2:** among the colors at Chroma 2 with Values from 0.7 through 0.9, inclusive, the color with the least Value. If no Chroma 2 member exists within that Value range, the Off-Black does not exist and the result is `undefined`.
+- **Off-Black 2:** the color at Chroma 2 with the least Value in the project's supported range, which begins at Value 1.
 - **Off-Gray 2:** the color at Chroma 2 and Value 6.
 
 If the required sample does not exist, the result is `undefined`.
 
-## Dark Region
-
-For a given hue, the colors with Munsell Values from 0.2 through 0.9, inclusive.
-
 ## Step
 
-The standard increment used by tonal operations outside the Dark Region. One Value Step is 0.5 Munsell Value, and one Chroma Step is 2 Munsell Chroma. Step terminology and Step-based operations are not allowed within the Dark Region; exact coordinates must be used there instead.
+The standard increment used by tonal operations. One Value Step is 0.5 Munsell Value, and one Chroma Step is 2 Munsell Chroma.
 
 ## Successful Palette
 

@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PCCS Voronoi Regions in OKLCH</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #f4f1e9;
+        --muted: #aaa79f;
+        --panel: #171716;
+        --line: #55534e;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: #0e0e0d;
+        color: var(--ink);
+        font: 15px/1.45 system-ui, sans-serif;
+      }
+      main { width: min(1120px, calc(100% - 32px)); margin: 32px auto 56px; }
+      h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4vw, 3rem); }
+      p { max-width: 78ch; color: var(--muted); }
+      .controls, .readout {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 12px;
+        margin: 24px 0 16px;
+      }
+      label { display: grid; gap: 5px; color: var(--muted); font-size: .82rem; }
+      button, select {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #242321;
+        color: var(--ink);
+        padding: 8px 12px;
+        font: inherit;
+      }
+      button { cursor: pointer; }
+      .plot-wrap {
+        position: relative;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        padding: 16px;
+      }
+      .plots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .plot-wrap h2 { margin: 0 0 12px; font-size: 1rem; }
+      canvas { display: block; width: 100%; height: auto; background: #111; }
+      .readout { min-height: 44px; align-items: center; margin-top: 10px; color: var(--muted); }
+      .swatch { width: 32px; height: 32px; border: 1px solid #777; border-radius: 50%; }
+      .tone { color: var(--ink); font-size: 1.1rem; font-weight: 700; }
+      .notes { margin-top: 28px; }
+      code { color: #dedbd2; }
+      a { color: #ddd6bf; }
+      @media (max-width: 760px) { .plots { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="./index.html">← All experiments</a></p>
+      <h1>PCCS Voronoi Regions in OKLCH</h1>
+      <p>
+        A deliberately approximate translation of the 14 PCCS tone centers into fixed-hue
+        OKLCH lightness–chroma slices. Each Munsell hue name is used only as a label for an
+        approximate OKLCH hue angle; no Munsell color conversion is performed.
+      </p>
+
+      <div class="controls">
+        <button id="previous" type="button" aria-label="Previous hue">← Previous</button>
+        <label>Approximate Munsell hue
+          <select id="hue"></select>
+        </label>
+        <button id="next" type="button" aria-label="Next hue">Next →</button>
+      </div>
+
+      <div class="plots">
+        <div class="plot-wrap">
+          <h2>Normal PCCS</h2>
+          <canvas id="normal-plot" width="920" height="680" aria-label="Normal PCCS tone regions plotted by OKLCH chroma and lightness"></canvas>
+        </div>
+        <div class="plot-wrap">
+          <h2>Modified PCCS</h2>
+          <canvas id="modified-plot" width="920" height="680" aria-label="Modified PCCS tone regions plotted by OKLCH chroma and lightness"></canvas>
+        </div>
+      </div>
+      <div class="readout" id="readout" aria-live="polite">Move over the diagram to inspect a point.</div>
+
+      <div class="notes">
+        <p><strong>Coordinate bridge:</strong> OKLCH lightness is approximately related to
+          PCCS lightness through the standard Munsell Value–luminance polynomial. Chroma uses
+          one approximate OKLCH-C-per-Munsell-Chroma ratio for each hue, summarized from the
+          project’s in-sRGB samples. The Paper 2001 equations then supply PCCS saturation and
+          the hue-dependent <code>t = l − a(h)s</code> transform. Classification is corrected
+          Euclidean nearest-center distance in the PCCS <code>(s, t)</code> plane.</p>
+        <p>Each region is colored with its translated tone center’s OKLCH color at the selected
+          hue. Portions outside sRGB are shown at 10% opacity over a checkerboard. The gamut test
+          uses the plotted point’s native OKLCH scales: <code>L = 0…1</code> and
+          <code>C = 0…0.4</code>. These are exploratory fitted projections, not measured
+          correspondences between PCCS and OKLCH.</p>
+        <p><strong>Modified PCCS:</strong> Below the DP centerpoint in lightness but above it
+          in chroma, only DP is eligible. Below DP in both dimensions, DP/D/G/DK/DKG are
+          eligible; below DK in both, DK/G/DKG; and below DKG in both, only DKG. More-specific
+          bottom-left rules take precedence. Thresholds are recalculated for each hue.</p>
+      </div>
+    </main>
+
+    <script>
+      const TONES = {
+        p: [2, 8.6], "p+": [3, 8.2], ltg: [2, 7.1], g: [2, 4.1], dkg: [2, 2.1],
+        lt: [5, 7.8], "lt+": [6, 7.3], sf: [5, 6.3], d: [5, 4.8], dk: [5, 3],
+        b: [8, 6.6], s: [8, 5.2], dp: [8, 4.1], v: [9, 5.5]
+      };
+      const TONE_NAMES = {
+        p: "Pale", "p+": "Pale+", ltg: "Light Grayish", g: "Grayish", dkg: "Dark Grayish",
+        lt: "Light", "lt+": "Light+", sf: "Soft", d: "Dull", dk: "Dark",
+        b: "Bright", s: "Strong", dp: "Deep", v: "Vivid"
+      };
+      const FAMILY_ANGLES = [
+        ["R", 25], ["YR", 65], ["Y", 100], ["GY", 125], ["G", 145],
+        ["BG", 180], ["B", 230], ["PB", 270], ["P", 305], ["RP", 345]
+      ];
+      const STEPS = [2.5, 5, 7.5, 10];
+      const MAX_C = 0.4;
+      const CHROMA_RATIOS = {
+        "2.5R": .013876, "5R": .013896, "7.5R": .014070, "10R": .014427,
+        "2.5YR": .014695, "5YR": .014951, "7.5YR": .015205, "10YR": .015820,
+        "2.5Y": .016358, "5Y": .017143, "7.5Y": .017443, "10Y": .017823,
+        "2.5GY": .017734, "5GY": .017322, "7.5GY": .016752, "10GY": .016173,
+        "2.5G": .015989, "5G": .015792, "7.5G": .015603, "10G": .015488,
+        "2.5BG": .015456, "5BG": .015489, "7.5BG": .015409, "10BG": .015220,
+        "2.5B": .014703, "5B": .014176, "7.5B": .013565, "10B": .012745,
+        "2.5PB": .011971, "5PB": .011648, "7.5PB": .011280, "10PB": .011080,
+        "2.5P": .011257, "5P": .011484, "7.5P": .012023, "10P": .012402,
+        "2.5RP": .012858, "5RP": .013251, "7.5RP": .013423, "10RP": .013653
+      };
+      const margin = { left: 70, right: 24, top: 28, bottom: 58 };
+      const diagrams = [
+        { canvas: document.querySelector("#normal-plot"), modified: false },
+        { canvas: document.querySelector("#modified-plot"), modified: true }
+      ];
+      const select = document.querySelector("#hue");
+      const readout = document.querySelector("#readout");
+
+      function circularDelta(from, to) {
+        return ((to - from + 540) % 360) - 180;
+      }
+
+      const hues = FAMILY_ANGLES.flatMap(([family, center], familyIndex) => {
+        const previous = FAMILY_ANGLES[(familyIndex + 9) % 10][1];
+        const next = FAMILY_ANGLES[(familyIndex + 1) % 10][1];
+        return STEPS.map(step => {
+          const amount = (step - 5) / 10;
+          const neighbor = amount < 0 ? previous : next;
+          const angle = (center + circularDelta(center, neighbor) * Math.abs(amount) + 360) % 360;
+          return { name: `${step}${family}`, angle };
+        });
+      });
+
+      for (const hue of hues) {
+        const option = document.createElement("option");
+        option.value = hue.name;
+        option.textContent = `${hue.name} — OKLCH ${hue.angle.toFixed(1)}°`;
+        select.append(option);
+      }
+      select.value = "5R";
+
+      function pccsHueFromIndex(index) {
+        const familyIndex = Math.floor(index / STEPS.length);
+        const step = STEPS[index % STEPS.length];
+        const linearHue = (familyIndex * 10 + step) % 100;
+        const y = linearHue / 50 * Math.PI;
+        return (24 / (2 * Math.PI) * y
+          + 1.24
+          + 0.020 * Math.cos(y)
+          - 0.10 * Math.cos(2 * y)
+          - 0.11 * Math.cos(3 * y)
+          + 0.68 * Math.sin(y)
+          - 0.30 * Math.sin(2 * y)
+          + 0.013 * Math.sin(3 * y) + 24) % 24;
+      }
+
+      function adjustment(pccsHue) {
+        return 0.25 - 0.34 * Math.sqrt(1 - Math.sin((pccsHue - 2) / 12 * Math.PI));
+      }
+
+      function valueToOklchLightness(value) {
+        const Y = (1.2219 * value - 0.23111 * value ** 2 + 0.23951 * value ** 3
+          - 0.021009 * value ** 4 + 0.0008404 * value ** 5) / 100;
+        return Math.cbrt(Math.max(0, Y));
+      }
+
+      function oklchLightnessToValue(lightness) {
+        let low = 0;
+        let high = 10;
+        for (let i = 0; i < 28; i++) {
+          const middle = (low + high) / 2;
+          if (valueToOklchLightness(middle) < lightness) low = middle;
+          else high = middle;
+        }
+        return (low + high) / 2;
+      }
+
+      function paperChromaLimit(pccsHue) {
+        return 12 + 1.7 * Math.sin((pccsHue + 2.2) * Math.PI / 12);
+      }
+
+      function lightnessCoefficient(pccsHue) {
+        return 0.81 - 0.24 * Math.sin((pccsHue - 2.6) / 12 * Math.PI);
+      }
+
+      function pccsSaturation(value, oklchChroma, pccsHue, chromaRatio) {
+        if (oklchChroma === 0) return 0;
+        const munsellChroma = oklchChroma / chromaRatio;
+        const denominator = paperChromaLimit(pccsHue)
+          * (1 - Math.exp(-lightnessCoefficient(pccsHue) * Math.max(value, 1e-6)));
+        const q = munsellChroma / denominator;
+        return (-0.077 + Math.sqrt(0.077 ** 2 + 4 * 0.004 * q)) / (2 * 0.004);
+      }
+
+      function translatedCenter(saturation, toneLightness, pccsHue, chromaRatio) {
+        const value = toneLightness + adjustment(pccsHue) * saturation;
+        const munsellChroma = (0.004 * saturation ** 2 + 0.077 * saturation)
+          * paperChromaLimit(pccsHue)
+          * (1 - Math.exp(-lightnessCoefficient(pccsHue) * value));
+        return {
+          L: valueToOklchLightness(value),
+          C: Math.max(0, munsellChroma * chromaRatio)
+        };
+      }
+
+      function centerMunsell(tone, pccsHue) {
+        const [saturation, toneLightness] = TONES[tone];
+        const value = toneLightness + adjustment(pccsHue) * saturation;
+        const chroma = (0.004 * saturation ** 2 + 0.077 * saturation)
+          * paperChromaLimit(pccsHue)
+          * (1 - Math.exp(-lightnessCoefficient(pccsHue) * value));
+        return { value, chroma };
+      }
+
+      function classify(L, C, pccsHue, chromaRatio, modified = false) {
+        const lightness = oklchLightnessToValue(L);
+        const munsellChroma = C / chromaRatio;
+        const saturation = pccsSaturation(lightness, C, pccsHue, chromaRatio);
+        const toneLightness = lightness - adjustment(pccsHue) * saturation;
+        let allowed = null;
+        if (modified) {
+          const centers = Object.fromEntries(
+            ["dkg", "dk", "dp"].map(tone => [tone, centerMunsell(tone, pccsHue)])
+          );
+          if (lightness < centers.dp.value && munsellChroma > centers.dp.chroma) {
+            allowed = new Set(["dp"]);
+          }
+          if (lightness < centers.dp.value && munsellChroma < centers.dp.chroma) {
+            allowed = new Set(["dp", "d", "g", "dk", "dkg"]);
+          }
+          if (lightness < centers.dk.value && munsellChroma < centers.dk.chroma) {
+            allowed = new Set(["dk", "g", "dkg"]);
+          }
+          if (lightness < centers.dkg.value && munsellChroma < centers.dkg.chroma) {
+            allowed = new Set(["dkg"]);
+          }
+        }
+        let best = null;
+        let bestDistance = Infinity;
+        for (const [tone, [centerS, centerT]] of Object.entries(TONES)) {
+          if (allowed !== null && !allowed.has(tone)) continue;
+          const distance = (saturation - centerS) ** 2 + (toneLightness - centerT) ** 2;
+          if (distance < bestDistance) { best = tone; bestDistance = distance; }
+        }
+        return { tone: best, saturation, toneLightness, munsellValue: lightness, munsellChroma };
+      }
+
+      function oklchToSrgb(L, C, hue) {
+        const radians = hue * Math.PI / 180;
+        const a = C * Math.cos(radians);
+        const b = C * Math.sin(radians);
+        const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+        const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+        const s_ = L - 0.0894841775 * a - 1.291485548 * b;
+        const l = l_ ** 3, m = m_ ** 3, s = s_ ** 3;
+        const linear = [
+          4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+          -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+          -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s
+        ];
+        const inGamut = linear.every(channel => channel >= -1e-7 && channel <= 1 + 1e-7);
+        const encoded = linear.map(channel => {
+          const clamped = Math.max(0, Math.min(1, channel));
+          return clamped <= 0.0031308 ? 12.92 * clamped : 1.055 * clamped ** (1 / 2.4) - 0.055;
+        });
+        return { rgb: encoded.map(channel => Math.round(channel * 255)), inGamut };
+      }
+
+      function plotCoordinates(canvas, L, C) {
+        const width = canvas.width - margin.left - margin.right;
+        const height = canvas.height - margin.top - margin.bottom;
+        return [margin.left + C / MAX_C * width, margin.top + (1 - L) * height];
+      }
+
+      function draw() {
+        const index = hues.findIndex(hue => hue.name === select.value);
+        const { name, angle } = hues[index];
+        const pccsHue = pccsHueFromIndex(index);
+        const chromaRatio = CHROMA_RATIOS[name];
+        for (const diagram of diagrams) {
+          renderDiagram(diagram, name, angle, pccsHue, chromaRatio);
+        }
+      }
+
+      function renderDiagram({ canvas, modified }, name, angle, pccsHue, chromaRatio) {
+        const ctx = canvas.getContext("2d");
+        const width = canvas.width - margin.left - margin.right;
+        const height = canvas.height - margin.top - margin.bottom;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const regionColors = Object.fromEntries(Object.entries(TONES).map(([tone, [s, t]]) => {
+          const center = translatedCenter(s, t, pccsHue, chromaRatio);
+          return [tone, oklchToSrgb(center.L, center.C, angle).rgb];
+        }));
+
+        const checkerSize = 12;
+        for (let y = 0; y < height; y += checkerSize) {
+          for (let x = 0; x < width; x += checkerSize) {
+            ctx.fillStyle = ((x / checkerSize + y / checkerSize) % 2) ? "#77736c" : "#b8b3a9";
+            ctx.fillRect(margin.left + x, margin.top + y,
+              Math.min(checkerSize, width - x), Math.min(checkerSize, height - y));
+          }
+        }
+
+        const image = ctx.createImageData(width, height);
+        for (let y = 0; y < height; y++) {
+          const L = 1 - y / (height - 1);
+          for (let x = 0; x < width; x++) {
+            const C = x / (width - 1) * MAX_C;
+            const { tone } = classify(L, C, pccsHue, chromaRatio, modified);
+            const region = regionColors[tone];
+            const { inGamut } = oklchToSrgb(L, C, angle);
+            const offset = (y * width + x) * 4;
+            image.data[offset] = region[0];
+            image.data[offset + 1] = region[1];
+            image.data[offset + 2] = region[2];
+            image.data[offset + 3] = inGamut ? 255 : 26;
+          }
+        }
+        const layer = document.createElement("canvas");
+        layer.width = width;
+        layer.height = height;
+        layer.getContext("2d").putImageData(image, 0, 0);
+        ctx.drawImage(layer, margin.left, margin.top);
+
+        ctx.strokeStyle = "rgba(255,255,255,.5)";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(margin.left + .5, margin.top + .5, width - 1, height - 1);
+        ctx.fillStyle = "#e8e4da";
+        ctx.font = "14px system-ui";
+        ctx.textAlign = "center";
+        ctx.fillText("OKLCH Chroma", margin.left + width / 2, canvas.height - 14);
+        ctx.save();
+        ctx.translate(18, margin.top + height / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText("OKLCH Lightness", 0, 0);
+        ctx.restore();
+
+        ctx.font = "12px system-ui";
+        for (let i = 0; i <= 4; i++) {
+          const C = i / 10;
+          const [x] = plotCoordinates(canvas, 0, C);
+          ctx.fillText(C.toFixed(1), x, margin.top + height + 22);
+        }
+        ctx.textAlign = "right";
+        for (let i = 0; i <= 10; i += 2) {
+          const L = i / 10;
+          const [, y] = plotCoordinates(canvas, L, 0);
+          ctx.fillText(L.toFixed(1), margin.left - 10, y + 4);
+        }
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = "bold 13px system-ui";
+        for (const [tone, [s, t]] of Object.entries(TONES)) {
+          const center = translatedCenter(s, t, pccsHue, chromaRatio);
+          const [x, y] = plotCoordinates(canvas, center.L, center.C);
+          ctx.fillStyle = "rgba(0,0,0,.72)";
+          ctx.beginPath(); ctx.arc(x, y, 13, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "white";
+          ctx.fillText(tone, x, y + .5);
+        }
+
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
+        ctx.font = "bold 16px system-ui";
+        ctx.fillStyle = "white";
+        ctx.fillText(`${name} ≈ OKLCH ${angle.toFixed(1)}° · PCCS h ${pccsHue.toFixed(1)}`, margin.left + 12, margin.top + 24);
+      }
+
+      function stepHue(direction) {
+        const index = hues.findIndex(hue => hue.name === select.value);
+        select.value = hues[(index + direction + hues.length) % hues.length].name;
+        readout.textContent = "Move over the diagram to inspect a point.";
+        draw();
+      }
+
+      select.addEventListener("change", draw);
+      document.querySelector("#previous").addEventListener("click", () => stepHue(-1));
+      document.querySelector("#next").addEventListener("click", () => stepHue(1));
+      for (const { canvas, modified } of diagrams) {
+        canvas.addEventListener("mousemove", event => {
+          const rect = canvas.getBoundingClientRect();
+          const x = (event.clientX - rect.left) * canvas.width / rect.width;
+          const y = (event.clientY - rect.top) * canvas.height / rect.height;
+          const width = canvas.width - margin.left - margin.right;
+          const height = canvas.height - margin.top - margin.bottom;
+          if (x < margin.left || x > margin.left + width || y < margin.top || y > margin.top + height) return;
+          const C = (x - margin.left) / width * MAX_C;
+          const L = 1 - (y - margin.top) / height;
+          const index = hues.findIndex(hue => hue.name === select.value);
+          const result = classify(
+            L, C, pccsHueFromIndex(index), CHROMA_RATIOS[hues[index].name], modified
+          );
+          const color = `oklch(${(L * 100).toFixed(1)}% ${C.toFixed(3)} ${hues[index].angle.toFixed(1)})`;
+          readout.innerHTML = `<span class="swatch" style="background:${color}"></span><span><span class="tone">${modified ? "Modified · " : "Normal · "}${TONE_NAMES[result.tone]} (${result.tone})</span><br>OKLCH ${L.toFixed(3)} ${C.toFixed(3)} ${hues[index].angle.toFixed(1)}° · approximate Munsell V ${result.munsellValue.toFixed(2)}, C ${result.munsellChroma.toFixed(2)} · PCCS s ${result.saturation.toFixed(2)}, t ${result.toneLightness.toFixed(2)}</span>`;
+        });
+        canvas.addEventListener("mouseleave", () => { readout.textContent = "Move over the diagram to inspect a point."; });
+      }
+      draw();
+    </script>
+  </body>
+</html>

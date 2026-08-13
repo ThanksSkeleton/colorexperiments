@@ -472,7 +472,7 @@
         try {
           const response = await fetch("./assets/munsell_renotation_oklch.csv");
           if (!response.ok) throw new Error(`Could not load CSV (${response.status}).`);
-          const rows = parseCsv(await response.text());
+          const rows = parseCsv(await response.text()).filter((row) => Number(row.V) >= 1);
           rows.forEach((row) => {
             if (!rowsByHue.has(row.H)) rowsByHue.set(row.H, []);
             rowsByHue.get(row.H).push(row);

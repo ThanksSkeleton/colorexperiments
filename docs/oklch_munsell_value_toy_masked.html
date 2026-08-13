@@ -207,6 +207,7 @@
       <div class="note">
         <p>
           Munsell Value here means only the <strong>Value</strong> coordinate, not full Munsell hue/chroma notation.
+          This project displays Munsell Value only at <strong>V1 and above</strong>.
           It is estimated by converting displayed OKLCH → XYZ → CIELAB D50 → luminance Y, then numerically inverting
           the Newhall–Nickerson–Judd 1943 Munsell Value luminance polynomial. The plane overlay marks approximate
           integer Value contours with 50% white pixels.
@@ -427,7 +428,7 @@
 
         // Munsell Value contour mask:
         // draw a 50% white overlay pixel wherever displayed Munsell Value
-        // is within ±0.01 of an integer value: V0, V1, ... V10.
+        // is within ±0.01 of an integer value: V1, V2, ... V10.
         const xyzD50 = xyzD65ToD50(mapped.display.xyzD65);
         const lab = xyzD50ToLab(xyzD50);
         const lum = labToCieLuminancePercent(lab[0]);
@@ -435,7 +436,7 @@
 
         if (munsell.ok) {
           const nearestWholeValue = Math.round(munsell.V);
-          const nearWholeValue = nearestWholeValue >= 0
+          const nearWholeValue = nearestWholeValue >= 1
             && nearestWholeValue <= 10
             && Math.abs(munsell.V - nearestWholeValue) <= 0.01;
 
@@ -491,14 +492,16 @@
     els.hex.textContent = hex;
     els.lab.textContent = `lab(${fmt(lab[0], 2)}% ${fmt(lab[1], 2)} ${fmt(lab[2], 2)})`;
 
-    if (munsell.ok) {
+    if (munsell.ok && munsell.V >= 1) {
       els.munsell.textContent = `V ${fmt(munsell.V, 3)} / 10`;
       els.reason.textContent = mapped.clipped
         ? "Requested OKLCH is outside sRGB. Munsell Value is for the displayed chroma-clipped color."
         : "Calculated from displayed color.";
     } else {
       els.munsell.textContent = "N/A";
-      els.reason.textContent = munsell.reason;
+      els.reason.textContent = munsell.ok
+        ? "Below this project's supported Munsell range (V1–V10)."
+        : munsell.reason;
     }
   }
 

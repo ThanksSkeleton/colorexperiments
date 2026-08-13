@@ -4,7 +4,9 @@
 The script has no third-party dependencies. By default it reads ``input/all.dat``
 and writes ``input/all.csv`` relative to the repository root. Its default output
 keeps only in-sRGB rows and adds one synthetic OKLCH midpoint between eligible
-adjacent Munsell Value rows. Different paths can be supplied as positional args.
+adjacent Munsell Value rows. Values below Munsell Value 1 are outside this
+project's practical working domain and are omitted. Different paths can be
+supplied as positional args.
 """
 
 from __future__ import annotations
@@ -30,6 +32,7 @@ D65_XYZ = (0.95047, 1.0, 1.08883)
 # perfect reflecting diffuser. The original Y column is always preserved in the
 # CSV; this factor is used only to derive OKLCH unless the CLI option disables it.
 MAGNESIUM_OXIDE_Y_FACTOR = 0.975
+MIN_MUNSELL_VALUE = 1.0
 
 # Bradford is a conventional chromatic-adaptation transform. Applying it makes
 # the Illuminant-C XYZ values appropriate input to D65-based OKLab. Adaptation
@@ -218,7 +221,10 @@ def convert(
                 raise ValueError(f"{input_path}:{line_number}: expected 6 columns, found {len(fields)}")
 
             hue_name, value_text, chroma_text, x_text, y_text, luminance_text = fields
-            original_values.add(float(value_text))
+            value = float(value_text)
+            if value < MIN_MUNSELL_VALUE:
+                continue
+            original_values.add(value)
             x, y, published_y = map(float, (x_text, y_text, luminance_text))
 
             # all.dat records Y as a percentage. OKLab expects XYZ normalized so
