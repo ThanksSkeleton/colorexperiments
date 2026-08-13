@@ -285,17 +285,6 @@
 
         <div class="controls">
           <div class="control-group">
-            <label class="select-label" for="variantSelect">Classification variant
-              <select id="variantSelect">
-                <option value="PCCS_CATEGORY_OLD_DISTANCE_OLD_ROUNDING">Old distance · Half-step</option>
-                <option value="PCCS_CATEGORY_OLD_DISTANCE_NEW_ROUNDING">Old distance · Continuous</option>
-                <option value="PCCS_CATEGORY_NEW_DISTANCE_OLD_ROUNDING">Corrected distance · Half-step</option>
-                <option value="PCCS_CATEGORY_NEW_DISTANCE_NEW_ROUNDING" selected>Corrected distance · Continuous</option>
-                <option value="PCCS_CATEGORY_PAPER_2001">Paper 2001 transcription</option>
-              </select>
-            </label>
-          </div>
-          <div class="control-group">
             <label class="select-label" for="hueSelect">Primary hue
               <select id="hueSelect"></select>
             </label>
@@ -370,7 +359,6 @@
         W: "#ffffff", Gy: "#aeb4bf", Bk: "#6d7480",
       };
 
-      const variantSelect = document.querySelector("#variantSelect");
       const hueSelect = document.querySelector("#hueSelect");
       const harmonySelect = document.querySelector("#harmonySelect");
       const memberSelect = document.querySelector("#memberSelect");
@@ -521,7 +509,7 @@
         const matrixRow = [];
         values.forEach((value) => {
           const row = lookup.get(`${value}:${chroma}`);
-          const category = row?.[variantSelect.value];
+          const category = row?.PCCS_CATEGORY_MODIFIED_PCCS;
           const element = makeSwatch(row, category);
           fragment.append(element);
           matrixRow.push(row ? { row, category, element } : null);
@@ -606,14 +594,13 @@
         }
       }
 
-      variantSelect.addEventListener("change", renderPage);
       hueSelect.addEventListener("change", renderPage);
       harmonySelect.addEventListener("change", () => { populateMembers(); renderPage(); });
       memberSelect.addEventListener("change", renderPage);
       document.querySelector("#previousHue").addEventListener("click", () => moveHue(-1));
       document.querySelector("#nextHue").addEventListener("click", () => moveHue(1));
       window.addEventListener("keydown", (event) => {
-        if ([variantSelect, hueSelect, harmonySelect, memberSelect].includes(event.target)) return;
+        if ([hueSelect, harmonySelect, memberSelect].includes(event.target)) return;
         if (event.key === "ArrowLeft") moveHue(-1);
         if (event.key === "ArrowRight") moveHue(1);
       });
